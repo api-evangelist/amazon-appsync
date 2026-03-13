@@ -1,0 +1,203 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "appsync": "https://docs.aws.amazon.com/appsync/latest/APIReference/",
+    "aws": "https://aws.amazon.com/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+
+    "GraphqlApi": {
+      "@id": "appsync:API_GraphqlApi",
+      "@context": {
+        "apiId": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "authenticationType": {
+          "@id": "appsync:authenticationType",
+          "@type": "xsd:string"
+        },
+        "arn": {
+          "@id": "appsync:arn",
+          "@type": "xsd:string"
+        },
+        "uris": {
+          "@id": "appsync:uris",
+          "@container": "@index"
+        },
+        "xrayEnabled": {
+          "@id": "appsync:xrayEnabled",
+          "@type": "xsd:boolean"
+        },
+        "wafWebAclArn": {
+          "@id": "appsync:wafWebAclArn",
+          "@type": "xsd:string"
+        },
+        "tags": {
+          "@id": "schema:keywords",
+          "@container": "@index"
+        },
+        "additionalAuthenticationProviders": {
+          "@id": "appsync:additionalAuthenticationProviders",
+          "@container": "@list"
+        }
+      }
+    },
+
+    "DataSource": {
+      "@id": "appsync:API_DataSource",
+      "@context": {
+        "dataSourceArn": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "type": {
+          "@id": "appsync:dataSourceType",
+          "@type": "xsd:string"
+        },
+        "serviceRoleArn": {
+          "@id": "appsync:serviceRoleArn",
+          "@type": "xsd:string"
+        },
+        "dynamodbConfig": {
+          "@id": "appsync:dynamodbConfig",
+          "@type": "appsync:DynamodbDataSourceConfig"
+        },
+        "lambdaConfig": {
+          "@id": "appsync:lambdaConfig",
+          "@type": "appsync:LambdaDataSourceConfig"
+        },
+        "httpConfig": {
+          "@id": "appsync:httpConfig",
+          "@type": "appsync:HttpDataSourceConfig"
+        }
+      }
+    },
+
+    "Resolver": {
+      "@id": "appsync:API_Resolver",
+      "@context": {
+        "typeName": {
+          "@id": "appsync:typeName",
+          "@type": "xsd:string"
+        },
+        "fieldName": {
+          "@id": "appsync:fieldName",
+          "@type": "xsd:string"
+        },
+        "dataSourceName": {
+          "@id": "appsync:dataSourceName",
+          "@type": "xsd:string"
+        },
+        "resolverArn": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "kind": {
+          "@id": "appsync:resolverKind",
+          "@type": "xsd:string"
+        },
+        "requestMappingTemplate": {
+          "@id": "appsync:requestMappingTemplate",
+          "@type": "xsd:string"
+        },
+        "responseMappingTemplate": {
+          "@id": "appsync:responseMappingTemplate",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "ApiKey": {
+      "@id": "appsync:API_ApiKey",
+      "@context": {
+        "id": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "expires": {
+          "@id": "schema:expires",
+          "@type": "xsd:integer"
+        },
+        "deletes": {
+          "@id": "appsync:deletes",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "FunctionConfiguration": {
+      "@id": "appsync:API_FunctionConfiguration",
+      "@context": {
+        "functionId": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "functionArn": {
+          "@id": "appsync:functionArn",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "dataSourceName": {
+          "@id": "appsync:dataSourceName",
+          "@type": "xsd:string"
+        },
+        "functionVersion": {
+          "@id": "schema:version",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "Type": {
+      "@id": "appsync:API_Type",
+      "@context": {
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "arn": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "definition": {
+          "@id": "appsync:typeDefinition",
+          "@type": "xsd:string"
+        },
+        "format": {
+          "@id": "appsync:typeFormat",
+          "@type": "xsd:string"
+        }
+      }
+    }
+  }
+}

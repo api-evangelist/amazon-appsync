@@ -1,0 +1,137 @@
+openapi: 3.1.0
+info:
+  title: Amazon AppSync API
+  description: >-
+    The Amazon AppSync API enables programmatic management of GraphQL APIs,
+    including creating and configuring data sources, resolvers, functions,
+    API keys, types, and managing GraphQL schema definitions.
+  version: '2017-07-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/premiumsupport/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-logo:
+    url: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
+servers:
+  - url: https://appsync.{region}.amazonaws.com
+    description: Amazon AppSync regional endpoint
+    variables:
+      region:
+        default: us-east-1
+        description: AWS region
+        enum:
+          - us-east-1
+          - us-east-2
+          - us-west-1
+          - us-west-2
+          - eu-west-1
+          - eu-west-2
+          - eu-central-1
+          - ap-northeast-1
+          - ap-northeast-2
+          - ap-southeast-1
+          - ap-southeast-2
+          - ap-south-1
+          - sa-east-1
+          - ca-central-1
+security:
+  - sigv4: []
+tags:
+  - name: GraphQL APIs
+    description: Operations for managing GraphQL APIs
+  - name: Data Sources
+    description: Operations for managing data sources
+  - name: Resolvers
+    description: Operations for managing resolvers
+  - name: Functions
+    description: Operations for managing pipeline resolver functions
+  - name: Types
+    description: Operations for managing GraphQL types
+paths:
+  /v1/apis:
+    post:
+      operationId: CreateGraphqlApi
+      summary: Create a GraphQL API
+      description: Creates a new GraphQL API.
+      tags:
+        - GraphQL APIs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGraphqlApiInput'
+      responses:
+        '200':
+          description: GraphQL API created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateGraphqlApiOutput'
+        '400':
+          description: Invalid request
+        '500':
+          description: Internal server error
+    get:
+      operationId: ListGraphqlApis
+      summary: List GraphQL APIs
+      description: Lists your GraphQL APIs.
+      tags:
+        - GraphQL APIs
+      responses:
+        '200':
+          description: List of GraphQL APIs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListGraphqlApisOutput'
+components:
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4
+  schemas:
+    CreateGraphqlApiInput:
+      type: object
+      required:
+        - name
+        - authenticationType
+      properties:
+        name:
+          type: string
+          description: The API name
+        authenticationType:
+          type: string
+          enum:
+            - API_KEY
+            - AWS_IAM
+            - AMAZON_COGNITO_USER_POOLS
+            - OPENID_CONNECT
+            - AWS_LAMBDA
+        logConfig:
+          type: object
+        userPoolConfig:
+          type: object
+    CreateGraphqlApiOutput:
+      type: object
+      properties:
+        graphqlApi:
+          type: object
+          properties:
+            apiId:
+              type: string
+            name:
+              type: string
+            authenticationType:
+              type: string
+    ListGraphqlApisOutput:
+      type: object
+      properties:
+        graphqlApis:
+          type: array
+          items:
+            type: object

@@ -1,0 +1,294 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.apievangelist.com/amazon-appsync/graphql-api",
+  "title": "Amazon AppSync GraphQL API",
+  "description": "Schema defining the structure of an Amazon AppSync GraphQL API resource, including authentication configuration, data sources, resolvers, types, and API settings.",
+  "type": "object",
+  "required": [
+    "name",
+    "authenticationType"
+  ],
+  "properties": {
+    "apiId": {
+      "type": "string",
+      "description": "The unique identifier for the GraphQL API."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the GraphQL API.",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "authenticationType": {
+      "type": "string",
+      "enum": [
+        "API_KEY",
+        "AWS_IAM",
+        "AMAZON_COGNITO_USER_POOLS",
+        "OPENID_CONNECT",
+        "AWS_LAMBDA"
+      ],
+      "description": "The authentication type for the GraphQL API."
+    },
+    "arn": {
+      "type": "string",
+      "description": "The ARN of the GraphQL API."
+    },
+    "uris": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "The URIs associated with the GraphQL API."
+    },
+    "logConfig": {
+      "$ref": "#/$defs/LogConfig"
+    },
+    "userPoolConfig": {
+      "$ref": "#/$defs/UserPoolConfig"
+    },
+    "openIDConnectConfig": {
+      "$ref": "#/$defs/OpenIDConnectConfig"
+    },
+    "lambdaAuthorizerConfig": {
+      "$ref": "#/$defs/LambdaAuthorizerConfig"
+    },
+    "additionalAuthenticationProviders": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AdditionalAuthenticationProvider"
+      },
+      "description": "A list of additional authentication providers for the GraphQL API."
+    },
+    "xrayEnabled": {
+      "type": "boolean",
+      "description": "Whether AWS X-Ray tracing is enabled for this API."
+    },
+    "wafWebAclArn": {
+      "type": "string",
+      "description": "The ARN of the AWS WAF web ACL associated with this API."
+    },
+    "tags": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Tags for the GraphQL API."
+    },
+    "dataSources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DataSource"
+      },
+      "description": "The data sources configured for the GraphQL API."
+    },
+    "resolvers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Resolver"
+      },
+      "description": "The resolvers configured for the GraphQL API."
+    }
+  },
+  "$defs": {
+    "LogConfig": {
+      "type": "object",
+      "description": "The Amazon CloudWatch Logs configuration.",
+      "required": [
+        "cloudWatchLogsRoleArn",
+        "fieldLogLevel"
+      ],
+      "properties": {
+        "fieldLogLevel": {
+          "type": "string",
+          "enum": [
+            "NONE",
+            "ERROR",
+            "ALL"
+          ]
+        },
+        "cloudWatchLogsRoleArn": {
+          "type": "string"
+        },
+        "excludeVerboseContent": {
+          "type": "boolean"
+        }
+      }
+    },
+    "UserPoolConfig": {
+      "type": "object",
+      "description": "The Amazon Cognito user pool configuration.",
+      "required": [
+        "userPoolId",
+        "awsRegion",
+        "defaultAction"
+      ],
+      "properties": {
+        "userPoolId": {
+          "type": "string"
+        },
+        "awsRegion": {
+          "type": "string"
+        },
+        "defaultAction": {
+          "type": "string",
+          "enum": [
+            "ALLOW",
+            "DENY"
+          ]
+        },
+        "appIdClientRegex": {
+          "type": "string"
+        }
+      }
+    },
+    "OpenIDConnectConfig": {
+      "type": "object",
+      "description": "The OpenID Connect configuration.",
+      "required": [
+        "issuer"
+      ],
+      "properties": {
+        "issuer": {
+          "type": "string"
+        },
+        "clientId": {
+          "type": "string"
+        },
+        "iatTTL": {
+          "type": "integer"
+        },
+        "authTTL": {
+          "type": "integer"
+        }
+      }
+    },
+    "LambdaAuthorizerConfig": {
+      "type": "object",
+      "description": "A Lambda function used for authorization.",
+      "required": [
+        "authorizerUri"
+      ],
+      "properties": {
+        "authorizerResultTtlInSeconds": {
+          "type": "integer"
+        },
+        "authorizerUri": {
+          "type": "string"
+        },
+        "identityValidationExpression": {
+          "type": "string"
+        }
+      }
+    },
+    "AdditionalAuthenticationProvider": {
+      "type": "object",
+      "description": "An additional authentication provider.",
+      "required": [
+        "authenticationType"
+      ],
+      "properties": {
+        "authenticationType": {
+          "type": "string",
+          "enum": [
+            "API_KEY",
+            "AWS_IAM",
+            "AMAZON_COGNITO_USER_POOLS",
+            "OPENID_CONNECT",
+            "AWS_LAMBDA"
+          ]
+        },
+        "openIDConnectConfig": {
+          "$ref": "#/$defs/OpenIDConnectConfig"
+        },
+        "userPoolConfig": {
+          "type": "object"
+        },
+        "lambdaAuthorizerConfig": {
+          "$ref": "#/$defs/LambdaAuthorizerConfig"
+        }
+      }
+    },
+    "DataSource": {
+      "type": "object",
+      "description": "A data source in AppSync that resolvers can connect to.",
+      "required": [
+        "name",
+        "type"
+      ],
+      "properties": {
+        "dataSourceArn": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "AWS_LAMBDA",
+            "AMAZON_DYNAMODB",
+            "AMAZON_ELASTICSEARCH",
+            "AMAZON_OPENSEARCH_SERVICE",
+            "HTTP",
+            "RELATIONAL_DATABASE",
+            "NONE",
+            "AMAZON_EVENTBRIDGE"
+          ]
+        },
+        "serviceRoleArn": {
+          "type": "string"
+        }
+      }
+    },
+    "Resolver": {
+      "type": "object",
+      "description": "A resolver maps a GraphQL operation to a data source.",
+      "required": [
+        "typeName",
+        "fieldName"
+      ],
+      "properties": {
+        "typeName": {
+          "type": "string"
+        },
+        "fieldName": {
+          "type": "string"
+        },
+        "dataSourceName": {
+          "type": "string"
+        },
+        "resolverArn": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "UNIT",
+            "PIPELINE"
+          ]
+        },
+        "requestMappingTemplate": {
+          "type": "string"
+        },
+        "responseMappingTemplate": {
+          "type": "string"
+        },
+        "pipelineConfig": {
+          "type": "object",
+          "properties": {
+            "functions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
