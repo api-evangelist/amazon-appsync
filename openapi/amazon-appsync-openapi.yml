@@ -41,14 +41,6 @@ security:
 tags:
   - name: GraphQL APIs
     description: Operations for managing GraphQL APIs
-  - name: Data Sources
-    description: Operations for managing data sources
-  - name: Resolvers
-    description: Operations for managing resolvers
-  - name: Functions
-    description: Operations for managing pipeline resolver functions
-  - name: Types
-    description: Operations for managing GraphQL types
 paths:
   /v1/apis:
     post:
