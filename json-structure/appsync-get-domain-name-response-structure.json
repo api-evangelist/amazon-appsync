@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-get-domain-name-response-structure.json",
+  "title": "GetDomainNameResponse",
+  "description": "Response from getting a domain name",
+  "type": "record",
+  "fields": {
+    "domainNameConfig": {
+      "type": "string",
+      "description": "domainNameConfig"
+    }
+  }
+}

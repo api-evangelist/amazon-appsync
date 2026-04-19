@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-create-domain-name-request-structure.json",
+  "title": "CreateDomainNameRequest",
+  "description": "Request to create a custom domain name",
+  "type": "record",
+  "fields": {
+    "domainName": {
+      "type": "string",
+      "description": "The custom domain name"
+    },
+    "certificateArn": {
+      "type": "string",
+      "description": "ACM certificate ARN"
+    },
+    "description": {
+      "type": "string",
+      "description": "Domain name description"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-log-config-schema.json",
+  "title": "LogConfig",
+  "description": "Logging configuration for a GraphQL API",
+  "type": "object",
+  "properties": {
+    "cloudWatchLogsRoleArn": {
+      "type": "string",
+      "description": "CloudWatch Logs role ARN"
+    },
+    "fieldLogLevel": {
+      "type": "string",
+      "description": "Field log level"
+    },
+    "excludeVerboseContent": {
+      "type": "boolean",
+      "description": "Whether to exclude verbose content"
+    }
+  }
+}

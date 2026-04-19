@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-list-graphql-apis-response-structure.json",
+  "title": "ListGraphqlApisResponse",
+  "description": "Response with list of GraphQL APIs",
+  "type": "record",
+  "fields": {
+    "graphqlApis": {
+      "type": "array",
+      "description": "List of GraphQL APIs"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

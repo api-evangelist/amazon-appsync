@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-create-resolver-response-structure.json",
+  "title": "CreateResolverResponse",
+  "description": "Response from creating a resolver",
+  "type": "record",
+  "fields": {
+    "resolver": {
+      "type": "string",
+      "description": "resolver"
+    }
+  }
+}

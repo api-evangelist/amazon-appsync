@@ -1,42 +1,86 @@
 # Amazon AppSync
 
-Amazon AppSync is a fully managed service that makes it easy to develop GraphQL APIs by handling the heavy lifting of securely connecting to data sources like AWS DynamoDB, Lambda, and more. It supports real-time data synchronization and offline programming features.
+Amazon AppSync creates serverless GraphQL and Pub/Sub APIs that simplify application development through a single endpoint to securely query, update, or publish data.
 
-## APIs
+## Overview
 
-- **Amazon AppSync API** - The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, and types for building scalable real-time and offline applications.
+The Amazon AppSync management API provides programmatic control over GraphQL APIs, data sources, resolvers, functions, types, schemas, API keys, and custom domain names. It enables building scalable real-time and offline applications backed by multiple data sources.
 
-## Resources
+## API Documentation
 
-### Documentation
+- **Human URL:** https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
+- **Base URL:** https://appsync.us-east-1.amazonaws.com
 
-- [Documentation](https://docs.aws.amazon.com/appsync/latest/devguide/what-is-appsync.html)
-- [User Guide](https://docs.aws.amazon.com/appsync/latest/devguide/what-is-appsync.html)
-- [API Reference](https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html)
-- [CLI Reference](https://docs.aws.amazon.com/cli/latest/reference/appsync/)
-- [Security](https://docs.aws.amazon.com/appsync/latest/devguide/security.html)
+## Features
 
-### Definitions
+- Managed GraphQL API hosting with automatic scaling
+- Multiple authentication modes including API key, IAM, Cognito, and Lambda
+- Real-time subscriptions via WebSocket connections
+- Pipeline resolvers for composing multi-step data access patterns
+- Direct Lambda resolvers with APPSYNC_JS runtime support
+- Built-in caching for improved performance
+- Conflict detection and resolution for offline sync use cases
+- Custom domain names with ACM certificate integration
+- X-Ray tracing and CloudWatch logging integration
+- Merged APIs for combining multiple GraphQL APIs
 
-- [OpenAPI](openapi/amazon-appsync-openapi.yml)
-- [OpenAPI (APIs.guru)](https://api.apis.guru/v2/specs/amazonaws.com/appsync/2017-07-25/openapi.json)
-- [JSON Schema](json-schema/amazon-appsync-schema.json)
-- [JSON-LD](json-ld/amazon-appsync-context.jsonld)
+## Use Cases
 
-### General
+- Build mobile and web applications with a unified GraphQL data layer
+- Implement real-time features like live notifications and chat with subscriptions
+- Create a unified data access layer across multiple microservices
+- Build offline-capable mobile apps with automatic conflict resolution
+- Expose DynamoDB tables, Lambda functions, and OpenSearch as GraphQL APIs
+- Implement federated GraphQL across multiple teams with Merged APIs
 
-- [Pricing](https://aws.amazon.com/appsync/pricing/)
-- [Getting Started](https://aws.amazon.com/appsync/getting-started/)
-- [FAQ](https://aws.amazon.com/appsync/faqs/)
+## Artifacts
 
-### Community
+### OpenAPI Specification
+`openapi/amazon-appsync-openapi.yml`
 
-- [Blog](https://aws.amazon.com/blogs/mobile/category/mobile-services/aws-appsync/)
-- [GitHub Organization](https://github.com/aws)
-- [Stack Overflow](https://stackoverflow.com/questions/tagged/aws-appsync)
-- [YouTube](https://www.youtube.com/user/AmazonWebServices)
-- [Knowledge Center](https://repost.aws/knowledge-center)
+Complete OpenAPI 3.1.0 specification covering all AppSync management API paths.
+
+### Spectral Rules
+`rules/amazon-appsync-spectral-rules.yml`
+
+### Naftiko Capabilities
+- `capabilities/shared/appsync-api.yaml` — Shared per-API capability definition
+- `capabilities/graphql-api-management.yaml` — Workflow capability for GraphQL API management
+
+### Vocabulary
+`vocabulary/amazon-appsync-vocabulary.yaml`
+
+### JSON Schemas
+`json-schema/` — 73 JSON Schema files for all objects.
+
+### JSON Structures
+`json-structure/` — 73 JSON Structure files.
+
+### JSON-LD Context
+`json-ld/amazon-appsync-context.jsonld`
+
+### Examples
+`examples/` — 73 example JSON files.
+
+## Integrations
+
+- Amazon DynamoDB
+- AWS Lambda
+- Amazon OpenSearch Service
+- Amazon RDS
+- Amazon EventBridge
+- Amazon Cognito
+- AWS IAM
+- AWS WAF
+- Amazon CloudWatch
+- AWS X-Ray
+- AWS Certificate Manager
+- Amazon Route 53
+
+## Tags
+
+Amazon AppSync, GraphQL, API Management, Serverless, AWS
 
 ## Maintainers
 
-- Kin Lane - kin@apievangelist.com
+- Kin Lane (kin@apievangelist.com)

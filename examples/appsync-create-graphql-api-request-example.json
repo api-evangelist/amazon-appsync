@@ -1,0 +1,11 @@
+{
+  "name": "MyGraphQLAPI",
+  "authenticationType": "API_KEY",
+  "logConfig": "example-string",
+  "additionalAuthenticationProviders": [],
+  "xrayEnabled": false,
+  "tags": {},
+  "lambdaAuthorizerConfig": "example-string",
+  "visibility": "GLOBAL",
+  "apiType": "GRAPHQL"
+}

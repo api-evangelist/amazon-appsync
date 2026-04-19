@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-create-graphql-api-request-schema.json",
+  "title": "CreateGraphqlApiRequest",
+  "description": "Request to create a GraphQL API",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The API name"
+    },
+    "authenticationType": {
+      "type": "string",
+      "description": "Default authentication type"
+    },
+    "logConfig": {
+      "type": "string",
+      "description": "logConfig"
+    },
+    "additionalAuthenticationProviders": {
+      "type": "array",
+      "description": "Additional authentication providers"
+    },
+    "xrayEnabled": {
+      "type": "boolean",
+      "description": "Enable X-Ray tracing"
+    },
+    "tags": {
+      "type": "object",
+      "description": "Resource tags"
+    },
+    "lambdaAuthorizerConfig": {
+      "type": "string",
+      "description": "lambdaAuthorizerConfig"
+    },
+    "visibility": {
+      "type": "string",
+      "description": "API visibility"
+    },
+    "apiType": {
+      "type": "string",
+      "description": "API type"
+    }
+  }
+}

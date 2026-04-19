@@ -2,93 +2,2459 @@ openapi: 3.1.0
 info:
   title: Amazon AppSync API
   description: >-
-    The Amazon AppSync API enables programmatic management of GraphQL APIs,
-    including creating and configuring data sources, resolvers, functions,
-    API keys, types, and managing GraphQL schema definitions.
+    The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
   version: '2017-07-25'
   contact:
     name: AWS Support
-    url: https://aws.amazon.com/premiumsupport/
+    url: https://aws.amazon.com/contact-us/
   license:
     name: Apache 2.0
-    url: https://www.apache.org/licenses/LICENSE-2.0.html
-  x-logo:
-    url: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
+    url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-  - url: https://appsync.{region}.amazonaws.com
-    description: Amazon AppSync regional endpoint
-    variables:
-      region:
-        default: us-east-1
-        description: AWS region
-        enum:
-          - us-east-1
-          - us-east-2
-          - us-west-1
-          - us-west-2
-          - eu-west-1
-          - eu-west-2
-          - eu-central-1
-          - ap-northeast-1
-          - ap-northeast-2
-          - ap-southeast-1
-          - ap-southeast-2
-          - ap-south-1
-          - sa-east-1
-          - ca-central-1
+  - url: https://appsync.us-east-1.amazonaws.com
+    description: Amazon AppSync US East (N. Virginia)
+  - url: https://appsync.eu-west-1.amazonaws.com
+    description: Amazon AppSync EU (Ireland)
 security:
-  - sigv4: []
+  - awsAuth: []
 tags:
   - name: GraphQL APIs
-    description: Operations for managing GraphQL APIs
+    description: Manage GraphQL API configurations
+  - name: Data Sources
+    description: Manage data sources connected to GraphQL APIs
+  - name: Resolvers
+    description: Manage field resolvers for GraphQL types
+  - name: Functions
+    description: Manage reusable pipeline resolver functions
+  - name: Types
+    description: Manage GraphQL type definitions
+  - name: Schema
+    description: Manage GraphQL schema documents
+  - name: Api Keys
+    description: Manage API keys for authentication
+  - name: Domain Names
+    description: Manage custom domain names for AppSync APIs
+  - name: Source Api Associations
+    description: Manage source API associations for merged APIs
+  - name: Tags
+    description: Resource tagging operations
 paths:
   /v1/apis:
     post:
-      operationId: CreateGraphqlApi
-      summary: Amazon AppSync Create a GraphQL API
+      operationId: createGraphqlApi
+      summary: Amazon AppSync Create GraphQL Api
       description: Creates a new GraphQL API.
       tags:
         - GraphQL APIs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateGraphqlApiInput'
+              $ref: '#/components/schemas/CreateGraphqlApiRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  name: MyGraphQLAPI
+                  authenticationType: API_KEY
       responses:
         '200':
           description: GraphQL API created successfully
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateGraphqlApiOutput'
-        '400':
-          description: Invalid request
+                $ref: '#/components/schemas/CreateGraphqlApiResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    graphqlApi:
+                      apiId: abc123def456
+                      name: MyGraphQLAPI
+                      authenticationType: API_KEY
+                      arn: arn:aws:appsync:us-east-1:123456789012:apis/abc123def456
+                      uris:
+                        GRAPHQL: https://abc123def456.appsync-api.us-east-1.amazonaws.com/graphql
+                      tags: {}
         '500':
           description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     get:
-      operationId: ListGraphqlApis
-      summary: Amazon AppSync List GraphQL APIs
+      operationId: listGraphqlApis
+      summary: Amazon AppSync List GraphQL Apis
       description: Lists your GraphQL APIs.
       tags:
         - GraphQL APIs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: nextToken
+          in: query
+          description: Pagination token
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          description: Maximum results to return
+          schema:
+            type: integer
       responses:
         '200':
           description: List of GraphQL APIs
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ListGraphqlApisOutput'
+                $ref: '#/components/schemas/ListGraphqlApisResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    graphqlApis:
+                      - apiId: abc123def456
+                        name: MyGraphQLAPI
+                        authenticationType: API_KEY
+                        arn: arn:aws:appsync:us-east-1:123456789012:apis/abc123def456
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}:
+    get:
+      operationId: getGraphqlApi
+      summary: Amazon AppSync Get GraphQL Api
+      description: Retrieves a GraphQL API by its ID.
+      tags:
+        - GraphQL APIs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          description: The API ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: GraphQL API retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetGraphqlApiResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    graphqlApi:
+                      apiId: abc123def456
+                      name: MyGraphQLAPI
+                      authenticationType: API_KEY
+                      arn: arn:aws:appsync:us-east-1:123456789012:apis/abc123def456
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateGraphqlApi
+      summary: Amazon AppSync Update GraphQL Api
+      description: Updates a GraphQL API.
+      tags:
+        - GraphQL APIs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          description: The API ID
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGraphqlApiRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  name: UpdatedGraphQLAPI
+                  authenticationType: API_KEY
+      responses:
+        '200':
+          description: GraphQL API updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateGraphqlApiResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    graphqlApi:
+                      apiId: abc123def456
+                      name: UpdatedGraphQLAPI
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteGraphqlApi
+      summary: Amazon AppSync Delete GraphQL Api
+      description: Deletes a GraphQL API.
+      tags:
+        - GraphQL APIs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          description: The API ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: GraphQL API deleted
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/datasources:
+    post:
+      operationId: createDataSource
+      summary: Amazon AppSync Create Data Source
+      description: Creates a DataSource object.
+      tags:
+        - Data Sources
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          description: The API ID
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDataSourceRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  name: MyDynamoDBDataSource
+                  type: AMAZON_DYNAMODB
+                  serviceRoleArn: arn:aws:iam::123456789012:role/appsync-role
+                  dynamodbConfig:
+                    tableName: MyTable
+                    awsRegion: us-east-1
+      responses:
+        '200':
+          description: Data source created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDataSourceResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    dataSource:
+                      name: MyDynamoDBDataSource
+                      type: AMAZON_DYNAMODB
+                      dataSourceArn: arn:aws:appsync:us-east-1:123456789012:apis/abc123/datasources/MyDynamoDBDataSource
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: listDataSources
+      summary: Amazon AppSync List Data Sources
+      description: Lists the data sources for a given API.
+      tags:
+        - Data Sources
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          description: The API ID
+          schema:
+            type: string
+        - name: nextToken
+          in: query
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of data sources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDataSourcesResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    dataSources:
+                      - name: MyDynamoDBDataSource
+                        type: AMAZON_DYNAMODB
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/datasources/{name}:
+    get:
+      operationId: getDataSource
+      summary: Amazon AppSync Get Data Source
+      description: Retrieves a DataSource object by name.
+      tags:
+        - Data Sources
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Data source retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDataSourceResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    dataSource:
+                      name: MyDynamoDBDataSource
+                      type: AMAZON_DYNAMODB
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateDataSource
+      summary: Amazon AppSync Update Data Source
+      description: Updates a DataSource object.
+      tags:
+        - Data Sources
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDataSourceRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  type: AMAZON_DYNAMODB
+                  serviceRoleArn: arn:aws:iam::123456789012:role/appsync-role
+      responses:
+        '200':
+          description: Data source updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateDataSourceResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    dataSource:
+                      name: MyDynamoDBDataSource
+                      type: AMAZON_DYNAMODB
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteDataSource
+      summary: Amazon AppSync Delete Data Source
+      description: Deletes a DataSource object.
+      tags:
+        - Data Sources
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Data source deleted
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/types/{typeName}/resolvers:
+    post:
+      operationId: createResolver
+      summary: Amazon AppSync Create Resolver
+      description: Creates a Resolver object. A resolver converts incoming requests into a format that a data source can understand, and converts the data source's responses into GraphQL.
+      tags:
+        - Resolvers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: typeName
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateResolverRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  fieldName: getPost
+                  dataSourceName: MyDynamoDBDataSource
+                  kind: UNIT
+                  requestMappingTemplate: '{"version":"2018-05-29","operation":"GetItem","key":{"id":$util.dynamodb.toDynamoDBJson($ctx.args.id)}}'
+                  responseMappingTemplate: '$util.toJson($ctx.result)'
+      responses:
+        '200':
+          description: Resolver created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResolverResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    resolver:
+                      typeName: Query
+                      fieldName: getPost
+                      dataSourceName: MyDynamoDBDataSource
+                      kind: UNIT
+                      resolverArn: arn:aws:appsync:us-east-1:123456789012:apis/abc123/types/Query/resolvers/getPost
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: listResolvers
+      summary: Amazon AppSync List Resolvers
+      description: Lists the resolvers for a given API and type.
+      tags:
+        - Resolvers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: typeName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: nextToken
+          in: query
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of resolvers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResolversResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    resolvers:
+                      - typeName: Query
+                        fieldName: getPost
+                        dataSourceName: MyDynamoDBDataSource
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/types/{typeName}/resolvers/{fieldName}:
+    get:
+      operationId: getResolver
+      summary: Amazon AppSync Get Resolver
+      description: Retrieves a Resolver object.
+      tags:
+        - Resolvers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: typeName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fieldName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Resolver retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetResolverResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    resolver:
+                      typeName: Query
+                      fieldName: getPost
+                      dataSourceName: MyDynamoDBDataSource
+                      kind: UNIT
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateResolver
+      summary: Amazon AppSync Update Resolver
+      description: Updates a Resolver object.
+      tags:
+        - Resolvers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: typeName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fieldName
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateResolverRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  dataSourceName: MyDynamoDBDataSource
+                  kind: UNIT
+      responses:
+        '200':
+          description: Resolver updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResolverResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    resolver:
+                      typeName: Query
+                      fieldName: getPost
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteResolver
+      summary: Amazon AppSync Delete Resolver
+      description: Deletes a Resolver object.
+      tags:
+        - Resolvers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: typeName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: fieldName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Resolver deleted
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/functions:
+    post:
+      operationId: createFunction
+      summary: Amazon AppSync Create Function
+      description: Creates a Function object. A function is a reusable entity. Multiple functions can be used to compose the resolver logic.
+      tags:
+        - Functions
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFunctionRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  name: GetPostFunction
+                  dataSourceName: MyDynamoDBDataSource
+                  functionVersion: '2018-05-29'
+                  requestMappingTemplate: '{"version":"2018-05-29","operation":"GetItem","key":{"id":$util.dynamodb.toDynamoDBJson($ctx.args.id)}}'
+                  responseMappingTemplate: '$util.toJson($ctx.result)'
+      responses:
+        '200':
+          description: Function created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateFunctionResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    functionConfiguration:
+                      functionId: abc123456789
+                      name: GetPostFunction
+                      dataSourceName: MyDynamoDBDataSource
+                      functionArn: arn:aws:appsync:us-east-1:123456789012:apis/abc123/functions/abc123456789
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: listFunctions
+      summary: Amazon AppSync List Functions
+      description: List multiple functions.
+      tags:
+        - Functions
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: nextToken
+          in: query
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of functions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFunctionsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    functions:
+                      - functionId: abc123456789
+                        name: GetPostFunction
+                        dataSourceName: MyDynamoDBDataSource
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/functions/{functionId}:
+    get:
+      operationId: getFunction
+      summary: Amazon AppSync Get Function
+      description: Get a Function object.
+      tags:
+        - Functions
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: functionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Function retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetFunctionResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    functionConfiguration:
+                      functionId: abc123456789
+                      name: GetPostFunction
+                      dataSourceName: MyDynamoDBDataSource
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateFunction
+      summary: Amazon AppSync Update Function
+      description: Updates a Function object.
+      tags:
+        - Functions
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: functionId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFunctionRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  name: UpdatedFunction
+                  dataSourceName: MyDynamoDBDataSource
+                  functionVersion: '2018-05-29'
+      responses:
+        '200':
+          description: Function updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateFunctionResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    functionConfiguration:
+                      functionId: abc123456789
+                      name: UpdatedFunction
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteFunction
+      summary: Amazon AppSync Delete Function
+      description: Deletes a Function.
+      tags:
+        - Functions
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: functionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Function deleted
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/types:
+    post:
+      operationId: createType
+      summary: Amazon AppSync Create Type
+      description: Creates a Type object.
+      tags:
+        - Types
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTypeRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  definition: 'type Post { id: ID! title: String author: String }'
+                  format: SDL
+      responses:
+        '200':
+          description: Type created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTypeResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    type:
+                      name: Post
+                      format: SDL
+                      definition: 'type Post { id: ID! title: String author: String }'
+                      arn: arn:aws:appsync:us-east-1:123456789012:apis/abc123/types/Post
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: listTypes
+      summary: Amazon AppSync List Types
+      description: Lists the types for a given API.
+      tags:
+        - Types
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: format
+          in: query
+          required: true
+          description: The type format
+          schema:
+            type: string
+            enum: [SDL, JSON]
+        - name: nextToken
+          in: query
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of types
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTypesResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    types:
+                      - name: Post
+                        format: SDL
+                        definition: 'type Post { id: ID! title: String }'
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/types/{typeName}:
+    get:
+      operationId: getType
+      summary: Amazon AppSync Get Type
+      description: Retrieves a Type object.
+      tags:
+        - Types
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: typeName
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: format
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Type retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTypeResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    type:
+                      name: Post
+                      format: SDL
+                      definition: 'type Post { id: ID! title: String }'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateType
+      summary: Amazon AppSync Update Type
+      description: Updates a Type object.
+      tags:
+        - Types
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: typeName
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTypeRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  definition: 'type Post { id: ID! title: String author: String body: String }'
+                  format: SDL
+      responses:
+        '200':
+          description: Type updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateTypeResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    type:
+                      name: Post
+                      format: SDL
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteType
+      summary: Amazon AppSync Delete Type
+      description: Deletes a Type object.
+      tags:
+        - Types
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: typeName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Type deleted
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/schemas:
+    post:
+      operationId: startSchemaCreation
+      summary: Amazon AppSync Start Schema Creation
+      description: Adds a new schema to your GraphQL API. This operation is asynchronous. Use to determine when it has completed.
+      tags:
+        - Schema
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartSchemaCreationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  definition: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
+      responses:
+        '200':
+          description: Schema creation started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartSchemaCreationResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    status: PROCESSING
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: getSchemaCreationStatus
+      summary: Amazon AppSync Get Schema Creation Status
+      description: Retrieves the current status of a schema creation operation.
+      tags:
+        - Schema
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Schema creation status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSchemaCreationStatusResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    status: SUCCESS
+                    details: Schema created successfully
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/ApiKeys:
+    post:
+      operationId: createApiKey
+      summary: Amazon AppSync Create Api Key
+      description: Creates a unique key that you can distribute to clients who are executing your API.
+      tags:
+        - Api Keys
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateApiKeyRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  description: My API key
+                  expires: 1777882800
+      responses:
+        '200':
+          description: API key created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateApiKeyResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    apiKey:
+                      id: da2-abc123def456
+                      description: My API key
+                      expires: 1777882800
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: listApiKeys
+      summary: Amazon AppSync List Api Keys
+      description: Lists the API keys for a given API.
+      tags:
+        - Api Keys
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: nextToken
+          in: query
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of API keys
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListApiKeysResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    apiKeys:
+                      - id: da2-abc123def456
+                        description: My API key
+                        expires: 1777882800
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/ApiKeys/{id}:
+    put:
+      operationId: updateApiKey
+      summary: Amazon AppSync Update Api Key
+      description: Updates an API key. The key can be updated while it is not deleted.
+      tags:
+        - Api Keys
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateApiKeyRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  description: Updated API key description
+                  expires: 1809418800
+      responses:
+        '200':
+          description: API key updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateApiKeyResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    apiKey:
+                      id: da2-abc123def456
+                      description: Updated API key description
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteApiKey
+      summary: Amazon AppSync Delete Api Key
+      description: Deletes an API key.
+      tags:
+        - Api Keys
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API key deleted
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/domainnames:
+    post:
+      operationId: createDomainName
+      summary: Amazon AppSync Create Domain Name
+      description: Creates a custom DomainName object.
+      tags:
+        - Domain Names
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDomainNameRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  domainName: api.example.com
+                  certificateArn: arn:aws:acm:us-east-1:123456789012:certificate/abc123
+      responses:
+        '200':
+          description: Domain name created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDomainNameResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    domainNameConfig:
+                      domainName: api.example.com
+                      certificateArn: arn:aws:acm:us-east-1:123456789012:certificate/abc123
+                      appsyncDomainName: d123456789.cloudfront.net
+                      hostedZoneId: Z2FDTNDATAQYW2
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: listDomainNames
+      summary: Amazon AppSync List Domain Names
+      description: Lists multiple custom domain names.
+      tags:
+        - Domain Names
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: nextToken
+          in: query
+          schema:
+            type: string
+        - name: maxResults
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of domain names
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDomainNamesResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    domainNameConfigs:
+                      - domainName: api.example.com
+                        appsyncDomainName: d123456789.cloudfront.net
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/domainnames/{domainName}:
+    get:
+      operationId: getDomainName
+      summary: Amazon AppSync Get Domain Name
+      description: Retrieves a custom DomainName object.
+      tags:
+        - Domain Names
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: domainName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Domain name retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDomainNameResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    domainNameConfig:
+                      domainName: api.example.com
+                      appsyncDomainName: d123456789.cloudfront.net
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateDomainName
+      summary: Amazon AppSync Update Domain Name
+      description: Updates a custom DomainName object.
+      tags:
+        - Domain Names
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: domainName
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDomainNameRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  description: Updated domain name configuration
+      responses:
+        '200':
+          description: Domain name updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateDomainNameResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    domainNameConfig:
+                      domainName: api.example.com
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteDomainName
+      summary: Amazon AppSync Delete Domain Name
+      description: Deletes a custom DomainName object.
+      tags:
+        - Domain Names
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: domainName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Domain name deleted
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/domainnames/{domainName}/apiassociation:
+    post:
+      operationId: associateApi
+      summary: Amazon AppSync Associate Api
+      description: Maps an endpoint to your custom domain.
+      tags:
+        - Domain Names
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: domainName
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssociateApiRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  apiId: abc123def456
+      responses:
+        '200':
+          description: API associated with domain name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssociateApiResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    apiAssociation:
+                      domainName: api.example.com
+                      apiId: abc123def456
+                      associationStatus: SUCCESS
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: disassociateApi
+      summary: Amazon AppSync Disassociate Api
+      description: Removes an ApiAssociation object from a custom domain.
+      tags:
+        - Domain Names
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: domainName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API disassociated from domain name
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: getApiAssociation
+      summary: Amazon AppSync Get Api Association
+      description: Retrieves an ApiAssociation object.
+      tags:
+        - Domain Names
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: domainName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: API association retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetApiAssociationResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    apiAssociation:
+                      domainName: api.example.com
+                      apiId: abc123def456
+                      associationStatus: SUCCESS
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/tags/{resourceArn}:
+    get:
+      operationId: listTagsForResource
+      summary: Amazon AppSync List Tags For Resource
+      description: Lists the tags for a resource.
+      tags:
+        - Tags
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: resourceArn
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tags retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTagsForResourceResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    tags:
+                      Environment: Production
+                      Team: Backend
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: tagResource
+      summary: Amazon AppSync Tag Resource
+      description: Tags a resource with user-supplied tags.
+      tags:
+        - Tags
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: resourceArn
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagResourceRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  tags:
+                    Environment: Production
+      responses:
+        '200':
+          description: Resource tagged
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: untagResource
+      summary: Amazon AppSync Untag Resource
+      description: Untags a resource.
+      tags:
+        - Tags
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: resourceArn
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: tagKeys
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: Resource untagged
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/graphql:
+    post:
+      operationId: evaluateMappingTemplate
+      summary: Amazon AppSync Evaluate Mapping Template
+      description: Evaluates a given template and returns the response. The mapping template can be a request or response template.
+      tags:
+        - GraphQL APIs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluateMappingTemplateRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  template: '{"version":"2018-05-29","operation":"GetItem","key":{"id":$util.dynamodb.toDynamoDBJson($ctx.args.id)}}'
+                  context: '{"arguments":{"id":"123"}}'
+      responses:
+        '200':
+          description: Mapping template evaluated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluateMappingTemplateResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    evaluationResult: '{"version":"2018-05-29","operation":"GetItem","key":{"id":{"S":"123"}}}'
+                    error: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/introspection:
+    get:
+      operationId: getIntrospectionSchema
+      summary: Amazon AppSync Get Introspection Schema
+      description: Retrieves the introspection schema for a GraphQL API.
+      tags:
+        - Schema
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+        - name: apiId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: format
+          in: query
+          required: true
+          description: The schema format
+          schema:
+            type: string
+            enum: [SDL, JSON]
+        - name: includeDirectives
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Introspection schema retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetIntrospectionSchemaResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    schema: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 components:
   securitySchemes:
-    sigv4:
+    awsAuth:
       type: apiKey
-      name: Authorization
       in: header
-      description: AWS Signature Version 4
+      name: Authorization
+      description: AWS Signature Version 4 authentication
   schemas:
-    CreateGraphqlApiInput:
+    ErrorResponse:
       type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
+    GraphqlApi:
+      type: object
+      description: A GraphQL API object managed by AppSync
+      properties:
+        apiId:
+          type: string
+          description: The API ID
+          example: abc123def456
+        name:
+          type: string
+          description: The API name
+          example: MyGraphQLAPI
+        authenticationType:
+          type: string
+          description: The default authentication type
+          enum: [API_KEY, AWS_IAM, AMAZON_COGNITO_USER_POOLS, OPENID_CONNECT, AWS_LAMBDA]
+          example: API_KEY
+        arn:
+          type: string
+          description: The ARN of the API
+          example: arn:aws:appsync:us-east-1:123456789012:apis/abc123def456
+        uris:
+          type: object
+          description: The URIs for the API endpoint
+          additionalProperties:
+            type: string
+        tags:
+          type: object
+          description: Tags on the API
+          additionalProperties:
+            type: string
+        additionalAuthenticationProviders:
+          type: array
+          description: Additional authentication providers
+          items:
+            $ref: '#/components/schemas/AdditionalAuthenticationProvider'
+        logConfig:
+          $ref: '#/components/schemas/LogConfig'
+        xrayEnabled:
+          type: boolean
+          description: Whether X-Ray tracing is enabled
+          example: false
+        wafWebAclArn:
+          type: string
+          description: WAF Web ACL ARN
+          example: ''
+        lambdaAuthorizerConfig:
+          $ref: '#/components/schemas/LambdaAuthorizerConfig'
+        visibility:
+          type: string
+          description: API visibility
+          enum: [GLOBAL, PRIVATE]
+          example: GLOBAL
+        apiType:
+          type: string
+          description: API type
+          enum: [GRAPHQL, MERGED]
+          example: GRAPHQL
+    AdditionalAuthenticationProvider:
+      type: object
+      description: An additional authentication provider for a GraphQL API
+      properties:
+        authenticationType:
+          type: string
+          description: Authentication type
+          example: AWS_IAM
+        lambdaAuthorizerConfig:
+          $ref: '#/components/schemas/LambdaAuthorizerConfig'
+        userPoolConfig:
+          $ref: '#/components/schemas/CognitoUserPoolConfig'
+    LogConfig:
+      type: object
+      description: Logging configuration for a GraphQL API
+      properties:
+        cloudWatchLogsRoleArn:
+          type: string
+          description: CloudWatch Logs role ARN
+          example: arn:aws:iam::123456789012:role/appsync-logs-role
+        fieldLogLevel:
+          type: string
+          description: Field log level
+          enum: [NONE, ERROR, ALL]
+          example: ERROR
+        excludeVerboseContent:
+          type: boolean
+          description: Whether to exclude verbose content
+          example: false
+    LambdaAuthorizerConfig:
+      type: object
+      description: Configuration for Lambda-based authorization
+      properties:
+        authorizerUri:
+          type: string
+          description: Lambda function ARN
+          example: arn:aws:lambda:us-east-1:123456789012:function:MyAuthFunction
+        authorizerResultTtlInSeconds:
+          type: integer
+          description: TTL for authorizer results in seconds
+          example: 300
+        identityValidationExpression:
+          type: string
+          description: Regular expression for validating tokens
+          example: '^Bearer '
+    CognitoUserPoolConfig:
+      type: object
+      description: Amazon Cognito user pools configuration
+      properties:
+        userPoolId:
+          type: string
+          description: User pool ID
+          example: us-east-1_abc123
+        awsRegion:
+          type: string
+          description: AWS Region where the user pool exists
+          example: us-east-1
+        appIdClientRegex:
+          type: string
+          description: Regex for client IDs
+          example: .*
+    DataSource:
+      type: object
+      description: A data source configuration for a GraphQL API
+      properties:
+        dataSourceArn:
+          type: string
+          description: The ARN of the data source
+          example: arn:aws:appsync:us-east-1:123456789012:apis/abc123/datasources/MyDataSource
+        name:
+          type: string
+          description: The data source name
+          example: MyDynamoDBDataSource
+        description:
+          type: string
+          description: The data source description
+          example: Primary data source for posts
+        type:
+          type: string
+          description: The data source type
+          enum: [AWS_LAMBDA, AMAZON_DYNAMODB, AMAZON_ELASTICSEARCH, NONE, HTTP, RELATIONAL_DATABASE, AMAZON_OPENSEARCH_SERVICE, AMAZON_EVENTBRIDGE]
+          example: AMAZON_DYNAMODB
+        serviceRoleArn:
+          type: string
+          description: IAM service role ARN
+          example: arn:aws:iam::123456789012:role/appsync-role
+        dynamodbConfig:
+          $ref: '#/components/schemas/DynamodbDataSourceConfig'
+        lambdaConfig:
+          $ref: '#/components/schemas/LambdaDataSourceConfig'
+        elasticsearchConfig:
+          $ref: '#/components/schemas/ElasticsearchDataSourceConfig'
+        httpConfig:
+          $ref: '#/components/schemas/HttpDataSourceConfig'
+    DynamodbDataSourceConfig:
+      type: object
+      description: DynamoDB data source configuration
+      properties:
+        tableName:
+          type: string
+          description: DynamoDB table name
+          example: MyTable
+        awsRegion:
+          type: string
+          description: AWS Region
+          example: us-east-1
+        useCallerCredentials:
+          type: boolean
+          description: Whether to use caller credentials
+          example: false
+        deltaSyncConfig:
+          type: object
+          description: Delta sync configuration
+        versioned:
+          type: boolean
+          description: Whether versioning is enabled
+          example: false
+    LambdaDataSourceConfig:
+      type: object
+      description: Lambda data source configuration
+      properties:
+        lambdaFunctionArn:
+          type: string
+          description: Lambda function ARN
+          example: arn:aws:lambda:us-east-1:123456789012:function:MyFunction
+    ElasticsearchDataSourceConfig:
+      type: object
+      description: OpenSearch/Elasticsearch data source configuration
+      properties:
+        endpoint:
+          type: string
+          description: OpenSearch endpoint URL
+          example: https://my-domain.us-east-1.es.amazonaws.com
+        awsRegion:
+          type: string
+          description: AWS Region
+          example: us-east-1
+    HttpDataSourceConfig:
+      type: object
+      description: HTTP endpoint data source configuration
+      properties:
+        endpoint:
+          type: string
+          description: HTTP endpoint URL
+          example: https://api.example.com
+        authorizationConfig:
+          type: object
+          description: Authorization configuration for the HTTP endpoint
+    Resolver:
+      type: object
+      description: A resolver for a GraphQL field
+      properties:
+        typeName:
+          type: string
+          description: The GraphQL type name
+          example: Query
+        fieldName:
+          type: string
+          description: The GraphQL field name
+          example: getPost
+        dataSourceName:
+          type: string
+          description: The data source name
+          example: MyDynamoDBDataSource
+        resolverArn:
+          type: string
+          description: The resolver ARN
+          example: arn:aws:appsync:us-east-1:123456789012:apis/abc123/types/Query/resolvers/getPost
+        requestMappingTemplate:
+          type: string
+          description: The request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: The response mapping template
+          example: '$util.toJson($ctx.result)'
+        kind:
+          type: string
+          description: The resolver kind
+          enum: [UNIT, PIPELINE]
+          example: UNIT
+        pipelineConfig:
+          $ref: '#/components/schemas/PipelineConfig'
+        syncConfig:
+          $ref: '#/components/schemas/SyncConfig'
+        cachingConfig:
+          $ref: '#/components/schemas/CachingConfig'
+        maxBatchSize:
+          type: integer
+          description: Maximum batch size
+          example: 0
+        runtime:
+          $ref: '#/components/schemas/AppSyncRuntime'
+        code:
+          type: string
+          description: The function code
+          example: ''
+    PipelineConfig:
+      type: object
+      description: Pipeline resolver configuration
+      properties:
+        functions:
+          type: array
+          description: List of function IDs in the pipeline
+          items:
+            type: string
+          example:
+            - abc123456789
+    SyncConfig:
+      type: object
+      description: Sync configuration for conflict resolution
+      properties:
+        conflictHandler:
+          type: string
+          description: Conflict handler type
+          enum: [OPTIMISTIC_CONCURRENCY, LAMBDA, AUTOMERGE, NONE]
+          example: OPTIMISTIC_CONCURRENCY
+        conflictDetection:
+          type: string
+          description: Conflict detection type
+          enum: [VERSION, NONE]
+          example: VERSION
+    CachingConfig:
+      type: object
+      description: Caching configuration for a resolver
+      properties:
+        ttl:
+          type: integer
+          description: TTL in seconds
+          example: 60
+        cachingKeys:
+          type: array
+          description: Keys to use for caching
+          items:
+            type: string
+    AppSyncRuntime:
+      type: object
+      description: Runtime configuration for APPSYNC_JS resolvers
+      properties:
+        name:
+          type: string
+          description: Runtime name
+          enum: [APPSYNC_JS]
+          example: APPSYNC_JS
+        runtimeVersion:
+          type: string
+          description: Runtime version
+          example: 1.0.0
+    FunctionConfiguration:
+      type: object
+      description: A reusable pipeline function configuration
+      properties:
+        functionId:
+          type: string
+          description: The function ID
+          example: abc123456789
+        functionArn:
+          type: string
+          description: The function ARN
+          example: arn:aws:appsync:us-east-1:123456789012:apis/abc123/functions/abc123456789
+        name:
+          type: string
+          description: The function name
+          example: GetPostFunction
+        description:
+          type: string
+          description: The function description
+          example: Retrieves a post by ID
+        dataSourceName:
+          type: string
+          description: The data source name
+          example: MyDynamoDBDataSource
+        requestMappingTemplate:
+          type: string
+          description: The request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: The response mapping template
+          example: '$util.toJson($ctx.result)'
+        functionVersion:
+          type: string
+          description: The function version
+          example: '2018-05-29'
+        syncConfig:
+          $ref: '#/components/schemas/SyncConfig'
+        maxBatchSize:
+          type: integer
+          description: Maximum batch size
+          example: 0
+        runtime:
+          $ref: '#/components/schemas/AppSyncRuntime'
+        code:
+          type: string
+          description: The function code
+          example: ''
+    Type:
+      type: object
+      description: A GraphQL type definition
+      properties:
+        name:
+          type: string
+          description: The type name
+          example: Post
+        description:
+          type: string
+          description: Type description
+          example: A blog post type
+        arn:
+          type: string
+          description: The type ARN
+          example: arn:aws:appsync:us-east-1:123456789012:apis/abc123/types/Post
+        definition:
+          type: string
+          description: The type definition in SDL or JSON format
+          example: 'type Post { id: ID! title: String author: String }'
+        format:
+          type: string
+          description: The schema format
+          enum: [SDL, JSON]
+          example: SDL
+    ApiKey:
+      type: object
+      description: An API key for AppSync API authentication
+      properties:
+        id:
+          type: string
+          description: The API key ID
+          example: da2-abc123def456
+        description:
+          type: string
+          description: The API key description
+          example: My API key
+        expires:
+          type: integer
+          description: Unix timestamp when the key expires
+          example: 1777882800
+        deletes:
+          type: integer
+          description: Unix timestamp when the key is scheduled for deletion
+          example: 1777882800
+    DomainNameConfig:
+      type: object
+      description: Configuration for a custom domain name
+      properties:
+        domainName:
+          type: string
+          description: The custom domain name
+          example: api.example.com
+        description:
+          type: string
+          description: Domain name description
+          example: Production API endpoint
+        certificateArn:
+          type: string
+          description: ACM certificate ARN
+          example: arn:aws:acm:us-east-1:123456789012:certificate/abc123
+        appsyncDomainName:
+          type: string
+          description: AppSync CNAME for DNS setup
+          example: d123456789.cloudfront.net
+        hostedZoneId:
+          type: string
+          description: Route 53 hosted zone ID
+          example: Z2FDTNDATAQYW2
+    ApiAssociation:
+      type: object
+      description: An association between a custom domain name and a GraphQL API
+      properties:
+        domainName:
+          type: string
+          description: The custom domain name
+          example: api.example.com
+        apiId:
+          type: string
+          description: The API ID
+          example: abc123def456
+        associationStatus:
+          type: string
+          description: The association status
+          enum: [PROCESSING, FAILED, SUCCESS]
+          example: SUCCESS
+        deploymentDetail:
+          type: string
+          description: Details about the deployment
+          example: ''
+    CreateGraphqlApiRequest:
+      type: object
+      description: Request to create a GraphQL API
       required:
         - name
         - authenticationType
@@ -96,34 +2462,653 @@ components:
         name:
           type: string
           description: The API name
+          example: MyGraphQLAPI
         authenticationType:
           type: string
-          enum:
-            - API_KEY
-            - AWS_IAM
-            - AMAZON_COGNITO_USER_POOLS
-            - OPENID_CONNECT
-            - AWS_LAMBDA
+          description: Default authentication type
+          enum: [API_KEY, AWS_IAM, AMAZON_COGNITO_USER_POOLS, OPENID_CONNECT, AWS_LAMBDA]
+          example: API_KEY
         logConfig:
+          $ref: '#/components/schemas/LogConfig'
+        additionalAuthenticationProviders:
+          type: array
+          description: Additional authentication providers
+          items:
+            $ref: '#/components/schemas/AdditionalAuthenticationProvider'
+        xrayEnabled:
+          type: boolean
+          description: Enable X-Ray tracing
+          example: false
+        tags:
           type: object
-        userPoolConfig:
-          type: object
-    CreateGraphqlApiOutput:
+          description: Resource tags
+          additionalProperties:
+            type: string
+        lambdaAuthorizerConfig:
+          $ref: '#/components/schemas/LambdaAuthorizerConfig'
+        visibility:
+          type: string
+          description: API visibility
+          enum: [GLOBAL, PRIVATE]
+          example: GLOBAL
+        apiType:
+          type: string
+          description: API type
+          enum: [GRAPHQL, MERGED]
+          example: GRAPHQL
+    CreateGraphqlApiResponse:
       type: object
+      description: Response from creating a GraphQL API
       properties:
         graphqlApi:
-          type: object
-          properties:
-            apiId:
-              type: string
-            name:
-              type: string
-            authenticationType:
-              type: string
-    ListGraphqlApisOutput:
+          $ref: '#/components/schemas/GraphqlApi'
+    ListGraphqlApisResponse:
       type: object
+      description: Response with list of GraphQL APIs
       properties:
         graphqlApis:
           type: array
+          description: List of GraphQL APIs
           items:
-            type: object
+            $ref: '#/components/schemas/GraphqlApi'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    GetGraphqlApiResponse:
+      type: object
+      description: Response from getting a GraphQL API
+      properties:
+        graphqlApi:
+          $ref: '#/components/schemas/GraphqlApi'
+    UpdateGraphqlApiRequest:
+      type: object
+      description: Request to update a GraphQL API
+      required:
+        - name
+        - authenticationType
+      properties:
+        name:
+          type: string
+          description: The API name
+          example: UpdatedGraphQLAPI
+        authenticationType:
+          type: string
+          description: Authentication type
+          example: API_KEY
+        logConfig:
+          $ref: '#/components/schemas/LogConfig'
+        xrayEnabled:
+          type: boolean
+          description: Enable X-Ray tracing
+          example: false
+    UpdateGraphqlApiResponse:
+      type: object
+      description: Response from updating a GraphQL API
+      properties:
+        graphqlApi:
+          $ref: '#/components/schemas/GraphqlApi'
+    CreateDataSourceRequest:
+      type: object
+      description: Request to create a data source
+      required:
+        - name
+        - type
+      properties:
+        name:
+          type: string
+          description: The data source name
+          example: MyDynamoDBDataSource
+        description:
+          type: string
+          description: The data source description
+          example: Primary data source
+        type:
+          type: string
+          description: The data source type
+          example: AMAZON_DYNAMODB
+        serviceRoleArn:
+          type: string
+          description: IAM role ARN for AppSync to assume
+          example: arn:aws:iam::123456789012:role/appsync-role
+        dynamodbConfig:
+          $ref: '#/components/schemas/DynamodbDataSourceConfig'
+        lambdaConfig:
+          $ref: '#/components/schemas/LambdaDataSourceConfig'
+        httpConfig:
+          $ref: '#/components/schemas/HttpDataSourceConfig'
+    CreateDataSourceResponse:
+      type: object
+      description: Response from creating a data source
+      properties:
+        dataSource:
+          $ref: '#/components/schemas/DataSource'
+    ListDataSourcesResponse:
+      type: object
+      description: Response with list of data sources
+      properties:
+        dataSources:
+          type: array
+          description: List of data sources
+          items:
+            $ref: '#/components/schemas/DataSource'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    GetDataSourceResponse:
+      type: object
+      description: Response from getting a data source
+      properties:
+        dataSource:
+          $ref: '#/components/schemas/DataSource'
+    UpdateDataSourceRequest:
+      type: object
+      description: Request to update a data source
+      required:
+        - type
+      properties:
+        description:
+          type: string
+          description: Updated description
+          example: Updated data source
+        type:
+          type: string
+          description: Data source type
+          example: AMAZON_DYNAMODB
+        serviceRoleArn:
+          type: string
+          description: IAM role ARN
+          example: arn:aws:iam::123456789012:role/appsync-role
+        dynamodbConfig:
+          $ref: '#/components/schemas/DynamodbDataSourceConfig'
+    UpdateDataSourceResponse:
+      type: object
+      description: Response from updating a data source
+      properties:
+        dataSource:
+          $ref: '#/components/schemas/DataSource'
+    CreateResolverRequest:
+      type: object
+      description: Request to create a resolver
+      required:
+        - fieldName
+      properties:
+        fieldName:
+          type: string
+          description: The GraphQL field name
+          example: getPost
+        dataSourceName:
+          type: string
+          description: The data source name
+          example: MyDynamoDBDataSource
+        requestMappingTemplate:
+          type: string
+          description: Request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: Response mapping template
+          example: '$util.toJson($ctx.result)'
+        kind:
+          type: string
+          description: Resolver kind
+          enum: [UNIT, PIPELINE]
+          example: UNIT
+        pipelineConfig:
+          $ref: '#/components/schemas/PipelineConfig'
+        syncConfig:
+          $ref: '#/components/schemas/SyncConfig'
+        cachingConfig:
+          $ref: '#/components/schemas/CachingConfig'
+        maxBatchSize:
+          type: integer
+          description: Maximum batch size
+          example: 0
+        runtime:
+          $ref: '#/components/schemas/AppSyncRuntime'
+        code:
+          type: string
+          description: Function code for APPSYNC_JS runtime
+          example: ''
+    CreateResolverResponse:
+      type: object
+      description: Response from creating a resolver
+      properties:
+        resolver:
+          $ref: '#/components/schemas/Resolver'
+    ListResolversResponse:
+      type: object
+      description: Response with list of resolvers
+      properties:
+        resolvers:
+          type: array
+          description: List of resolvers
+          items:
+            $ref: '#/components/schemas/Resolver'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    GetResolverResponse:
+      type: object
+      description: Response from getting a resolver
+      properties:
+        resolver:
+          $ref: '#/components/schemas/Resolver'
+    UpdateResolverRequest:
+      type: object
+      description: Request to update a resolver
+      properties:
+        dataSourceName:
+          type: string
+          description: Data source name
+          example: MyDynamoDBDataSource
+        requestMappingTemplate:
+          type: string
+          description: Request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: Response mapping template
+          example: '$util.toJson($ctx.result)'
+        kind:
+          type: string
+          description: Resolver kind
+          example: UNIT
+        pipelineConfig:
+          $ref: '#/components/schemas/PipelineConfig'
+    UpdateResolverResponse:
+      type: object
+      description: Response from updating a resolver
+      properties:
+        resolver:
+          $ref: '#/components/schemas/Resolver'
+    CreateFunctionRequest:
+      type: object
+      description: Request to create a pipeline function
+      required:
+        - name
+        - dataSourceName
+      properties:
+        name:
+          type: string
+          description: The function name
+          example: GetPostFunction
+        description:
+          type: string
+          description: Function description
+          example: Retrieves a post from DynamoDB
+        dataSourceName:
+          type: string
+          description: Data source name
+          example: MyDynamoDBDataSource
+        requestMappingTemplate:
+          type: string
+          description: Request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: Response mapping template
+          example: '$util.toJson($ctx.result)'
+        functionVersion:
+          type: string
+          description: Function version
+          example: '2018-05-29'
+        syncConfig:
+          $ref: '#/components/schemas/SyncConfig'
+        maxBatchSize:
+          type: integer
+          description: Maximum batch size
+          example: 0
+        runtime:
+          $ref: '#/components/schemas/AppSyncRuntime'
+        code:
+          type: string
+          description: Function code
+          example: ''
+    CreateFunctionResponse:
+      type: object
+      description: Response from creating a function
+      properties:
+        functionConfiguration:
+          $ref: '#/components/schemas/FunctionConfiguration'
+    ListFunctionsResponse:
+      type: object
+      description: Response with list of functions
+      properties:
+        functions:
+          type: array
+          description: List of functions
+          items:
+            $ref: '#/components/schemas/FunctionConfiguration'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    GetFunctionResponse:
+      type: object
+      description: Response from getting a function
+      properties:
+        functionConfiguration:
+          $ref: '#/components/schemas/FunctionConfiguration'
+    UpdateFunctionRequest:
+      type: object
+      description: Request to update a function
+      required:
+        - name
+        - dataSourceName
+        - functionVersion
+      properties:
+        name:
+          type: string
+          description: Function name
+          example: UpdatedFunction
+        description:
+          type: string
+          description: Function description
+          example: Updated description
+        dataSourceName:
+          type: string
+          description: Data source name
+          example: MyDynamoDBDataSource
+        requestMappingTemplate:
+          type: string
+          description: Request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: Response mapping template
+          example: '$util.toJson($ctx.result)'
+        functionVersion:
+          type: string
+          description: Function version
+          example: '2018-05-29'
+    UpdateFunctionResponse:
+      type: object
+      description: Response from updating a function
+      properties:
+        functionConfiguration:
+          $ref: '#/components/schemas/FunctionConfiguration'
+    CreateTypeRequest:
+      type: object
+      description: Request to create a GraphQL type
+      required:
+        - definition
+        - format
+      properties:
+        definition:
+          type: string
+          description: The type definition
+          example: 'type Post { id: ID! title: String author: String }'
+        format:
+          type: string
+          description: The definition format
+          enum: [SDL, JSON]
+          example: SDL
+    CreateTypeResponse:
+      type: object
+      description: Response from creating a type
+      properties:
+        type:
+          $ref: '#/components/schemas/Type'
+    ListTypesResponse:
+      type: object
+      description: Response with list of types
+      properties:
+        types:
+          type: array
+          description: List of types
+          items:
+            $ref: '#/components/schemas/Type'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    GetTypeResponse:
+      type: object
+      description: Response from getting a type
+      properties:
+        type:
+          $ref: '#/components/schemas/Type'
+    UpdateTypeRequest:
+      type: object
+      description: Request to update a type
+      required:
+        - definition
+        - format
+      properties:
+        definition:
+          type: string
+          description: The updated type definition
+          example: 'type Post { id: ID! title: String author: String body: String }'
+        format:
+          type: string
+          description: The definition format
+          example: SDL
+    UpdateTypeResponse:
+      type: object
+      description: Response from updating a type
+      properties:
+        type:
+          $ref: '#/components/schemas/Type'
+    StartSchemaCreationRequest:
+      type: object
+      description: Request to start schema creation
+      required:
+        - definition
+      properties:
+        definition:
+          type: string
+          description: The new schema definition in SDL format
+          example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
+    StartSchemaCreationResponse:
+      type: object
+      description: Response from starting schema creation
+      properties:
+        status:
+          type: string
+          description: Schema creation status
+          enum: [PROCESSING, ACTIVE, DELETING, FAILED, SUCCESS, NOT_APPLICABLE]
+          example: PROCESSING
+    GetSchemaCreationStatusResponse:
+      type: object
+      description: Response with schema creation status
+      properties:
+        status:
+          type: string
+          description: Schema creation status
+          enum: [PROCESSING, ACTIVE, DELETING, FAILED, SUCCESS, NOT_APPLICABLE]
+          example: SUCCESS
+        details:
+          type: string
+          description: Status details
+          example: Schema created successfully
+    CreateApiKeyRequest:
+      type: object
+      description: Request to create an API key
+      properties:
+        description:
+          type: string
+          description: API key description
+          example: My API key
+        expires:
+          type: integer
+          description: Unix timestamp for expiration
+          example: 1777882800
+    CreateApiKeyResponse:
+      type: object
+      description: Response from creating an API key
+      properties:
+        apiKey:
+          $ref: '#/components/schemas/ApiKey'
+    ListApiKeysResponse:
+      type: object
+      description: Response with list of API keys
+      properties:
+        apiKeys:
+          type: array
+          description: List of API keys
+          items:
+            $ref: '#/components/schemas/ApiKey'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    UpdateApiKeyRequest:
+      type: object
+      description: Request to update an API key
+      properties:
+        description:
+          type: string
+          description: Updated description
+          example: Updated API key description
+        expires:
+          type: integer
+          description: Updated expiration timestamp
+          example: 1809418800
+    UpdateApiKeyResponse:
+      type: object
+      description: Response from updating an API key
+      properties:
+        apiKey:
+          $ref: '#/components/schemas/ApiKey'
+    CreateDomainNameRequest:
+      type: object
+      description: Request to create a custom domain name
+      required:
+        - domainName
+        - certificateArn
+      properties:
+        domainName:
+          type: string
+          description: The custom domain name
+          example: api.example.com
+        certificateArn:
+          type: string
+          description: ACM certificate ARN
+          example: arn:aws:acm:us-east-1:123456789012:certificate/abc123
+        description:
+          type: string
+          description: Domain name description
+          example: Production API endpoint
+    CreateDomainNameResponse:
+      type: object
+      description: Response from creating a custom domain name
+      properties:
+        domainNameConfig:
+          $ref: '#/components/schemas/DomainNameConfig'
+    ListDomainNamesResponse:
+      type: object
+      description: Response with list of domain names
+      properties:
+        domainNameConfigs:
+          type: array
+          description: List of domain name configurations
+          items:
+            $ref: '#/components/schemas/DomainNameConfig'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    GetDomainNameResponse:
+      type: object
+      description: Response from getting a domain name
+      properties:
+        domainNameConfig:
+          $ref: '#/components/schemas/DomainNameConfig'
+    UpdateDomainNameRequest:
+      type: object
+      description: Request to update a domain name
+      properties:
+        description:
+          type: string
+          description: Updated description
+          example: Updated domain name
+    UpdateDomainNameResponse:
+      type: object
+      description: Response from updating a domain name
+      properties:
+        domainNameConfig:
+          $ref: '#/components/schemas/DomainNameConfig'
+    AssociateApiRequest:
+      type: object
+      description: Request to associate an API with a domain name
+      required:
+        - apiId
+      properties:
+        apiId:
+          type: string
+          description: The API ID to associate
+          example: abc123def456
+    AssociateApiResponse:
+      type: object
+      description: Response from associating an API with a domain name
+      properties:
+        apiAssociation:
+          $ref: '#/components/schemas/ApiAssociation'
+    GetApiAssociationResponse:
+      type: object
+      description: Response from getting an API association
+      properties:
+        apiAssociation:
+          $ref: '#/components/schemas/ApiAssociation'
+    ListTagsForResourceResponse:
+      type: object
+      description: Response with resource tags
+      properties:
+        tags:
+          type: object
+          description: Resource tags
+          additionalProperties:
+            type: string
+    TagResourceRequest:
+      type: object
+      description: Request to add tags to a resource
+      required:
+        - tags
+      properties:
+        tags:
+          type: object
+          description: Tags to add
+          additionalProperties:
+            type: string
+    EvaluateMappingTemplateRequest:
+      type: object
+      description: Request to evaluate a mapping template
+      required:
+        - template
+        - context
+      properties:
+        template:
+          type: string
+          description: The mapping template to evaluate
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        context:
+          type: string
+          description: The template context as a JSON string
+          example: '{"arguments":{"id":"123"}}'
+    EvaluateMappingTemplateResponse:
+      type: object
+      description: Response from evaluating a mapping template
+      properties:
+        evaluationResult:
+          type: string
+          description: The evaluated template result
+          example: '{"version":"2018-05-29","operation":"GetItem","key":{"id":{"S":"123"}}}'
+        error:
+          type: object
+          description: Error from template evaluation if any
+        logs:
+          type: array
+          description: Evaluation log messages
+          items:
+            type: string
+    GetIntrospectionSchemaResponse:
+      type: object
+      description: Response with introspection schema
+      properties:
+        schema:
+          type: string
+          description: The introspection schema in the requested format
+          example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'

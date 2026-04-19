@@ -1,0 +1,15 @@
+{
+  "apiId": "abc123def456",
+  "name": "MyGraphQLAPI",
+  "authenticationType": "API_KEY",
+  "arn": "arn:aws:appsync:us-east-1:123456789012:apis/abc123def456",
+  "uris": {},
+  "tags": {},
+  "additionalAuthenticationProviders": [],
+  "logConfig": "example-string",
+  "xrayEnabled": false,
+  "wafWebAclArn": "",
+  "lambdaAuthorizerConfig": "example-string",
+  "visibility": "GLOBAL",
+  "apiType": "GRAPHQL"
+}

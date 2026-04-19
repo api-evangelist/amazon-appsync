@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-pipeline-config-schema.json",
+  "title": "PipelineConfig",
+  "description": "Pipeline resolver configuration",
+  "type": "object",
+  "properties": {
+    "functions": {
+      "type": "array",
+      "description": "List of function IDs in the pipeline"
+    }
+  }
+}

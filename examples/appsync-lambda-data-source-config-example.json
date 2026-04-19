@@ -1,0 +1,3 @@
+{
+  "lambdaFunctionArn": "arn:aws:lambda:us-east-1:123456789012:function:MyFunction"
+}

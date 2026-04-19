@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-list-functions-response-schema.json",
+  "title": "ListFunctionsResponse",
+  "description": "Response with list of functions",
+  "type": "object",
+  "properties": {
+    "functions": {
+      "type": "array",
+      "description": "List of functions"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

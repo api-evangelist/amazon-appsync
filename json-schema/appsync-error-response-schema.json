@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-error-response-schema.json",
+  "title": "ErrorResponse",
+  "description": "Standard error response from the AppSync API",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "Error message"
+    },
+    "errorType": {
+      "type": "string",
+      "description": "Error type"
+    }
+  }
+}

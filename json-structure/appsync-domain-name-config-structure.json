@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-domain-name-config-structure.json",
+  "title": "DomainNameConfig",
+  "description": "Configuration for a custom domain name",
+  "type": "record",
+  "fields": {
+    "domainName": {
+      "type": "string",
+      "description": "The custom domain name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Domain name description"
+    },
+    "certificateArn": {
+      "type": "string",
+      "description": "ACM certificate ARN"
+    },
+    "appsyncDomainName": {
+      "type": "string",
+      "description": "AppSync CNAME for DNS setup"
+    },
+    "hostedZoneId": {
+      "type": "string",
+      "description": "Route 53 hosted zone ID"
+    }
+  }
+}

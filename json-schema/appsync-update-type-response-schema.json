@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-update-type-response-schema.json",
+  "title": "UpdateTypeResponse",
+  "description": "Response from updating a type",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "type"
+    }
+  }
+}

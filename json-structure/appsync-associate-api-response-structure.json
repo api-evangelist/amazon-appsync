@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-associate-api-response-structure.json",
+  "title": "AssociateApiResponse",
+  "description": "Response from associating an API with a domain name",
+  "type": "record",
+  "fields": {
+    "apiAssociation": {
+      "type": "string",
+      "description": "apiAssociation"
+    }
+  }
+}

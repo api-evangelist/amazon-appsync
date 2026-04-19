@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-additional-authentication-provider-schema.json",
+  "title": "AdditionalAuthenticationProvider",
+  "description": "An additional authentication provider for a GraphQL API",
+  "type": "object",
+  "properties": {
+    "authenticationType": {
+      "type": "string",
+      "description": "Authentication type"
+    },
+    "lambdaAuthorizerConfig": {
+      "type": "string",
+      "description": "lambdaAuthorizerConfig"
+    },
+    "userPoolConfig": {
+      "type": "string",
+      "description": "userPoolConfig"
+    }
+  }
+}

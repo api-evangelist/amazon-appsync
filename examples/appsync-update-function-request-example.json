@@ -1,0 +1,8 @@
+{
+  "name": "UpdatedFunction",
+  "description": "Updated description",
+  "dataSourceName": "MyDynamoDBDataSource",
+  "requestMappingTemplate": "{\"version\":\"2018-05-29\",\"operation\":\"GetItem\"}",
+  "responseMappingTemplate": "$util.toJson($ctx.result)",
+  "functionVersion": "2018-05-29"
+}

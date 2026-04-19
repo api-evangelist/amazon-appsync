@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-list-domain-names-response-structure.json",
+  "title": "ListDomainNamesResponse",
+  "description": "Response with list of domain names",
+  "type": "record",
+  "fields": {
+    "domainNameConfigs": {
+      "type": "array",
+      "description": "List of domain name configurations"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

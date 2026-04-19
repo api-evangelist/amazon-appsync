@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-update-function-response-schema.json",
+  "title": "UpdateFunctionResponse",
+  "description": "Response from updating a function",
+  "type": "object",
+  "properties": {
+    "functionConfiguration": {
+      "type": "string",
+      "description": "functionConfiguration"
+    }
+  }
+}

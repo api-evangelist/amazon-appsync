@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-list-types-response-structure.json",
+  "title": "ListTypesResponse",
+  "description": "Response with list of types",
+  "type": "record",
+  "fields": {
+    "types": {
+      "type": "array",
+      "description": "List of types"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

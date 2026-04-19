@@ -1,0 +1,4 @@
+{
+  "definition": "type Post { id: ID! title: String author: String }",
+  "format": "SDL"
+}

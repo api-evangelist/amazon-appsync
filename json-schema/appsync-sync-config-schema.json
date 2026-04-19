@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-sync-config-schema.json",
+  "title": "SyncConfig",
+  "description": "Sync configuration for conflict resolution",
+  "type": "object",
+  "properties": {
+    "conflictHandler": {
+      "type": "string",
+      "description": "Conflict handler type"
+    },
+    "conflictDetection": {
+      "type": "string",
+      "description": "Conflict detection type"
+    }
+  }
+}

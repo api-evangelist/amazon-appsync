@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-pipeline-config-structure.json",
+  "title": "PipelineConfig",
+  "description": "Pipeline resolver configuration",
+  "type": "record",
+  "fields": {
+    "functions": {
+      "type": "array",
+      "description": "List of function IDs in the pipeline"
+    }
+  }
+}

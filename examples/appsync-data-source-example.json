@@ -1,0 +1,11 @@
+{
+  "dataSourceArn": "arn:aws:appsync:us-east-1:123456789012:apis/abc123/datasources/MyDataSource",
+  "name": "MyDynamoDBDataSource",
+  "description": "Primary data source for posts",
+  "type": "AMAZON_DYNAMODB",
+  "serviceRoleArn": "arn:aws:iam::123456789012:role/appsync-role",
+  "dynamodbConfig": "example-string",
+  "lambdaConfig": "example-string",
+  "elasticsearchConfig": "example-string",
+  "httpConfig": "example-string"
+}

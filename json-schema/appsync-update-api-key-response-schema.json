@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-update-api-key-response-schema.json",
+  "title": "UpdateApiKeyResponse",
+  "description": "Response from updating an API key",
+  "type": "object",
+  "properties": {
+    "apiKey": {
+      "type": "string",
+      "description": "apiKey"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-get-resolver-response-schema.json",
+  "title": "GetResolverResponse",
+  "description": "Response from getting a resolver",
+  "type": "object",
+  "properties": {
+    "resolver": {
+      "type": "string",
+      "description": "resolver"
+    }
+  }
+}

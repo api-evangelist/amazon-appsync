@@ -1,0 +1,4 @@
+{
+  "conflictHandler": "OPTIMISTIC_CONCURRENCY",
+  "conflictDetection": "VERSION"
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-evaluate-mapping-template-response-schema.json",
+  "title": "EvaluateMappingTemplateResponse",
+  "description": "Response from evaluating a mapping template",
+  "type": "object",
+  "properties": {
+    "evaluationResult": {
+      "type": "string",
+      "description": "The evaluated template result"
+    },
+    "error": {
+      "type": "object",
+      "description": "Error from template evaluation if any"
+    },
+    "logs": {
+      "type": "array",
+      "description": "Evaluation log messages"
+    }
+  }
+}

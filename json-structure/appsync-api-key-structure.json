@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-api-key-structure.json",
+  "title": "ApiKey",
+  "description": "An API key for AppSync API authentication",
+  "type": "record",
+  "fields": {
+    "id": {
+      "type": "string",
+      "description": "The API key ID"
+    },
+    "description": {
+      "type": "string",
+      "description": "The API key description"
+    },
+    "expires": {
+      "type": "integer",
+      "description": "Unix timestamp when the key expires"
+    },
+    "deletes": {
+      "type": "integer",
+      "description": "Unix timestamp when the key is scheduled for deletion"
+    }
+  }
+}

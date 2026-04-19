@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-list-functions-response-structure.json",
+  "title": "ListFunctionsResponse",
+  "description": "Response with list of functions",
+  "type": "record",
+  "fields": {
+    "functions": {
+      "type": "array",
+      "description": "List of functions"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

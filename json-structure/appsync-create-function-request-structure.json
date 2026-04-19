@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-create-function-request-structure.json",
+  "title": "CreateFunctionRequest",
+  "description": "Request to create a pipeline function",
+  "type": "record",
+  "fields": {
+    "name": {
+      "type": "string",
+      "description": "The function name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Function description"
+    },
+    "dataSourceName": {
+      "type": "string",
+      "description": "Data source name"
+    },
+    "requestMappingTemplate": {
+      "type": "string",
+      "description": "Request mapping template"
+    },
+    "responseMappingTemplate": {
+      "type": "string",
+      "description": "Response mapping template"
+    },
+    "functionVersion": {
+      "type": "string",
+      "description": "Function version"
+    },
+    "syncConfig": {
+      "type": "string",
+      "description": "syncConfig"
+    },
+    "maxBatchSize": {
+      "type": "integer",
+      "description": "Maximum batch size"
+    },
+    "runtime": {
+      "type": "string",
+      "description": "runtime"
+    },
+    "code": {
+      "type": "string",
+      "description": "Function code"
+    }
+  }
+}

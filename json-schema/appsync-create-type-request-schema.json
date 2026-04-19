@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-create-type-request-schema.json",
+  "title": "CreateTypeRequest",
+  "description": "Request to create a GraphQL type",
+  "type": "object",
+  "properties": {
+    "definition": {
+      "type": "string",
+      "description": "The type definition"
+    },
+    "format": {
+      "type": "string",
+      "description": "The definition format"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-update-domain-name-request-structure.json",
+  "title": "UpdateDomainNameRequest",
+  "description": "Request to update a domain name",
+  "type": "record",
+  "fields": {
+    "description": {
+      "type": "string",
+      "description": "Updated description"
+    }
+  }
+}

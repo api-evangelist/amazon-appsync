@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-app-sync-runtime-structure.json",
+  "title": "AppSyncRuntime",
+  "description": "Runtime configuration for APPSYNC_JS resolvers",
+  "type": "record",
+  "fields": {
+    "name": {
+      "type": "string",
+      "description": "Runtime name"
+    },
+    "runtimeVersion": {
+      "type": "string",
+      "description": "Runtime version"
+    }
+  }
+}

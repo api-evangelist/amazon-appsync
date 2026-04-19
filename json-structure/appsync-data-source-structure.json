@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-data-source-structure.json",
+  "title": "DataSource",
+  "description": "A data source configuration for a GraphQL API",
+  "type": "record",
+  "fields": {
+    "dataSourceArn": {
+      "type": "string",
+      "description": "The ARN of the data source"
+    },
+    "name": {
+      "type": "string",
+      "description": "The data source name"
+    },
+    "description": {
+      "type": "string",
+      "description": "The data source description"
+    },
+    "type": {
+      "type": "string",
+      "description": "The data source type"
+    },
+    "serviceRoleArn": {
+      "type": "string",
+      "description": "IAM service role ARN"
+    },
+    "dynamodbConfig": {
+      "type": "string",
+      "description": "dynamodbConfig"
+    },
+    "lambdaConfig": {
+      "type": "string",
+      "description": "lambdaConfig"
+    },
+    "elasticsearchConfig": {
+      "type": "string",
+      "description": "elasticsearchConfig"
+    },
+    "httpConfig": {
+      "type": "string",
+      "description": "httpConfig"
+    }
+  }
+}

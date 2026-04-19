@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-update-graphql-api-request-structure.json",
+  "title": "UpdateGraphqlApiRequest",
+  "description": "Request to update a GraphQL API",
+  "type": "record",
+  "fields": {
+    "name": {
+      "type": "string",
+      "description": "The API name"
+    },
+    "authenticationType": {
+      "type": "string",
+      "description": "Authentication type"
+    },
+    "logConfig": {
+      "type": "string",
+      "description": "logConfig"
+    },
+    "xrayEnabled": {
+      "type": "boolean",
+      "description": "Enable X-Ray tracing"
+    }
+  }
+}

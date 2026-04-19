@@ -1,0 +1,12 @@
+{
+  "name": "GetPostFunction",
+  "description": "Retrieves a post from DynamoDB",
+  "dataSourceName": "MyDynamoDBDataSource",
+  "requestMappingTemplate": "{\"version\":\"2018-05-29\",\"operation\":\"GetItem\"}",
+  "responseMappingTemplate": "$util.toJson($ctx.result)",
+  "functionVersion": "2018-05-29",
+  "syncConfig": "example-string",
+  "maxBatchSize": 0,
+  "runtime": "example-string",
+  "code": ""
+}

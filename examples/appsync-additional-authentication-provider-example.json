@@ -1,0 +1,5 @@
+{
+  "authenticationType": "AWS_IAM",
+  "lambdaAuthorizerConfig": "example-string",
+  "userPoolConfig": "example-string"
+}

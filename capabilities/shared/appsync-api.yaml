@@ -1,0 +1,316 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: Amazon AppSync API
+  description: Shared capability definition for the Amazon AppSync API covering GraphQL APIs, data sources, resolvers, functions, types, schema, and API keys.
+  tags:
+    - Amazon AppSync
+    - GraphQL
+    - API Management
+    - Serverless
+    - AWS
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
+      AWS_REGION: AWS_REGION
+
+capability:
+  consumes:
+    - type: http
+      namespace: appsync
+      baseUri: https://appsync.us-east-1.amazonaws.com
+      description: Amazon AppSync for managed GraphQL APIs.
+      authentication:
+        type: apikey
+        key: Authorization
+        value: "{{AWS_ACCESS_KEY_ID}}"
+        placement: header
+      resources:
+        - name: graphql-apis
+          path: /v1/apis
+          description: Manage GraphQL APIs.
+          operations:
+            - name: list-graphql-apis
+              method: GET
+              description: Lists all GraphQL APIs.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-graphql-api
+              method: POST
+              description: Creates a new GraphQL API.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: graphql-api
+          path: /v1/apis/{apiId}
+          description: Manage a specific GraphQL API.
+          operations:
+            - name: get-graphql-api
+              method: GET
+              description: Retrieves a GraphQL API by ID.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: update-graphql-api
+              method: PUT
+              description: Updates a GraphQL API.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: data-sources
+          path: /v1/apis/{apiId}/datasources
+          description: Manage data sources for a GraphQL API.
+          operations:
+            - name: list-data-sources
+              method: GET
+              description: Lists all data sources for an API.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-data-source
+              method: POST
+              description: Creates a data source for an API.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: resolvers
+          path: /v1/apis/{apiId}/types/{typeName}/resolvers
+          description: Manage resolvers for a GraphQL type.
+          operations:
+            - name: list-resolvers
+              method: GET
+              description: Lists all resolvers for a type.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-resolver
+              method: POST
+              description: Creates a resolver for a type field.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: functions
+          path: /v1/apis/{apiId}/functions
+          description: Manage pipeline resolver functions.
+          operations:
+            - name: list-functions
+              method: GET
+              description: Lists all functions for an API.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-function
+              method: POST
+              description: Creates a reusable pipeline function.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: types
+          path: /v1/apis/{apiId}/types
+          description: Manage GraphQL types.
+          operations:
+            - name: list-types
+              method: GET
+              description: Lists all types for an API.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: api-keys
+          path: /v1/apis/{apiId}/ApiKeys
+          description: Manage API keys for authentication.
+          operations:
+            - name: list-api-keys
+              method: GET
+              description: Lists all API keys for an API.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: create-api-key
+              method: POST
+              description: Creates an API key.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: schema
+          path: /v1/apis/{apiId}/schemas
+          description: Manage GraphQL schema.
+          operations:
+            - name: start-schema-creation
+              method: POST
+              description: Starts schema creation for an API.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: get-schema-creation-status
+              method: GET
+              description: Gets schema creation status.
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: appsync-rest
+      resources:
+        - path: /v1/apis
+          name: graphql-apis
+          description: GraphQL APIs
+          operations:
+            - method: GET
+              name: list-graphql-apis
+              description: List all GraphQL APIs
+              call: "appsync.list-graphql-apis"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/data-sources
+          name: data-sources
+          description: Data sources
+          operations:
+            - method: GET
+              name: list-data-sources
+              description: List data sources for an API
+              call: "appsync.list-data-sources"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9100
+      namespace: appsync-mcp
+      transport: http
+      tools:
+        - name: list-graphql-apis
+          description: List all AppSync GraphQL APIs in the account.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "appsync.list-graphql-apis"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-graphql-api
+          description: Get details of a specific AppSync GraphQL API.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "appsync.get-graphql-api"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-graphql-api
+          description: Create a new AppSync GraphQL API with authentication configuration.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "appsync.create-graphql-api"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-data-sources
+          description: List all data sources configured for a GraphQL API.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "appsync.list-data-sources"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-data-source
+          description: Create a data source (DynamoDB, Lambda, OpenSearch, HTTP, etc.) for a GraphQL API.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "appsync.create-data-source"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-resolvers
+          description: List all resolvers for a specific GraphQL type.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "appsync.list-resolvers"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-resolver
+          description: Create a resolver connecting a GraphQL field to a data source.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "appsync.create-resolver"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-functions
+          description: List all pipeline functions for a GraphQL API.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "appsync.list-functions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: start-schema-creation
+          description: Upload and create a new GraphQL schema for an API.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "appsync.start-schema-creation"
+          outputParameters:
+            - type: object
+              mapping: "$."

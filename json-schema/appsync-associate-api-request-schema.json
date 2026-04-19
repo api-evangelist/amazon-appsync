@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-associate-api-request-schema.json",
+  "title": "AssociateApiRequest",
+  "description": "Request to associate an API with a domain name",
+  "type": "object",
+  "properties": {
+    "apiId": {
+      "type": "string",
+      "description": "The API ID to associate"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-api-key-schema.json",
+  "title": "ApiKey",
+  "description": "An API key for AppSync API authentication",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The API key ID"
+    },
+    "description": {
+      "type": "string",
+      "description": "The API key description"
+    },
+    "expires": {
+      "type": "integer",
+      "description": "Unix timestamp when the key expires"
+    },
+    "deletes": {
+      "type": "integer",
+      "description": "Unix timestamp when the key is scheduled for deletion"
+    }
+  }
+}

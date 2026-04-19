@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-update-type-request-schema.json",
+  "title": "UpdateTypeRequest",
+  "description": "Request to update a type",
+  "type": "object",
+  "properties": {
+    "definition": {
+      "type": "string",
+      "description": "The updated type definition"
+    },
+    "format": {
+      "type": "string",
+      "description": "The definition format"
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "template": "{\"version\":\"2018-05-29\",\"operation\":\"GetItem\"}",
+  "context": "{\"arguments\":{\"id\":\"123\"}}"
+}

@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-resolver-schema.json",
+  "title": "Resolver",
+  "description": "A resolver for a GraphQL field",
+  "type": "object",
+  "properties": {
+    "typeName": {
+      "type": "string",
+      "description": "The GraphQL type name"
+    },
+    "fieldName": {
+      "type": "string",
+      "description": "The GraphQL field name"
+    },
+    "dataSourceName": {
+      "type": "string",
+      "description": "The data source name"
+    },
+    "resolverArn": {
+      "type": "string",
+      "description": "The resolver ARN"
+    },
+    "requestMappingTemplate": {
+      "type": "string",
+      "description": "The request mapping template"
+    },
+    "responseMappingTemplate": {
+      "type": "string",
+      "description": "The response mapping template"
+    },
+    "kind": {
+      "type": "string",
+      "description": "The resolver kind"
+    },
+    "pipelineConfig": {
+      "type": "string",
+      "description": "pipelineConfig"
+    },
+    "syncConfig": {
+      "type": "string",
+      "description": "syncConfig"
+    },
+    "cachingConfig": {
+      "type": "string",
+      "description": "cachingConfig"
+    },
+    "maxBatchSize": {
+      "type": "integer",
+      "description": "Maximum batch size"
+    },
+    "runtime": {
+      "type": "string",
+      "description": "runtime"
+    },
+    "code": {
+      "type": "string",
+      "description": "The function code"
+    }
+  }
+}

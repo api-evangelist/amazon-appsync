@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-update-data-source-request-structure.json",
+  "title": "UpdateDataSourceRequest",
+  "description": "Request to update a data source",
+  "type": "record",
+  "fields": {
+    "description": {
+      "type": "string",
+      "description": "Updated description"
+    },
+    "type": {
+      "type": "string",
+      "description": "Data source type"
+    },
+    "serviceRoleArn": {
+      "type": "string",
+      "description": "IAM role ARN"
+    },
+    "dynamodbConfig": {
+      "type": "string",
+      "description": "dynamodbConfig"
+    }
+  }
+}

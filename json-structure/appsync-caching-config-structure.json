@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-caching-config-structure.json",
+  "title": "CachingConfig",
+  "description": "Caching configuration for a resolver",
+  "type": "record",
+  "fields": {
+    "ttl": {
+      "type": "integer",
+      "description": "TTL in seconds"
+    },
+    "cachingKeys": {
+      "type": "array",
+      "description": "Keys to use for caching"
+    }
+  }
+}

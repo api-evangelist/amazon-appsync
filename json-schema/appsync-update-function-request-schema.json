@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-update-function-request-schema.json",
+  "title": "UpdateFunctionRequest",
+  "description": "Request to update a function",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Function name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Function description"
+    },
+    "dataSourceName": {
+      "type": "string",
+      "description": "Data source name"
+    },
+    "requestMappingTemplate": {
+      "type": "string",
+      "description": "Request mapping template"
+    },
+    "responseMappingTemplate": {
+      "type": "string",
+      "description": "Response mapping template"
+    },
+    "functionVersion": {
+      "type": "string",
+      "description": "Function version"
+    }
+  }
+}

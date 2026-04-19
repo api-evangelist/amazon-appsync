@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-function-configuration-schema.json",
+  "title": "FunctionConfiguration",
+  "description": "A reusable pipeline function configuration",
+  "type": "object",
+  "properties": {
+    "functionId": {
+      "type": "string",
+      "description": "The function ID"
+    },
+    "functionArn": {
+      "type": "string",
+      "description": "The function ARN"
+    },
+    "name": {
+      "type": "string",
+      "description": "The function name"
+    },
+    "description": {
+      "type": "string",
+      "description": "The function description"
+    },
+    "dataSourceName": {
+      "type": "string",
+      "description": "The data source name"
+    },
+    "requestMappingTemplate": {
+      "type": "string",
+      "description": "The request mapping template"
+    },
+    "responseMappingTemplate": {
+      "type": "string",
+      "description": "The response mapping template"
+    },
+    "functionVersion": {
+      "type": "string",
+      "description": "The function version"
+    },
+    "syncConfig": {
+      "type": "string",
+      "description": "syncConfig"
+    },
+    "maxBatchSize": {
+      "type": "integer",
+      "description": "Maximum batch size"
+    },
+    "runtime": {
+      "type": "string",
+      "description": "runtime"
+    },
+    "code": {
+      "type": "string",
+      "description": "The function code"
+    }
+  }
+}

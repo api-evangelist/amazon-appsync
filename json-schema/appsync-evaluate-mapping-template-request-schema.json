@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-evaluate-mapping-template-request-schema.json",
+  "title": "EvaluateMappingTemplateRequest",
+  "description": "Request to evaluate a mapping template",
+  "type": "object",
+  "properties": {
+    "template": {
+      "type": "string",
+      "description": "The mapping template to evaluate"
+    },
+    "context": {
+      "type": "string",
+      "description": "The template context as a JSON string"
+    }
+  }
+}

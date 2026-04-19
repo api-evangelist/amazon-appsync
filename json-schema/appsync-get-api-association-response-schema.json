@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-get-api-association-response-schema.json",
+  "title": "GetApiAssociationResponse",
+  "description": "Response from getting an API association",
+  "type": "object",
+  "properties": {
+    "apiAssociation": {
+      "type": "string",
+      "description": "apiAssociation"
+    }
+  }
+}

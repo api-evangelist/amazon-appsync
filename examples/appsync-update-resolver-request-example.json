@@ -1,0 +1,7 @@
+{
+  "dataSourceName": "MyDynamoDBDataSource",
+  "requestMappingTemplate": "{\"version\":\"2018-05-29\",\"operation\":\"GetItem\"}",
+  "responseMappingTemplate": "$util.toJson($ctx.result)",
+  "kind": "UNIT",
+  "pipelineConfig": "example-string"
+}

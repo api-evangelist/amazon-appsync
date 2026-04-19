@@ -1,0 +1,9 @@
+{
+  "name": "MyDynamoDBDataSource",
+  "description": "Primary data source",
+  "type": "AMAZON_DYNAMODB",
+  "serviceRoleArn": "arn:aws:iam::123456789012:role/appsync-role",
+  "dynamodbConfig": "example-string",
+  "lambdaConfig": "example-string",
+  "httpConfig": "example-string"
+}

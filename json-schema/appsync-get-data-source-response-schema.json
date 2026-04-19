@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-get-data-source-response-schema.json",
+  "title": "GetDataSourceResponse",
+  "description": "Response from getting a data source",
+  "type": "object",
+  "properties": {
+    "dataSource": {
+      "type": "string",
+      "description": "dataSource"
+    }
+  }
+}

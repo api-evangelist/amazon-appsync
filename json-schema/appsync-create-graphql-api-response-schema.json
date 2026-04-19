@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-create-graphql-api-response-schema.json",
+  "title": "CreateGraphqlApiResponse",
+  "description": "Response from creating a GraphQL API",
+  "type": "object",
+  "properties": {
+    "graphqlApi": {
+      "type": "string",
+      "description": "graphqlApi"
+    }
+  }
+}

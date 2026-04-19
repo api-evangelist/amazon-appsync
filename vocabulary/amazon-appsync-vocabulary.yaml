@@ -1,0 +1,287 @@
+vocabulary:
+  label: Amazon AppSync Vocabulary
+  description: Core terms, actions, and workflows for the Amazon AppSync GraphQL API management service.
+  tags:
+    - Amazon AppSync
+    - GraphQL
+    - API Management
+    - Serverless
+    - AWS
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+resources:
+  - name: GraphqlApi
+    description: A managed GraphQL API hosted by AppSync with configurable authentication, logging, and endpoint settings.
+    properties:
+      - apiId
+      - name
+      - authenticationType
+      - arn
+      - uris
+      - tags
+      - xrayEnabled
+      - visibility
+      - apiType
+    related:
+      - DataSource
+      - Resolver
+      - Type
+      - ApiKey
+
+  - name: DataSource
+    description: A backend data source connected to a GraphQL API, such as DynamoDB, Lambda, OpenSearch, or an HTTP endpoint.
+    properties:
+      - dataSourceArn
+      - name
+      - description
+      - type
+      - serviceRoleArn
+      - dynamodbConfig
+      - lambdaConfig
+      - httpConfig
+    related:
+      - GraphqlApi
+      - Resolver
+
+  - name: Resolver
+    description: A configuration that maps a GraphQL field to a data source operation using mapping templates or JavaScript.
+    properties:
+      - typeName
+      - fieldName
+      - dataSourceName
+      - resolverArn
+      - requestMappingTemplate
+      - responseMappingTemplate
+      - kind
+      - pipelineConfig
+      - cachingConfig
+    related:
+      - DataSource
+      - FunctionConfiguration
+      - Type
+
+  - name: FunctionConfiguration
+    description: A reusable function unit used within pipeline resolvers to separate concerns and share logic.
+    properties:
+      - functionId
+      - functionArn
+      - name
+      - description
+      - dataSourceName
+      - requestMappingTemplate
+      - responseMappingTemplate
+      - functionVersion
+    related:
+      - DataSource
+      - Resolver
+
+  - name: Type
+    description: A GraphQL type definition (object, interface, union, enum, input) in the API schema.
+    properties:
+      - name
+      - description
+      - arn
+      - definition
+      - format
+    related:
+      - GraphqlApi
+      - Resolver
+
+  - name: ApiKey
+    description: An API key used for authentication with an AppSync API configured to use API_KEY auth.
+    properties:
+      - id
+      - description
+      - expires
+      - deletes
+    related:
+      - GraphqlApi
+
+  - name: DomainNameConfig
+    description: A custom domain name configuration for an AppSync API.
+    properties:
+      - domainName
+      - description
+      - certificateArn
+      - appsyncDomainName
+      - hostedZoneId
+    related:
+      - GraphqlApi
+      - ApiAssociation
+
+  - name: ApiAssociation
+    description: An association between a custom domain name and a GraphQL API.
+    properties:
+      - domainName
+      - apiId
+      - associationStatus
+    related:
+      - DomainNameConfig
+      - GraphqlApi
+
+actions:
+  - name: CreateGraphqlApi
+    description: Create a new managed GraphQL API with authentication and logging configuration.
+    resource: GraphqlApi
+    method: POST
+    path: /v1/apis
+
+  - name: ListGraphqlApis
+    description: List all GraphQL APIs in the account.
+    resource: GraphqlApi
+    method: GET
+    path: /v1/apis
+
+  - name: GetGraphqlApi
+    description: Get details of a specific GraphQL API.
+    resource: GraphqlApi
+    method: GET
+    path: /v1/apis/{apiId}
+
+  - name: UpdateGraphqlApi
+    description: Update configuration of a GraphQL API.
+    resource: GraphqlApi
+    method: PUT
+    path: /v1/apis/{apiId}
+
+  - name: DeleteGraphqlApi
+    description: Delete a GraphQL API and all its resources.
+    resource: GraphqlApi
+    method: DELETE
+    path: /v1/apis/{apiId}
+
+  - name: CreateDataSource
+    description: Connect a data source to a GraphQL API.
+    resource: DataSource
+    method: POST
+    path: /v1/apis/{apiId}/datasources
+
+  - name: ListDataSources
+    description: List all data sources for a GraphQL API.
+    resource: DataSource
+    method: GET
+    path: /v1/apis/{apiId}/datasources
+
+  - name: GetDataSource
+    description: Get details of a specific data source.
+    resource: DataSource
+    method: GET
+    path: /v1/apis/{apiId}/datasources/{name}
+
+  - name: UpdateDataSource
+    description: Update a data source configuration.
+    resource: DataSource
+    method: PUT
+    path: /v1/apis/{apiId}/datasources/{name}
+
+  - name: DeleteDataSource
+    description: Delete a data source from a GraphQL API.
+    resource: DataSource
+    method: DELETE
+    path: /v1/apis/{apiId}/datasources/{name}
+
+  - name: CreateResolver
+    description: Create a resolver that maps a GraphQL field to a data source operation.
+    resource: Resolver
+    method: POST
+    path: /v1/apis/{apiId}/types/{typeName}/resolvers
+
+  - name: ListResolvers
+    description: List all resolvers for a GraphQL type.
+    resource: Resolver
+    method: GET
+    path: /v1/apis/{apiId}/types/{typeName}/resolvers
+
+  - name: CreateFunction
+    description: Create a reusable pipeline function.
+    resource: FunctionConfiguration
+    method: POST
+    path: /v1/apis/{apiId}/functions
+
+  - name: ListFunctions
+    description: List all pipeline functions for a GraphQL API.
+    resource: FunctionConfiguration
+    method: GET
+    path: /v1/apis/{apiId}/functions
+
+  - name: CreateType
+    description: Create a new GraphQL type definition.
+    resource: Type
+    method: POST
+    path: /v1/apis/{apiId}/types
+
+  - name: ListTypes
+    description: List all types in a GraphQL API schema.
+    resource: Type
+    method: GET
+    path: /v1/apis/{apiId}/types
+
+  - name: StartSchemaCreation
+    description: Upload a new GraphQL schema definition to an API.
+    resource: GraphqlApi
+    method: POST
+    path: /v1/apis/{apiId}/schemas
+
+  - name: CreateApiKey
+    description: Create an API key for authentication.
+    resource: ApiKey
+    method: POST
+    path: /v1/apis/{apiId}/ApiKeys
+
+  - name: ListApiKeys
+    description: List all API keys for a GraphQL API.
+    resource: ApiKey
+    method: GET
+    path: /v1/apis/{apiId}/ApiKeys
+
+  - name: CreateDomainName
+    description: Create a custom domain name for an AppSync API.
+    resource: DomainNameConfig
+    method: POST
+    path: /v1/domainnames
+
+  - name: AssociateApi
+    description: Associate a GraphQL API with a custom domain name.
+    resource: ApiAssociation
+    method: POST
+    path: /v1/domainnames/{domainName}/apiassociation
+
+workflows:
+  - name: BuildGraphQLApi
+    description: End-to-end workflow for creating and configuring a GraphQL API with AppSync.
+    steps:
+      - action: CreateGraphqlApi
+        description: Create the GraphQL API with authentication settings
+      - action: StartSchemaCreation
+        description: Upload the GraphQL schema definition
+      - action: CreateDataSource
+        description: Connect data sources (DynamoDB, Lambda, etc.)
+      - action: CreateResolver
+        description: Create resolvers mapping fields to data sources
+      - action: CreateApiKey
+        description: Create API keys for client authentication
+
+personas:
+  - name: GraphQL Api Developer
+    description: Designs and builds GraphQL APIs with resolvers, data sources, and schema definitions.
+    actions:
+      - CreateGraphqlApi
+      - StartSchemaCreation
+      - CreateDataSource
+      - CreateResolver
+      - CreateFunction
+      - CreateType
+      - CreateApiKey
+
+  - name: Api Operations Engineer
+    description: Monitors and maintains AppSync APIs in production environments.
+    actions:
+      - ListGraphqlApis
+      - GetGraphqlApi
+      - ListDataSources
+      - ListResolvers
+      - ListFunctions
+      - ListApiKeys
+      - CreateDomainName
+      - AssociateApi

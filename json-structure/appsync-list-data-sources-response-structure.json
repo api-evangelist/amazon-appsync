@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-list-data-sources-response-structure.json",
+  "title": "ListDataSourcesResponse",
+  "description": "Response with list of data sources",
+  "type": "record",
+  "fields": {
+    "dataSources": {
+      "type": "array",
+      "description": "List of data sources"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

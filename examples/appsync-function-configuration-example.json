@@ -1,0 +1,14 @@
+{
+  "functionId": "abc123456789",
+  "functionArn": "arn:aws:appsync:us-east-1:123456789012:apis/abc123/functions/abc123456789",
+  "name": "GetPostFunction",
+  "description": "Retrieves a post by ID",
+  "dataSourceName": "MyDynamoDBDataSource",
+  "requestMappingTemplate": "{\"version\":\"2018-05-29\",\"operation\":\"GetItem\"}",
+  "responseMappingTemplate": "$util.toJson($ctx.result)",
+  "functionVersion": "2018-05-29",
+  "syncConfig": "example-string",
+  "maxBatchSize": 0,
+  "runtime": "example-string",
+  "code": ""
+}

@@ -1,0 +1,5 @@
+{
+  "domainName": "api.example.com",
+  "certificateArn": "arn:aws:acm:us-east-1:123456789012:certificate/abc123",
+  "description": "Production API endpoint"
+}

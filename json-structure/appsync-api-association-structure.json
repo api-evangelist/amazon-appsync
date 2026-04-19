@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-api-association-structure.json",
+  "title": "ApiAssociation",
+  "description": "An association between a custom domain name and a GraphQL API",
+  "type": "record",
+  "fields": {
+    "domainName": {
+      "type": "string",
+      "description": "The custom domain name"
+    },
+    "apiId": {
+      "type": "string",
+      "description": "The API ID"
+    },
+    "associationStatus": {
+      "type": "string",
+      "description": "The association status"
+    },
+    "deploymentDetail": {
+      "type": "string",
+      "description": "Details about the deployment"
+    }
+  }
+}

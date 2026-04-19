@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-cognito-user-pool-config-schema.json",
+  "title": "CognitoUserPoolConfig",
+  "description": "Amazon Cognito user pools configuration",
+  "type": "object",
+  "properties": {
+    "userPoolId": {
+      "type": "string",
+      "description": "User pool ID"
+    },
+    "awsRegion": {
+      "type": "string",
+      "description": "AWS Region where the user pool exists"
+    },
+    "appIdClientRegex": {
+      "type": "string",
+      "description": "Regex for client IDs"
+    }
+  }
+}

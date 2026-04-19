@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-lambda-authorizer-config-schema.json",
+  "title": "LambdaAuthorizerConfig",
+  "description": "Configuration for Lambda-based authorization",
+  "type": "object",
+  "properties": {
+    "authorizerUri": {
+      "type": "string",
+      "description": "Lambda function ARN"
+    },
+    "authorizerResultTtlInSeconds": {
+      "type": "integer",
+      "description": "TTL for authorizer results in seconds"
+    },
+    "identityValidationExpression": {
+      "type": "string",
+      "description": "Regular expression for validating tokens"
+    }
+  }
+}

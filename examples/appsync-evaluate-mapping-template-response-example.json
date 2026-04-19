@@ -1,0 +1,5 @@
+{
+  "evaluationResult": "{\"version\":\"2018-05-29\",\"operation\":\"GetItem\",\"key\":{\"id\":{\"S\":\"123\"}}}",
+  "error": {},
+  "logs": []
+}

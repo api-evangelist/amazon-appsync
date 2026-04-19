@@ -1,0 +1,7 @@
+{
+  "domainName": "api.example.com",
+  "description": "Production API endpoint",
+  "certificateArn": "arn:aws:acm:us-east-1:123456789012:certificate/abc123",
+  "appsyncDomainName": "d123456789.cloudfront.net",
+  "hostedZoneId": "Z2FDTNDATAQYW2"
+}

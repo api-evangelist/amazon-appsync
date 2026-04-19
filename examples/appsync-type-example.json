@@ -1,0 +1,7 @@
+{
+  "name": "Post",
+  "description": "A blog post type",
+  "arn": "arn:aws:appsync:us-east-1:123456789012:apis/abc123/types/Post",
+  "definition": "type Post { id: ID! title: String author: String }",
+  "format": "SDL"
+}

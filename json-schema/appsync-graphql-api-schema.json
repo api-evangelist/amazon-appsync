@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-graphql-api-schema.json",
+  "title": "GraphqlApi",
+  "description": "A GraphQL API object managed by AppSync",
+  "type": "object",
+  "properties": {
+    "apiId": {
+      "type": "string",
+      "description": "The API ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "The API name"
+    },
+    "authenticationType": {
+      "type": "string",
+      "description": "The default authentication type"
+    },
+    "arn": {
+      "type": "string",
+      "description": "The ARN of the API"
+    },
+    "uris": {
+      "type": "object",
+      "description": "The URIs for the API endpoint"
+    },
+    "tags": {
+      "type": "object",
+      "description": "Tags on the API"
+    },
+    "additionalAuthenticationProviders": {
+      "type": "array",
+      "description": "Additional authentication providers"
+    },
+    "logConfig": {
+      "type": "string",
+      "description": "logConfig"
+    },
+    "xrayEnabled": {
+      "type": "boolean",
+      "description": "Whether X-Ray tracing is enabled"
+    },
+    "wafWebAclArn": {
+      "type": "string",
+      "description": "WAF Web ACL ARN"
+    },
+    "lambdaAuthorizerConfig": {
+      "type": "string",
+      "description": "lambdaAuthorizerConfig"
+    },
+    "visibility": {
+      "type": "string",
+      "description": "API visibility"
+    },
+    "apiType": {
+      "type": "string",
+      "description": "API type"
+    }
+  }
+}

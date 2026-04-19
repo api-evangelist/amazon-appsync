@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-update-resolver-request-structure.json",
+  "title": "UpdateResolverRequest",
+  "description": "Request to update a resolver",
+  "type": "record",
+  "fields": {
+    "dataSourceName": {
+      "type": "string",
+      "description": "Data source name"
+    },
+    "requestMappingTemplate": {
+      "type": "string",
+      "description": "Request mapping template"
+    },
+    "responseMappingTemplate": {
+      "type": "string",
+      "description": "Response mapping template"
+    },
+    "kind": {
+      "type": "string",
+      "description": "Resolver kind"
+    },
+    "pipelineConfig": {
+      "type": "string",
+      "description": "pipelineConfig"
+    }
+  }
+}

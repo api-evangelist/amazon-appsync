@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-create-type-response-structure.json",
+  "title": "CreateTypeResponse",
+  "description": "Response from creating a type",
+  "type": "record",
+  "fields": {
+    "type": {
+      "type": "string",
+      "description": "type"
+    }
+  }
+}

@@ -1,0 +1,183 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: GraphQL Api Management Workflow
+  description: Workflow capability for building and managing GraphQL APIs with AppSync including data sources, resolvers, and schema management.
+  tags:
+    - Amazon AppSync
+    - GraphQL
+    - API Management
+    - Serverless
+    - AWS
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+imports:
+  - namespace: appsync
+    from: shared/appsync-api.yaml
+
+capability:
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: graphql-mgmt-rest
+      resources:
+        - path: /v1/apis
+          name: graphql-apis
+          description: GraphQL API management
+          operations:
+            - method: GET
+              name: list-graphql-apis
+              description: List all GraphQL APIs
+              call: "appsync.list-graphql-apis"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-graphql-api
+              description: Create a GraphQL API
+              call: "appsync.create-graphql-api"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/schema
+          name: schema
+          description: GraphQL schema management
+          operations:
+            - method: POST
+              name: start-schema-creation
+              description: Upload a new GraphQL schema
+              call: "appsync.start-schema-creation"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: graphql-mgmt-mcp
+      transport: http
+      tools:
+        - name: list-graphql-apis
+          description: List all AppSync GraphQL APIs to understand available APIs and their configurations.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "appsync.list-graphql-apis"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-graphql-api
+          description: Get complete details of a GraphQL API including authentication configuration and endpoints.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "appsync.get-graphql-api"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-graphql-api
+          description: Create a new GraphQL API with the specified authentication type and configuration.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "appsync.create-graphql-api"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-data-sources
+          description: List all data sources connected to a GraphQL API.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "appsync.list-data-sources"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-data-source
+          description: Connect a data source (DynamoDB, Lambda, OpenSearch, HTTP) to a GraphQL API.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "appsync.create-data-source"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-resolvers
+          description: List all resolvers for a specific GraphQL type to understand field-to-data-source mappings.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "appsync.list-resolvers"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-resolver
+          description: Create a resolver that maps a GraphQL field to a data source operation.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "appsync.create-resolver"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-functions
+          description: List reusable pipeline functions available for composing complex resolvers.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "appsync.list-functions"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-function
+          description: Create a reusable pipeline function for use in pipeline resolvers.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "appsync.create-function"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: start-schema-creation
+          description: Upload a new GraphQL schema definition to an AppSync API.
+          hints:
+            readOnly: false
+            openWorld: false
+          call: "appsync.start-schema-creation"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+personas:
+  - name: GraphQL Api Developer
+    description: Builds GraphQL APIs with data sources, resolvers, and schema definitions.
+    tools:
+      - list-graphql-apis
+      - get-graphql-api
+      - create-graphql-api
+      - list-data-sources
+      - create-data-source
+      - list-resolvers
+      - create-resolver
+      - list-functions
+      - create-function
+      - start-schema-creation
+
+  - name: Api Operations Engineer
+    description: Monitors and maintains AppSync APIs in production.
+    tools:
+      - list-graphql-apis
+      - get-graphql-api
+      - list-data-sources
+      - list-resolvers
+      - list-functions

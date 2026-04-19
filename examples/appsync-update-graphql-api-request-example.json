@@ -1,0 +1,6 @@
+{
+  "name": "UpdatedGraphQLAPI",
+  "authenticationType": "API_KEY",
+  "logConfig": "example-string",
+  "xrayEnabled": false
+}

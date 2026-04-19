@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-http-data-source-config-structure.json",
+  "title": "HttpDataSourceConfig",
+  "description": "HTTP endpoint data source configuration",
+  "type": "record",
+  "fields": {
+    "endpoint": {
+      "type": "string",
+      "description": "HTTP endpoint URL"
+    },
+    "authorizationConfig": {
+      "type": "object",
+      "description": "Authorization configuration for the HTTP endpoint"
+    }
+  }
+}

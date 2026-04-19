@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-update-type-request-structure.json",
+  "title": "UpdateTypeRequest",
+  "description": "Request to update a type",
+  "type": "record",
+  "fields": {
+    "definition": {
+      "type": "string",
+      "description": "The updated type definition"
+    },
+    "format": {
+      "type": "string",
+      "description": "The definition format"
+    }
+  }
+}

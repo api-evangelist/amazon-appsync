@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-update-function-response-structure.json",
+  "title": "UpdateFunctionResponse",
+  "description": "Response from updating a function",
+  "type": "record",
+  "fields": {
+    "functionConfiguration": {
+      "type": "string",
+      "description": "functionConfiguration"
+    }
+  }
+}

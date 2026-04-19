@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-list-types-response-schema.json",
+  "title": "ListTypesResponse",
+  "description": "Response with list of types",
+  "type": "object",
+  "properties": {
+    "types": {
+      "type": "array",
+      "description": "List of types"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

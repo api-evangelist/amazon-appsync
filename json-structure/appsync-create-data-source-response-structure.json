@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-create-data-source-response-structure.json",
+  "title": "CreateDataSourceResponse",
+  "description": "Response from creating a data source",
+  "type": "record",
+  "fields": {
+    "dataSource": {
+      "type": "string",
+      "description": "dataSource"
+    }
+  }
+}

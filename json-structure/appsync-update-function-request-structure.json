@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-update-function-request-structure.json",
+  "title": "UpdateFunctionRequest",
+  "description": "Request to update a function",
+  "type": "record",
+  "fields": {
+    "name": {
+      "type": "string",
+      "description": "Function name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Function description"
+    },
+    "dataSourceName": {
+      "type": "string",
+      "description": "Data source name"
+    },
+    "requestMappingTemplate": {
+      "type": "string",
+      "description": "Request mapping template"
+    },
+    "responseMappingTemplate": {
+      "type": "string",
+      "description": "Response mapping template"
+    },
+    "functionVersion": {
+      "type": "string",
+      "description": "Function version"
+    }
+  }
+}

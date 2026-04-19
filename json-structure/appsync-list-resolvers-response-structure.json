@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-list-resolvers-response-structure.json",
+  "title": "ListResolversResponse",
+  "description": "Response with list of resolvers",
+  "type": "record",
+  "fields": {
+    "resolvers": {
+      "type": "array",
+      "description": "List of resolvers"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

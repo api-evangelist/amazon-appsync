@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-list-api-keys-response-structure.json",
+  "title": "ListApiKeysResponse",
+  "description": "Response with list of API keys",
+  "type": "record",
+  "fields": {
+    "apiKeys": {
+      "type": "array",
+      "description": "List of API keys"
+    },
+    "nextToken": {
+      "type": "string",
+      "description": "Pagination token"
+    }
+  }
+}

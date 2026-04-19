@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-create-api-key-request-structure.json",
+  "title": "CreateApiKeyRequest",
+  "description": "Request to create an API key",
+  "type": "record",
+  "fields": {
+    "description": {
+      "type": "string",
+      "description": "API key description"
+    },
+    "expires": {
+      "type": "integer",
+      "description": "Unix timestamp for expiration"
+    }
+  }
+}

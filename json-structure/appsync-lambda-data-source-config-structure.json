@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-lambda-data-source-config-structure.json",
+  "title": "LambdaDataSourceConfig",
+  "description": "Lambda data source configuration",
+  "type": "record",
+  "fields": {
+    "lambdaFunctionArn": {
+      "type": "string",
+      "description": "Lambda function ARN"
+    }
+  }
+}

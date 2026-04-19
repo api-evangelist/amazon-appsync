@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-create-resolver-request-schema.json",
+  "title": "CreateResolverRequest",
+  "description": "Request to create a resolver",
+  "type": "object",
+  "properties": {
+    "fieldName": {
+      "type": "string",
+      "description": "The GraphQL field name"
+    },
+    "dataSourceName": {
+      "type": "string",
+      "description": "The data source name"
+    },
+    "requestMappingTemplate": {
+      "type": "string",
+      "description": "Request mapping template"
+    },
+    "responseMappingTemplate": {
+      "type": "string",
+      "description": "Response mapping template"
+    },
+    "kind": {
+      "type": "string",
+      "description": "Resolver kind"
+    },
+    "pipelineConfig": {
+      "type": "string",
+      "description": "pipelineConfig"
+    },
+    "syncConfig": {
+      "type": "string",
+      "description": "syncConfig"
+    },
+    "cachingConfig": {
+      "type": "string",
+      "description": "cachingConfig"
+    },
+    "maxBatchSize": {
+      "type": "integer",
+      "description": "Maximum batch size"
+    },
+    "runtime": {
+      "type": "string",
+      "description": "runtime"
+    },
+    "code": {
+      "type": "string",
+      "description": "Function code for APPSYNC_JS runtime"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "userPoolId": "us-east-1_abc123",
+  "awsRegion": "us-east-1",
+  "appIdClientRegex": ".*"
+}

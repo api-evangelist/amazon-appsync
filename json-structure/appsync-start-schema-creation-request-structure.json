@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-start-schema-creation-request-structure.json",
+  "title": "StartSchemaCreationRequest",
+  "description": "Request to start schema creation",
+  "type": "record",
+  "fields": {
+    "definition": {
+      "type": "string",
+      "description": "The new schema definition in SDL format"
+    }
+  }
+}

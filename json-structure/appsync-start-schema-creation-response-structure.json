@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-structure/appsync-start-schema-creation-response-structure.json",
+  "title": "StartSchemaCreationResponse",
+  "description": "Response from starting schema creation",
+  "type": "record",
+  "fields": {
+    "status": {
+      "type": "string",
+      "description": "Schema creation status"
+    }
+  }
+}

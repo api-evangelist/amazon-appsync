@@ -1,0 +1,7 @@
+{
+  "tableName": "MyTable",
+  "awsRegion": "us-east-1",
+  "useCallerCredentials": false,
+  "deltaSyncConfig": {},
+  "versioned": false
+}

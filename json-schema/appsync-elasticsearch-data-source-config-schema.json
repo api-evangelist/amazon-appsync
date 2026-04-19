@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/amazon-appsync/json-schema/appsync-elasticsearch-data-source-config-schema.json",
+  "title": "ElasticsearchDataSourceConfig",
+  "description": "OpenSearch/Elasticsearch data source configuration",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "OpenSearch endpoint URL"
+    },
+    "awsRegion": {
+      "type": "string",
+      "description": "AWS Region"
+    }
+  }
+}
