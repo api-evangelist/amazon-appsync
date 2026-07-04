@@ -1,0 +1,96 @@
+generated: '2026-06-20'
+method: searched
+format: aws-json
+source: >-
+  https://docs.aws.amazon.com/appsync/latest/APIReference/CommonErrors.md and
+  openapi/amazon-appsync-openapi.yml (ErrorResponse schema, 500 responses)
+description: >-
+  Error catalog for the Amazon AppSync management API. AppSync does not use
+  RFC 9457 problem+json; it returns the AWS JSON error shape
+  {"message": "...", "errorType": "..."} with the error type also surfaced in
+  the x-amzn-ErrorType header. Titles and remediation below are the AWS common
+  error types documented for the service; the OpenAPI spec models these as a
+  single ErrorResponse schema returned on HTTP 500.
+error_schema:
+  ref: openapi/amazon-appsync-openapi.yml#/components/schemas/ErrorResponse
+  properties:
+    message: Human-readable error message
+    errorType: AWS exception name (e.g. NotFoundException)
+problems:
+  - status: 403
+    errorType: AccessDeniedException
+    title: Access denied
+    remediation: Verify that your IAM policy includes the required appsync permissions.
+  - status: 403
+    errorType: ExpiredTokenException
+    title: Security token expired
+    remediation: Request a new security token and retry.
+  - status: 403
+    errorType: IncompleteSignature
+    title: Request signature invalid
+    remediation: Verify AWS credentials and that the request is correctly SigV4 signed; update your SDK.
+  - status: 403
+    errorType: OptInRequired
+    title: Service subscription required
+    remediation: Enable the service in your AWS account.
+  - status: 403
+    errorType: UnrecognizedClientException
+    title: Invalid client credentials
+    remediation: Verify the access key ID / certificate exists and has not expired.
+  - status: 401
+    errorType: NotAuthorized
+    title: Not authorized
+    remediation: Verify that your IAM policy includes the required permissions.
+  - status: 400
+    errorType: MalformedHttpRequestException
+    title: Malformed request body
+    remediation: Verify the content-encoding header matches the compression used for the body.
+  - status: 400
+    errorType: RequestAbortedException
+    title: Request aborted
+    remediation: Client closed the connection before a response; retry.
+  - status: 400
+    errorType: ThrottlingException
+    title: Request rate too high
+    remediation: Reduce request frequency; AWS SDKs retry this automatically with backoff.
+  - status: 400
+    errorType: ValidationError
+    title: Input validation failed
+    remediation: Check that all required parameters are included and values are valid.
+  - status: 404
+    errorType: UnknownOperationException
+    title: Unknown operation
+    remediation: Verify the action name and that it is supported by the API version.
+  - status: 408
+    errorType: RequestTimeoutException
+    title: Request timed out
+    remediation: The complete request was not received in time; retry.
+  - status: 413
+    errorType: RequestEntityTooLargeException
+    title: Request entity too large
+    remediation: Reduce the size of the request body and retry.
+  - status: 500
+    errorType: InternalFailure
+    title: Internal server error
+    source_operation: openapi/amazon-appsync-openapi.yml (all operations return 500 ErrorResponse)
+    remediation: Transient internal error; retry later and contact AWS Support if persistent.
+  - status: 503
+    errorType: ServiceUnavailable
+    title: Service temporarily unavailable
+    remediation: Retry later with backoff.
+service_specific:
+  - errorType: NotFoundException
+    title: Resource not found
+    note: Example errorType in the OpenAPI ErrorResponse schema; returned when an API, data source, resolver, or type does not exist.
+  - errorType: ConcurrentModificationException
+    title: Concurrent modification
+  - errorType: BadRequestException
+    title: Bad request
+  - errorType: LimitExceededException
+    title: Service limit exceeded
+  - errorType: ApiKeyLimitExceededException
+    title: API key limit exceeded
+  - errorType: ApiKeyValidityOutOfBoundsException
+    title: API key validity out of bounds
+  - errorType: GraphQLSchemaException
+    title: GraphQL schema error

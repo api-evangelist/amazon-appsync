@@ -1,0 +1,31 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Amazon AppSync API
+  version: 1.0.0
+extends: openapi/amazon-appsync-openapi.yml
+# generated: '2026-06-20'
+# method: generated
+# source: openapi/amazon-appsync-openapi.yml + apis.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-slug: amazon-appsync
+      x-apievangelist-provider: Amazon Web Services
+      x-apievangelist-category: GraphQL API Management
+      x-apievangelist-mcp-server: mcp/amazon-appsync-mcp.yml
+      x-apievangelist-packages: packages/amazon-appsync-packages.yml
+      x-apievangelist-error-catalog: errors/amazon-appsync-problem-types.yml
+      x-apievangelist-lifecycle: lifecycle/amazon-appsync-lifecycle.yml
+  - target: $.info
+    update:
+      x-authentication-scheme: AWS Signature Version 4 (SigV4)
+      x-supported-auth-modes:
+        - API_KEY
+        - AWS_IAM
+        - AMAZON_COGNITO_USER_POOLS
+        - OPENID_CONNECT
+        - AWS_LAMBDA
+  - target: $.externalDocs
+    update:
+      description: Amazon AppSync API Reference
+      url: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html

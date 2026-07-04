@@ -13,7 +13,7 @@ tags:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/apis.yml
 created: '2024-01-15'
-modified: '2026-04-19'
+modified: '2026-06-20'
 specificationVersion: '0.19'
 apis:
   - aid: amazon-appsync:amazon-appsync-api
@@ -69,7 +69,34 @@ apis:
       - type: Example
         url: >-
           https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
+      - type: Overlay
+        url: >-
+          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/overlays/amazon-appsync-openapi-overlay.yaml
+      - type: ErrorCatalog
+        url: >-
+          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
+      - type: Conformance
+        url: >-
+          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
 common:
+  - type: Packages
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/packages/amazon-appsync-packages.yml
+  - type: MCPServer
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/mcp/amazon-appsync-mcp.yml
+  - type: LLMsTxt
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/llms/amazon-appsync-llms.txt
+  - type: WellKnown
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/well-known/amazon-appsync-well-known.yml
+  - type: SecurityTxt
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/well-known/amazon-appsync-security.txt
+  - type: Lifecycle
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/lifecycle/amazon-appsync-lifecycle.yml
   - type: Features
     data:
       - Managed GraphQL API hosting with automatic scaling

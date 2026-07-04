@@ -1,0 +1,56 @@
+generated: '2026-06-20'
+method: searched
+source: AWS SDK documentation and public package registries (npm, PyPI, RubyGems, NuGet, pkg.go.dev, Maven Central)
+description: >-
+  First-party AWS SDK client libraries that expose the Amazon AppSync management
+  API, plus the official AWS Labs AppSync MCP server. AppSync has no standalone
+  SDK; it ships as a service client inside the language-wide AWS SDKs.
+packages:
+  - language: javascript
+    registry: npm
+    name: "@aws-sdk/client-appsync"
+    url: https://www.npmjs.com/package/@aws-sdk/client-appsync
+    install: npm install @aws-sdk/client-appsync
+    official: true
+  - language: python
+    registry: pypi
+    name: boto3
+    url: https://pypi.org/project/boto3/
+    install: pip install boto3
+    official: true
+    note: AppSync client available as boto3.client('appsync')
+  - language: python
+    registry: pypi
+    name: awslabs.aws-appsync-mcp-server
+    url: https://pypi.org/project/awslabs.aws-appsync-mcp-server/
+    install: uvx awslabs.aws-appsync-mcp-server@latest
+    official: true
+    note: Official AWS Labs MCP server for AppSync (see mcp/amazon-appsync-mcp.yml)
+  - language: ruby
+    registry: rubygems
+    name: aws-sdk-appsync
+    url: https://rubygems.org/gems/aws-sdk-appsync
+    install: gem install aws-sdk-appsync
+    official: true
+  - language: dotnet
+    registry: nuget
+    name: AWSSDK.AppSync
+    url: https://www.nuget.org/packages/AWSSDK.AppSync
+    install: dotnet add package AWSSDK.AppSync
+    official: true
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/aws/aws-sdk-go-v2/service/appsync
+    url: https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/appsync
+    install: go get github.com/aws/aws-sdk-go-v2/service/appsync
+    official: true
+  - language: java
+    registry: maven
+    name: software.amazon.awssdk:appsync
+    url: https://central.sonatype.com/artifact/software.amazon.awssdk/appsync
+    install: |-
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>appsync</artifactId>
+      </dependency>
+    official: true

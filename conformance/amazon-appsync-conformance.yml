@@ -1,0 +1,46 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/amazon-appsync-openapi.yml + docs.aws.amazon.com/appsync
+description: >-
+  Cross-cutting standards conformance for the Amazon AppSync management API,
+  derived from the captured OpenAPI (security scheme, error shape, operations)
+  and AWS documentation. AppSync itself is a GraphQL/Pub-Sub service; this file
+  asserts standards for the REST management control plane described by the spec.
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: management API uses AWS SigV4 (apiKey Authorization header), not OAuth2 flows
+  - id: oidc
+    conforms: false
+    evidence: >-
+      management API is SigV4; note AppSync data-plane APIs can be configured
+      with an OPENID_CONNECT authorization mode, but the control plane is not OIDC
+  - id: aws-sigv4
+    conforms: true
+    evidence: securitySchemes.awsAuth documents AWS Signature Version 4 authentication
+  - id: graphql
+    conforms: true
+    evidence: AppSync provisions and hosts GraphQL APIs; management API creates GraphQL schemas, resolvers, and types
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: errors use AWS JSON error shape {message, errorType}, not application/problem+json
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: no Sunset/Deprecation header usage documented; AWS uses dated API versions instead
+  - id: pagination
+    conforms: true
+    evidence: list operations use nextToken / maxResults cursor pagination (AWS standard)
+  - id: idempotency
+    conforms: false
+    evidence: no Idempotency-Key header; create operations are not idempotent by client token in this spec
+  - id: json-api
+    conforms: false
+    evidence: responses are plain AWS JSON, not JSON:API media type
+  - id: odata
+    conforms: false
+  - id: fhir-r4
+    conforms: false
+  - id: scim2
+    conforms: false
+  - id: fapi
+    conforms: false

@@ -1,0 +1,38 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html,
+  AWS service terms / SLA, and AWS Health Dashboard
+description: >-
+  Versioning, deprecation, SLA, and status posture for the Amazon AppSync
+  management API. AWS uses a dated service API version rather than URI-path
+  major versions and does not publish RFC 8594 Sunset/Deprecation headers.
+versioning:
+  scheme: dated-api-version
+  current: '2017-07-25'
+  docs: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
+  notes: >-
+    The AWS AppSync service API version is 2017-07-25 (sent as X-Amz-Target /
+    signed request metadata). SDKs pin this version. The REST control-plane
+    resource paths in the captured OpenAPI use a /v1 prefix.
+deprecation:
+  policy_url: https://docs.aws.amazon.com/general/latest/gr/aws-sdk-deprecation.html
+  sunset_header: false
+  deprecation_header: false
+  notes: >-
+    AWS announces deprecations via documentation, the AWS Health Dashboard, and
+    account notifications rather than HTTP Sunset/Deprecation headers. AppSync
+    has deprecated Elasticsearch data sources in favor of OpenSearch (the spec
+    retains ElasticsearchDataSourceConfig for backward compatibility).
+sla:
+  url: https://aws.amazon.com/appsync/sla/
+  uptime_target: "99.95%"
+  notes: Monthly uptime percentage per the Amazon AppSync Service Level Agreement.
+status_page: https://health.aws.amazon.com/health/status
+support:
+  url: https://aws.amazon.com/contact-us/
+  name: AWS Support
+deprecated_operations: []
+deprecated_features:
+  - name: Elasticsearch data source (ElasticsearchDataSourceConfig)
+    replacement: OpenSearch data source (OpenSearchServiceDataSourceConfig)

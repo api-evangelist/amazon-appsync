@@ -1,0 +1,26 @@
+generated: '2026-06-20'
+method: searched
+source: probed /.well-known/ on the AppSync service hosts and the aws.amazon.com corporate host
+notes: >-
+  The AppSync control-plane hosts (appsync.<region>.amazonaws.com) are SigV4
+  signed API endpoints and return HTTP 403 for all unauthenticated /.well-known/
+  probes; they publish no discovery documents. A valid RFC 9116 security.txt is
+  published at the corporate aws.amazon.com host and is captured verbatim.
+hosts:
+  - host: https://appsync.us-east-1.amazonaws.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403
+      - path: /.well-known/ai-plugin.json
+        status: 403
+  - host: https://aws.amazon.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: amazon-appsync-security.txt
