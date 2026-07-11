@@ -79,6 +79,12 @@ apis:
         url: >-
           https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
 common:
+  - type: VulnerabilityDisclosure
+    url: security/amazon-appsync-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/amazon-appsync-domain-security.yml
+  - type: Authentication
+    url: authentication/amazon-appsync-authentication.yml
   - type: Packages
     url: >-
       https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/packages/amazon-appsync-packages.yml
