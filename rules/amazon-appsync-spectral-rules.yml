@@ -1,5 +1,25 @@
+# amazon-appsync — Spectral ruleset (strengthened)
+# Plain Spectral. Existing hand-authored rules preserved; measured rules added
+# from this provider's own OpenAPI conventions by strengthen_ruleset.py,
+# then self-validated against the spec.
+#
+# Provenance:
+#   - servers-https-only: 100% of servers already https (error)
+#   - servers-expected-domain: 2/2 servers on amazonaws.com
+#   - path-params-casing: camel @ 92% (n=59)
+#   - query-params-casing: camel @ 84% (n=19)
+#   - operationid-casing: camel @ 100% (n=44)
+#   - schema-names-casing: pascal @ 100% (n=73)
+#   - schema-properties-casing: camel @ 62% (n=213)
+#   - security: global (root) — NOT emitting operation-security-required
+#   - error-schema-defined: ErrorResponse
+#   - operation-documents-500: 100% adherence
+#   - pagination params observed: ['maxResults', 'nextToken']
+#   - merge: kept 20 existing, added 8 measured, upgraded 0
+#   - added: servers-expected-domain, path-params-casing, query-params-casing, operationid-casing, schema-names-casing, schema-properties-casing, error-schema-defined, no-empty-descriptions
+extends:
+  - spectral:oas
 rules:
-
   info-title-prefix:
     description: API title must start with "Amazon AppSync"
     severity: warn
@@ -8,8 +28,7 @@ rules:
       field: title
       function: pattern
       functionOptions:
-        match: '^Amazon AppSync'
-
+        match: ^Amazon AppSync
   info-description-required:
     description: API info must have a description
     severity: error
@@ -17,7 +36,6 @@ rules:
     then:
       field: description
       function: truthy
-
   info-version-required:
     description: API info must have a version field
     severity: error
@@ -25,7 +43,6 @@ rules:
     then:
       field: version
       function: truthy
-
   openapi-version-3x:
     description: Must use OpenAPI 3.x
     severity: error
@@ -34,8 +51,7 @@ rules:
       field: openapi
       function: pattern
       functionOptions:
-        match: '^3\.'
-
+        match: ^3\.
   servers-defined:
     description: Servers must be defined
     severity: error
@@ -43,7 +59,6 @@ rules:
     then:
       field: servers
       function: truthy
-
   servers-https:
     description: All server URLs must use HTTPS
     severity: error
@@ -52,8 +67,7 @@ rules:
       field: url
       function: pattern
       functionOptions:
-        match: '^https://'
-
+        match: ^https://
   operation-summary-required:
     description: Every operation must have a summary
     severity: error
@@ -61,7 +75,6 @@ rules:
     then:
       field: summary
       function: truthy
-
   operation-summary-prefix:
     description: Operation summaries must start with "Amazon AppSync"
     severity: warn
@@ -70,8 +83,7 @@ rules:
       field: summary
       function: pattern
       functionOptions:
-        match: '^Amazon AppSync'
-
+        match: ^Amazon AppSync
   operation-description-required:
     description: Every operation must have a description
     severity: error
@@ -79,7 +91,6 @@ rules:
     then:
       field: description
       function: truthy
-
   operation-id-required:
     description: Every operation must have an operationId
     severity: error
@@ -87,7 +98,6 @@ rules:
     then:
       field: operationId
       function: truthy
-
   operation-id-camel-case:
     description: OperationId must use camelCase
     severity: warn
@@ -96,8 +106,7 @@ rules:
       field: operationId
       function: pattern
       functionOptions:
-        match: '^[a-z][a-zA-Z0-9]+$'
-
+        match: ^[a-z][a-zA-Z0-9]+$
   operation-tags-required:
     description: Every operation must have at least one tag
     severity: error
@@ -105,7 +114,6 @@ rules:
     then:
       field: tags
       function: truthy
-
   response-success-required:
     description: Every operation must have a 200 success response
     severity: error
@@ -113,7 +121,6 @@ rules:
     then:
       field: '200'
       function: truthy
-
   response-500-defined:
     description: Operations should define a 500 error response
     severity: warn
@@ -121,7 +128,6 @@ rules:
     then:
       field: '500'
       function: truthy
-
   response-description-required:
     description: Every response must have a description
     severity: error
@@ -129,7 +135,6 @@ rules:
     then:
       field: description
       function: truthy
-
   schema-description-required:
     description: Top-level schemas should have descriptions
     severity: warn
@@ -137,7 +142,6 @@ rules:
     then:
       field: description
       function: truthy
-
   security-defined:
     description: Global security must be defined
     severity: error
@@ -145,7 +149,6 @@ rules:
     then:
       field: security
       function: truthy
-
   security-schemes-defined:
     description: Security schemes must be defined
     severity: error
@@ -153,7 +156,6 @@ rules:
     then:
       field: securitySchemes
       function: truthy
-
   operation-microcks-extension:
     description: Operations should have x-microcks-operation for mock server compatibility
     severity: info
@@ -161,11 +163,74 @@ rules:
     then:
       field: x-microcks-operation
       function: truthy
-
   operation-examples-encouraged:
     description: POST operations should have request/response examples
     severity: info
     given: $.paths[*][post].requestBody.content.application/json
     then:
       field: examples
+      function: truthy
+  servers-expected-domain:
+    description: Server URLs should be on the amazonaws.com domain.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: amazonaws\.com
+  path-params-casing:
+    description: Path parameters should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*].parameters[?(@.in=='path')].name
+    then:
+      function: casing
+      functionOptions:
+        type: camel
+  query-params-casing:
+    description: Query parameters should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.in=='query')]
+    then:
+      field: name
+      function: casing
+      functionOptions:
+        type: camel
+  operationid-casing:
+    description: Operation IDs should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: casing
+      functionOptions:
+        type: camel
+  schema-names-casing:
+    description: Component schema names should be PascalCase (the dominant convention in this API).
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: pascal
+  schema-properties-casing:
+    description: Schema properties should be camelCase (the dominant convention in this API).
+    severity: info
+    given: $.components.schemas[*].properties
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: camel
+  error-schema-defined:
+    description: A shared error schema (ErrorResponse) should be defined for error payloads.
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: ErrorResponse
+      function: truthy
+  no-empty-descriptions:
+    description: Descriptions must not be empty strings.
+    severity: warn
+    given: $..description
+    then:
       function: truthy
