@@ -79,6 +79,8 @@ apis:
         url: >-
           https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/amazon-appsync-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/amazon-appsync-vulnerability-disclosure.yml
   - type: DomainSecurity
