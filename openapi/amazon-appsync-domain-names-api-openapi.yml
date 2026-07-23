@@ -1,0 +1,482 @@
+openapi: 3.1.0
+info:
+  title: Amazon AppSync Api Keys Domain Names API
+  description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
+  version: '2017-07-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://appsync.us-east-1.amazonaws.com
+  description: Amazon AppSync US East (N. Virginia)
+- url: https://appsync.eu-west-1.amazonaws.com
+  description: Amazon AppSync EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Domain Names
+  description: Manage custom domain names for AppSync APIs
+paths:
+  /v1/domainnames:
+    post:
+      operationId: createDomainName
+      summary: Amazon AppSync Create Domain Name
+      description: Creates a custom DomainName object.
+      tags:
+      - Domain Names
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDomainNameRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  domainName: api.example.com
+                  certificateArn: arn:aws:acm:us-east-1:123456789012:certificate/abc123
+      responses:
+        '200':
+          description: Domain name created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDomainNameResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    domainNameConfig:
+                      domainName: api.example.com
+                      certificateArn: arn:aws:acm:us-east-1:123456789012:certificate/abc123
+                      appsyncDomainName: d123456789.cloudfront.net
+                      hostedZoneId: Z2FDTNDATAQYW2
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: listDomainNames
+      summary: Amazon AppSync List Domain Names
+      description: Lists multiple custom domain names.
+      tags:
+      - Domain Names
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: nextToken
+        in: query
+        schema:
+          type: string
+      - name: maxResults
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of domain names
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDomainNamesResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    domainNameConfigs:
+                    - domainName: api.example.com
+                      appsyncDomainName: d123456789.cloudfront.net
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/domainnames/{domainName}:
+    get:
+      operationId: getDomainName
+      summary: Amazon AppSync Get Domain Name
+      description: Retrieves a custom DomainName object.
+      tags:
+      - Domain Names
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: domainName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Domain name retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDomainNameResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    domainNameConfig:
+                      domainName: api.example.com
+                      appsyncDomainName: d123456789.cloudfront.net
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateDomainName
+      summary: Amazon AppSync Update Domain Name
+      description: Updates a custom DomainName object.
+      tags:
+      - Domain Names
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: domainName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDomainNameRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  description: Updated domain name configuration
+      responses:
+        '200':
+          description: Domain name updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateDomainNameResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    domainNameConfig:
+                      domainName: api.example.com
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteDomainName
+      summary: Amazon AppSync Delete Domain Name
+      description: Deletes a custom DomainName object.
+      tags:
+      - Domain Names
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: domainName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Domain name deleted
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/domainnames/{domainName}/apiassociation:
+    post:
+      operationId: associateApi
+      summary: Amazon AppSync Associate Api
+      description: Maps an endpoint to your custom domain.
+      tags:
+      - Domain Names
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: domainName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssociateApiRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  apiId: abc123def456
+      responses:
+        '200':
+          description: API associated with domain name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssociateApiResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    apiAssociation:
+                      domainName: api.example.com
+                      apiId: abc123def456
+                      associationStatus: SUCCESS
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: disassociateApi
+      summary: Amazon AppSync Disassociate Api
+      description: Removes an ApiAssociation object from a custom domain.
+      tags:
+      - Domain Names
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: domainName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: API disassociated from domain name
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: getApiAssociation
+      summary: Amazon AppSync Get Api Association
+      description: Retrieves an ApiAssociation object.
+      tags:
+      - Domain Names
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: domainName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: API association retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetApiAssociationResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    apiAssociation:
+                      domainName: api.example.com
+                      apiId: abc123def456
+                      associationStatus: SUCCESS
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ListDomainNamesResponse:
+      type: object
+      description: Response with list of domain names
+      properties:
+        domainNameConfigs:
+          type: array
+          description: List of domain name configurations
+          items:
+            $ref: '#/components/schemas/DomainNameConfig'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ApiAssociation:
+      type: object
+      description: An association between a custom domain name and a GraphQL API
+      properties:
+        domainName:
+          type: string
+          description: The custom domain name
+          example: api.example.com
+        apiId:
+          type: string
+          description: The API ID
+          example: abc123def456
+        associationStatus:
+          type: string
+          description: The association status
+          enum:
+          - PROCESSING
+          - FAILED
+          - SUCCESS
+          example: SUCCESS
+        deploymentDetail:
+          type: string
+          description: Details about the deployment
+          example: ''
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
+    AssociateApiRequest:
+      type: object
+      description: Request to associate an API with a domain name
+      required:
+      - apiId
+      properties:
+        apiId:
+          type: string
+          description: The API ID to associate
+          example: abc123def456
+    UpdateDomainNameRequest:
+      type: object
+      description: Request to update a domain name
+      properties:
+        description:
+          type: string
+          description: Updated description
+          example: Updated domain name
+    UpdateDomainNameResponse:
+      type: object
+      description: Response from updating a domain name
+      properties:
+        domainNameConfig:
+          $ref: '#/components/schemas/DomainNameConfig'
+    DomainNameConfig:
+      type: object
+      description: Configuration for a custom domain name
+      properties:
+        domainName:
+          type: string
+          description: The custom domain name
+          example: api.example.com
+        description:
+          type: string
+          description: Domain name description
+          example: Production API endpoint
+        certificateArn:
+          type: string
+          description: ACM certificate ARN
+          example: arn:aws:acm:us-east-1:123456789012:certificate/abc123
+        appsyncDomainName:
+          type: string
+          description: AppSync CNAME for DNS setup
+          example: d123456789.cloudfront.net
+        hostedZoneId:
+          type: string
+          description: Route 53 hosted zone ID
+          example: Z2FDTNDATAQYW2
+    AssociateApiResponse:
+      type: object
+      description: Response from associating an API with a domain name
+      properties:
+        apiAssociation:
+          $ref: '#/components/schemas/ApiAssociation'
+    GetApiAssociationResponse:
+      type: object
+      description: Response from getting an API association
+      properties:
+        apiAssociation:
+          $ref: '#/components/schemas/ApiAssociation'
+    CreateDomainNameRequest:
+      type: object
+      description: Request to create a custom domain name
+      required:
+      - domainName
+      - certificateArn
+      properties:
+        domainName:
+          type: string
+          description: The custom domain name
+          example: api.example.com
+        certificateArn:
+          type: string
+          description: ACM certificate ARN
+          example: arn:aws:acm:us-east-1:123456789012:certificate/abc123
+        description:
+          type: string
+          description: Domain name description
+          example: Production API endpoint
+    CreateDomainNameResponse:
+      type: object
+      description: Response from creating a custom domain name
+      properties:
+        domainNameConfig:
+          $ref: '#/components/schemas/DomainNameConfig'
+    GetDomainNameResponse:
+      type: object
+      description: Response from getting a domain name
+      properties:
+        domainNameConfig:
+          $ref: '#/components/schemas/DomainNameConfig'
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication

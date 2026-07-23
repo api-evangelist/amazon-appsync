@@ -1,0 +1,460 @@
+openapi: 3.1.0
+info:
+  title: Amazon AppSync Api Keys Functions API
+  description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
+  version: '2017-07-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://appsync.us-east-1.amazonaws.com
+  description: Amazon AppSync US East (N. Virginia)
+- url: https://appsync.eu-west-1.amazonaws.com
+  description: Amazon AppSync EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Functions
+  description: Manage reusable pipeline resolver functions
+paths:
+  /v1/apis/{apiId}/functions:
+    post:
+      operationId: createFunction
+      summary: Amazon AppSync Create Function
+      description: Creates a Function object. A function is a reusable entity. Multiple functions can be used to compose the resolver logic.
+      tags:
+      - Functions
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFunctionRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  name: GetPostFunction
+                  dataSourceName: MyDynamoDBDataSource
+                  functionVersion: '2018-05-29'
+                  requestMappingTemplate: '{"version":"2018-05-29","operation":"GetItem","key":{"id":$util.dynamodb.toDynamoDBJson($ctx.args.id)}}'
+                  responseMappingTemplate: $util.toJson($ctx.result)
+      responses:
+        '200':
+          description: Function created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateFunctionResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    functionConfiguration:
+                      functionId: abc123456789
+                      name: GetPostFunction
+                      dataSourceName: MyDynamoDBDataSource
+                      functionArn: arn:aws:appsync:us-east-1:123456789012:apis/abc123/functions/abc123456789
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: listFunctions
+      summary: Amazon AppSync List Functions
+      description: List multiple functions.
+      tags:
+      - Functions
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: nextToken
+        in: query
+        schema:
+          type: string
+      - name: maxResults
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of functions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFunctionsResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    functions:
+                    - functionId: abc123456789
+                      name: GetPostFunction
+                      dataSourceName: MyDynamoDBDataSource
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/functions/{functionId}:
+    get:
+      operationId: getFunction
+      summary: Amazon AppSync Get Function
+      description: Get a Function object.
+      tags:
+      - Functions
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: functionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Function retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetFunctionResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    functionConfiguration:
+                      functionId: abc123456789
+                      name: GetPostFunction
+                      dataSourceName: MyDynamoDBDataSource
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateFunction
+      summary: Amazon AppSync Update Function
+      description: Updates a Function object.
+      tags:
+      - Functions
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: functionId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFunctionRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  name: UpdatedFunction
+                  dataSourceName: MyDynamoDBDataSource
+                  functionVersion: '2018-05-29'
+      responses:
+        '200':
+          description: Function updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateFunctionResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    functionConfiguration:
+                      functionId: abc123456789
+                      name: UpdatedFunction
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteFunction
+      summary: Amazon AppSync Delete Function
+      description: Deletes a Function.
+      tags:
+      - Functions
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: functionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Function deleted
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    UpdateFunctionRequest:
+      type: object
+      description: Request to update a function
+      required:
+      - name
+      - dataSourceName
+      - functionVersion
+      properties:
+        name:
+          type: string
+          description: Function name
+          example: UpdatedFunction
+        description:
+          type: string
+          description: Function description
+          example: Updated description
+        dataSourceName:
+          type: string
+          description: Data source name
+          example: MyDynamoDBDataSource
+        requestMappingTemplate:
+          type: string
+          description: Request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: Response mapping template
+          example: $util.toJson($ctx.result)
+        functionVersion:
+          type: string
+          description: Function version
+          example: '2018-05-29'
+    UpdateFunctionResponse:
+      type: object
+      description: Response from updating a function
+      properties:
+        functionConfiguration:
+          $ref: '#/components/schemas/FunctionConfiguration'
+    AppSyncRuntime:
+      type: object
+      description: Runtime configuration for APPSYNC_JS resolvers
+      properties:
+        name:
+          type: string
+          description: Runtime name
+          enum:
+          - APPSYNC_JS
+          example: APPSYNC_JS
+        runtimeVersion:
+          type: string
+          description: Runtime version
+          example: 1.0.0
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
+    FunctionConfiguration:
+      type: object
+      description: A reusable pipeline function configuration
+      properties:
+        functionId:
+          type: string
+          description: The function ID
+          example: abc123456789
+        functionArn:
+          type: string
+          description: The function ARN
+          example: arn:aws:appsync:us-east-1:123456789012:apis/abc123/functions/abc123456789
+        name:
+          type: string
+          description: The function name
+          example: GetPostFunction
+        description:
+          type: string
+          description: The function description
+          example: Retrieves a post by ID
+        dataSourceName:
+          type: string
+          description: The data source name
+          example: MyDynamoDBDataSource
+        requestMappingTemplate:
+          type: string
+          description: The request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: The response mapping template
+          example: $util.toJson($ctx.result)
+        functionVersion:
+          type: string
+          description: The function version
+          example: '2018-05-29'
+        syncConfig:
+          $ref: '#/components/schemas/SyncConfig'
+        maxBatchSize:
+          type: integer
+          description: Maximum batch size
+          example: 0
+        runtime:
+          $ref: '#/components/schemas/AppSyncRuntime'
+        code:
+          type: string
+          description: The function code
+          example: ''
+    CreateFunctionResponse:
+      type: object
+      description: Response from creating a function
+      properties:
+        functionConfiguration:
+          $ref: '#/components/schemas/FunctionConfiguration'
+    SyncConfig:
+      type: object
+      description: Sync configuration for conflict resolution
+      properties:
+        conflictHandler:
+          type: string
+          description: Conflict handler type
+          enum:
+          - OPTIMISTIC_CONCURRENCY
+          - LAMBDA
+          - AUTOMERGE
+          - NONE
+          example: OPTIMISTIC_CONCURRENCY
+        conflictDetection:
+          type: string
+          description: Conflict detection type
+          enum:
+          - VERSION
+          - NONE
+          example: VERSION
+    GetFunctionResponse:
+      type: object
+      description: Response from getting a function
+      properties:
+        functionConfiguration:
+          $ref: '#/components/schemas/FunctionConfiguration'
+    ListFunctionsResponse:
+      type: object
+      description: Response with list of functions
+      properties:
+        functions:
+          type: array
+          description: List of functions
+          items:
+            $ref: '#/components/schemas/FunctionConfiguration'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    CreateFunctionRequest:
+      type: object
+      description: Request to create a pipeline function
+      required:
+      - name
+      - dataSourceName
+      properties:
+        name:
+          type: string
+          description: The function name
+          example: GetPostFunction
+        description:
+          type: string
+          description: Function description
+          example: Retrieves a post from DynamoDB
+        dataSourceName:
+          type: string
+          description: Data source name
+          example: MyDynamoDBDataSource
+        requestMappingTemplate:
+          type: string
+          description: Request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: Response mapping template
+          example: $util.toJson($ctx.result)
+        functionVersion:
+          type: string
+          description: Function version
+          example: '2018-05-29'
+        syncConfig:
+          $ref: '#/components/schemas/SyncConfig'
+        maxBatchSize:
+          type: integer
+          description: Maximum batch size
+          example: 0
+        runtime:
+          $ref: '#/components/schemas/AppSyncRuntime'
+        code:
+          type: string
+          description: Function code
+          example: ''
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication

@@ -1,0 +1,446 @@
+openapi: 3.1.0
+info:
+  title: Amazon AppSync Api Keys Data Sources API
+  description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
+  version: '2017-07-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://appsync.us-east-1.amazonaws.com
+  description: Amazon AppSync US East (N. Virginia)
+- url: https://appsync.eu-west-1.amazonaws.com
+  description: Amazon AppSync EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Data Sources
+  description: Manage data sources connected to GraphQL APIs
+paths:
+  /v1/apis/{apiId}/datasources:
+    post:
+      operationId: createDataSource
+      summary: Amazon AppSync Create Data Source
+      description: Creates a DataSource object.
+      tags:
+      - Data Sources
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        description: The API ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDataSourceRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  name: MyDynamoDBDataSource
+                  type: AMAZON_DYNAMODB
+                  serviceRoleArn: arn:aws:iam::123456789012:role/appsync-role
+                  dynamodbConfig:
+                    tableName: MyTable
+                    awsRegion: us-east-1
+      responses:
+        '200':
+          description: Data source created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDataSourceResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    dataSource:
+                      name: MyDynamoDBDataSource
+                      type: AMAZON_DYNAMODB
+                      dataSourceArn: arn:aws:appsync:us-east-1:123456789012:apis/abc123/datasources/MyDynamoDBDataSource
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: listDataSources
+      summary: Amazon AppSync List Data Sources
+      description: Lists the data sources for a given API.
+      tags:
+      - Data Sources
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        description: The API ID
+        schema:
+          type: string
+      - name: nextToken
+        in: query
+        schema:
+          type: string
+      - name: maxResults
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of data sources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDataSourcesResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    dataSources:
+                    - name: MyDynamoDBDataSource
+                      type: AMAZON_DYNAMODB
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/datasources/{name}:
+    get:
+      operationId: getDataSource
+      summary: Amazon AppSync Get Data Source
+      description: Retrieves a DataSource object by name.
+      tags:
+      - Data Sources
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Data source retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDataSourceResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    dataSource:
+                      name: MyDynamoDBDataSource
+                      type: AMAZON_DYNAMODB
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateDataSource
+      summary: Amazon AppSync Update Data Source
+      description: Updates a DataSource object.
+      tags:
+      - Data Sources
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDataSourceRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  type: AMAZON_DYNAMODB
+                  serviceRoleArn: arn:aws:iam::123456789012:role/appsync-role
+      responses:
+        '200':
+          description: Data source updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateDataSourceResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    dataSource:
+                      name: MyDynamoDBDataSource
+                      type: AMAZON_DYNAMODB
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteDataSource
+      summary: Amazon AppSync Delete Data Source
+      description: Deletes a DataSource object.
+      tags:
+      - Data Sources
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Data source deleted
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CreateDataSourceResponse:
+      type: object
+      description: Response from creating a data source
+      properties:
+        dataSource:
+          $ref: '#/components/schemas/DataSource'
+    LambdaDataSourceConfig:
+      type: object
+      description: Lambda data source configuration
+      properties:
+        lambdaFunctionArn:
+          type: string
+          description: Lambda function ARN
+          example: arn:aws:lambda:us-east-1:123456789012:function:MyFunction
+    UpdateDataSourceResponse:
+      type: object
+      description: Response from updating a data source
+      properties:
+        dataSource:
+          $ref: '#/components/schemas/DataSource'
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
+    DataSource:
+      type: object
+      description: A data source configuration for a GraphQL API
+      properties:
+        dataSourceArn:
+          type: string
+          description: The ARN of the data source
+          example: arn:aws:appsync:us-east-1:123456789012:apis/abc123/datasources/MyDataSource
+        name:
+          type: string
+          description: The data source name
+          example: MyDynamoDBDataSource
+        description:
+          type: string
+          description: The data source description
+          example: Primary data source for posts
+        type:
+          type: string
+          description: The data source type
+          enum:
+          - AWS_LAMBDA
+          - AMAZON_DYNAMODB
+          - AMAZON_ELASTICSEARCH
+          - NONE
+          - HTTP
+          - RELATIONAL_DATABASE
+          - AMAZON_OPENSEARCH_SERVICE
+          - AMAZON_EVENTBRIDGE
+          example: AMAZON_DYNAMODB
+        serviceRoleArn:
+          type: string
+          description: IAM service role ARN
+          example: arn:aws:iam::123456789012:role/appsync-role
+        dynamodbConfig:
+          $ref: '#/components/schemas/DynamodbDataSourceConfig'
+        lambdaConfig:
+          $ref: '#/components/schemas/LambdaDataSourceConfig'
+        elasticsearchConfig:
+          $ref: '#/components/schemas/ElasticsearchDataSourceConfig'
+        httpConfig:
+          $ref: '#/components/schemas/HttpDataSourceConfig'
+    HttpDataSourceConfig:
+      type: object
+      description: HTTP endpoint data source configuration
+      properties:
+        endpoint:
+          type: string
+          description: HTTP endpoint URL
+          example: https://api.example.com
+        authorizationConfig:
+          type: object
+          description: Authorization configuration for the HTTP endpoint
+    UpdateDataSourceRequest:
+      type: object
+      description: Request to update a data source
+      required:
+      - type
+      properties:
+        description:
+          type: string
+          description: Updated description
+          example: Updated data source
+        type:
+          type: string
+          description: Data source type
+          example: AMAZON_DYNAMODB
+        serviceRoleArn:
+          type: string
+          description: IAM role ARN
+          example: arn:aws:iam::123456789012:role/appsync-role
+        dynamodbConfig:
+          $ref: '#/components/schemas/DynamodbDataSourceConfig'
+    ElasticsearchDataSourceConfig:
+      type: object
+      description: OpenSearch/Elasticsearch data source configuration
+      properties:
+        endpoint:
+          type: string
+          description: OpenSearch endpoint URL
+          example: https://my-domain.us-east-1.es.amazonaws.com
+        awsRegion:
+          type: string
+          description: AWS Region
+          example: us-east-1
+    GetDataSourceResponse:
+      type: object
+      description: Response from getting a data source
+      properties:
+        dataSource:
+          $ref: '#/components/schemas/DataSource'
+    CreateDataSourceRequest:
+      type: object
+      description: Request to create a data source
+      required:
+      - name
+      - type
+      properties:
+        name:
+          type: string
+          description: The data source name
+          example: MyDynamoDBDataSource
+        description:
+          type: string
+          description: The data source description
+          example: Primary data source
+        type:
+          type: string
+          description: The data source type
+          example: AMAZON_DYNAMODB
+        serviceRoleArn:
+          type: string
+          description: IAM role ARN for AppSync to assume
+          example: arn:aws:iam::123456789012:role/appsync-role
+        dynamodbConfig:
+          $ref: '#/components/schemas/DynamodbDataSourceConfig'
+        lambdaConfig:
+          $ref: '#/components/schemas/LambdaDataSourceConfig'
+        httpConfig:
+          $ref: '#/components/schemas/HttpDataSourceConfig'
+    DynamodbDataSourceConfig:
+      type: object
+      description: DynamoDB data source configuration
+      properties:
+        tableName:
+          type: string
+          description: DynamoDB table name
+          example: MyTable
+        awsRegion:
+          type: string
+          description: AWS Region
+          example: us-east-1
+        useCallerCredentials:
+          type: boolean
+          description: Whether to use caller credentials
+          example: false
+        deltaSyncConfig:
+          type: object
+          description: Delta sync configuration
+        versioned:
+          type: boolean
+          description: Whether versioning is enabled
+          example: false
+    ListDataSourcesResponse:
+      type: object
+      description: Response with list of data sources
+      properties:
+        dataSources:
+          type: array
+          description: List of data sources
+          items:
+            $ref: '#/components/schemas/DataSource'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication

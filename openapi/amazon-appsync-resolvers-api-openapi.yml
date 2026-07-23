@@ -1,0 +1,505 @@
+openapi: 3.1.0
+info:
+  title: Amazon AppSync Api Keys Resolvers API
+  description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
+  version: '2017-07-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://appsync.us-east-1.amazonaws.com
+  description: Amazon AppSync US East (N. Virginia)
+- url: https://appsync.eu-west-1.amazonaws.com
+  description: Amazon AppSync EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Resolvers
+  description: Manage field resolvers for GraphQL types
+paths:
+  /v1/apis/{apiId}/types/{typeName}/resolvers:
+    post:
+      operationId: createResolver
+      summary: Amazon AppSync Create Resolver
+      description: Creates a Resolver object. A resolver converts incoming requests into a format that a data source can understand, and converts the data source's responses into GraphQL.
+      tags:
+      - Resolvers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateResolverRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  fieldName: getPost
+                  dataSourceName: MyDynamoDBDataSource
+                  kind: UNIT
+                  requestMappingTemplate: '{"version":"2018-05-29","operation":"GetItem","key":{"id":$util.dynamodb.toDynamoDBJson($ctx.args.id)}}'
+                  responseMappingTemplate: $util.toJson($ctx.result)
+      responses:
+        '200':
+          description: Resolver created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateResolverResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    resolver:
+                      typeName: Query
+                      fieldName: getPost
+                      dataSourceName: MyDynamoDBDataSource
+                      kind: UNIT
+                      resolverArn: arn:aws:appsync:us-east-1:123456789012:apis/abc123/types/Query/resolvers/getPost
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: listResolvers
+      summary: Amazon AppSync List Resolvers
+      description: Lists the resolvers for a given API and type.
+      tags:
+      - Resolvers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: nextToken
+        in: query
+        schema:
+          type: string
+      - name: maxResults
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of resolvers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResolversResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    resolvers:
+                    - typeName: Query
+                      fieldName: getPost
+                      dataSourceName: MyDynamoDBDataSource
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/types/{typeName}/resolvers/{fieldName}:
+    get:
+      operationId: getResolver
+      summary: Amazon AppSync Get Resolver
+      description: Retrieves a Resolver object.
+      tags:
+      - Resolvers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: fieldName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resolver retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetResolverResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    resolver:
+                      typeName: Query
+                      fieldName: getPost
+                      dataSourceName: MyDynamoDBDataSource
+                      kind: UNIT
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateResolver
+      summary: Amazon AppSync Update Resolver
+      description: Updates a Resolver object.
+      tags:
+      - Resolvers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: fieldName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateResolverRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  dataSourceName: MyDynamoDBDataSource
+                  kind: UNIT
+      responses:
+        '200':
+          description: Resolver updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateResolverResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    resolver:
+                      typeName: Query
+                      fieldName: getPost
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteResolver
+      summary: Amazon AppSync Delete Resolver
+      description: Deletes a Resolver object.
+      tags:
+      - Resolvers
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: fieldName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resolver deleted
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Resolver:
+      type: object
+      description: A resolver for a GraphQL field
+      properties:
+        typeName:
+          type: string
+          description: The GraphQL type name
+          example: Query
+        fieldName:
+          type: string
+          description: The GraphQL field name
+          example: getPost
+        dataSourceName:
+          type: string
+          description: The data source name
+          example: MyDynamoDBDataSource
+        resolverArn:
+          type: string
+          description: The resolver ARN
+          example: arn:aws:appsync:us-east-1:123456789012:apis/abc123/types/Query/resolvers/getPost
+        requestMappingTemplate:
+          type: string
+          description: The request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: The response mapping template
+          example: $util.toJson($ctx.result)
+        kind:
+          type: string
+          description: The resolver kind
+          enum:
+          - UNIT
+          - PIPELINE
+          example: UNIT
+        pipelineConfig:
+          $ref: '#/components/schemas/PipelineConfig'
+        syncConfig:
+          $ref: '#/components/schemas/SyncConfig'
+        cachingConfig:
+          $ref: '#/components/schemas/CachingConfig'
+        maxBatchSize:
+          type: integer
+          description: Maximum batch size
+          example: 0
+        runtime:
+          $ref: '#/components/schemas/AppSyncRuntime'
+        code:
+          type: string
+          description: The function code
+          example: ''
+    GetResolverResponse:
+      type: object
+      description: Response from getting a resolver
+      properties:
+        resolver:
+          $ref: '#/components/schemas/Resolver'
+    UpdateResolverResponse:
+      type: object
+      description: Response from updating a resolver
+      properties:
+        resolver:
+          $ref: '#/components/schemas/Resolver'
+    ListResolversResponse:
+      type: object
+      description: Response with list of resolvers
+      properties:
+        resolvers:
+          type: array
+          description: List of resolvers
+          items:
+            $ref: '#/components/schemas/Resolver'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    AppSyncRuntime:
+      type: object
+      description: Runtime configuration for APPSYNC_JS resolvers
+      properties:
+        name:
+          type: string
+          description: Runtime name
+          enum:
+          - APPSYNC_JS
+          example: APPSYNC_JS
+        runtimeVersion:
+          type: string
+          description: Runtime version
+          example: 1.0.0
+    CachingConfig:
+      type: object
+      description: Caching configuration for a resolver
+      properties:
+        ttl:
+          type: integer
+          description: TTL in seconds
+          example: 60
+        cachingKeys:
+          type: array
+          description: Keys to use for caching
+          items:
+            type: string
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
+    UpdateResolverRequest:
+      type: object
+      description: Request to update a resolver
+      properties:
+        dataSourceName:
+          type: string
+          description: Data source name
+          example: MyDynamoDBDataSource
+        requestMappingTemplate:
+          type: string
+          description: Request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: Response mapping template
+          example: $util.toJson($ctx.result)
+        kind:
+          type: string
+          description: Resolver kind
+          example: UNIT
+        pipelineConfig:
+          $ref: '#/components/schemas/PipelineConfig'
+    CreateResolverResponse:
+      type: object
+      description: Response from creating a resolver
+      properties:
+        resolver:
+          $ref: '#/components/schemas/Resolver'
+    CreateResolverRequest:
+      type: object
+      description: Request to create a resolver
+      required:
+      - fieldName
+      properties:
+        fieldName:
+          type: string
+          description: The GraphQL field name
+          example: getPost
+        dataSourceName:
+          type: string
+          description: The data source name
+          example: MyDynamoDBDataSource
+        requestMappingTemplate:
+          type: string
+          description: Request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: Response mapping template
+          example: $util.toJson($ctx.result)
+        kind:
+          type: string
+          description: Resolver kind
+          enum:
+          - UNIT
+          - PIPELINE
+          example: UNIT
+        pipelineConfig:
+          $ref: '#/components/schemas/PipelineConfig'
+        syncConfig:
+          $ref: '#/components/schemas/SyncConfig'
+        cachingConfig:
+          $ref: '#/components/schemas/CachingConfig'
+        maxBatchSize:
+          type: integer
+          description: Maximum batch size
+          example: 0
+        runtime:
+          $ref: '#/components/schemas/AppSyncRuntime'
+        code:
+          type: string
+          description: Function code for APPSYNC_JS runtime
+          example: ''
+    SyncConfig:
+      type: object
+      description: Sync configuration for conflict resolution
+      properties:
+        conflictHandler:
+          type: string
+          description: Conflict handler type
+          enum:
+          - OPTIMISTIC_CONCURRENCY
+          - LAMBDA
+          - AUTOMERGE
+          - NONE
+          example: OPTIMISTIC_CONCURRENCY
+        conflictDetection:
+          type: string
+          description: Conflict detection type
+          enum:
+          - VERSION
+          - NONE
+          example: VERSION
+    PipelineConfig:
+      type: object
+      description: Pipeline resolver configuration
+      properties:
+        functions:
+          type: array
+          description: List of function IDs in the pipeline
+          items:
+            type: string
+          example:
+          - abc123456789
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication

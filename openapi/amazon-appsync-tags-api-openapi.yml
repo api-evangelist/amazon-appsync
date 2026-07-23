@@ -1,0 +1,181 @@
+openapi: 3.1.0
+info:
+  title: Amazon AppSync Api Keys Tags API
+  description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
+  version: '2017-07-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://appsync.us-east-1.amazonaws.com
+  description: Amazon AppSync US East (N. Virginia)
+- url: https://appsync.eu-west-1.amazonaws.com
+  description: Amazon AppSync EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Tags
+  description: Resource tagging operations
+paths:
+  /v1/tags/{resourceArn}:
+    get:
+      operationId: listTagsForResource
+      summary: Amazon AppSync List Tags For Resource
+      description: Lists the tags for a resource.
+      tags:
+      - Tags
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: resourceArn
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Tags retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTagsForResourceResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    tags:
+                      Environment: Production
+                      Team: Backend
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: tagResource
+      summary: Amazon AppSync Tag Resource
+      description: Tags a resource with user-supplied tags.
+      tags:
+      - Tags
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: resourceArn
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagResourceRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  tags:
+                    Environment: Production
+      responses:
+        '200':
+          description: Resource tagged
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: untagResource
+      summary: Amazon AppSync Untag Resource
+      description: Untags a resource.
+      tags:
+      - Tags
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: resourceArn
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tagKeys
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: Resource untagged
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
+    TagResourceRequest:
+      type: object
+      description: Request to add tags to a resource
+      required:
+      - tags
+      properties:
+        tags:
+          type: object
+          description: Tags to add
+          additionalProperties:
+            type: string
+    ListTagsForResourceResponse:
+      type: object
+      description: Response with resource tags
+      properties:
+        tags:
+          type: object
+          description: Resource tags
+          additionalProperties:
+            type: string
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication

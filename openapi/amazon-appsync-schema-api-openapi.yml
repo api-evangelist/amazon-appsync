@@ -1,0 +1,220 @@
+openapi: 3.1.0
+info:
+  title: Amazon AppSync Api Keys Schema API
+  description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
+  version: '2017-07-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://appsync.us-east-1.amazonaws.com
+  description: Amazon AppSync US East (N. Virginia)
+- url: https://appsync.eu-west-1.amazonaws.com
+  description: Amazon AppSync EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Schema
+  description: Manage GraphQL schema documents
+paths:
+  /v1/apis/{apiId}/schemas:
+    post:
+      operationId: startSchemaCreation
+      summary: Amazon AppSync Start Schema Creation
+      description: Adds a new schema to your GraphQL API. This operation is asynchronous. Use to determine when it has completed.
+      tags:
+      - Schema
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartSchemaCreationRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  definition: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
+      responses:
+        '200':
+          description: Schema creation started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartSchemaCreationResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    status: PROCESSING
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: getSchemaCreationStatus
+      summary: Amazon AppSync Get Schema Creation Status
+      description: Retrieves the current status of a schema creation operation.
+      tags:
+      - Schema
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Schema creation status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSchemaCreationStatusResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    status: SUCCESS
+                    details: Schema created successfully
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/introspection:
+    get:
+      operationId: getIntrospectionSchema
+      summary: Amazon AppSync Get Introspection Schema
+      description: Retrieves the introspection schema for a GraphQL API.
+      tags:
+      - Schema
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: format
+        in: query
+        required: true
+        description: The schema format
+        schema:
+          type: string
+          enum:
+          - SDL
+          - JSON
+      - name: includeDirectives
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Introspection schema retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetIntrospectionSchemaResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    schema: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    GetIntrospectionSchemaResponse:
+      type: object
+      description: Response with introspection schema
+      properties:
+        schema:
+          type: string
+          description: The introspection schema in the requested format
+          example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
+    GetSchemaCreationStatusResponse:
+      type: object
+      description: Response with schema creation status
+      properties:
+        status:
+          type: string
+          description: Schema creation status
+          enum:
+          - PROCESSING
+          - ACTIVE
+          - DELETING
+          - FAILED
+          - SUCCESS
+          - NOT_APPLICABLE
+          example: SUCCESS
+        details:
+          type: string
+          description: Status details
+          example: Schema created successfully
+    StartSchemaCreationResponse:
+      type: object
+      description: Response from starting schema creation
+      properties:
+        status:
+          type: string
+          description: Schema creation status
+          enum:
+          - PROCESSING
+          - ACTIVE
+          - DELETING
+          - FAILED
+          - SUCCESS
+          - NOT_APPLICABLE
+          example: PROCESSING
+    StartSchemaCreationRequest:
+      type: object
+      description: Request to start schema creation
+      required:
+      - definition
+      properties:
+        definition:
+          type: string
+          description: The new schema definition in SDL format
+          example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication

@@ -1,0 +1,373 @@
+openapi: 3.1.0
+info:
+  title: Amazon AppSync Api Keys Types API
+  description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
+  version: '2017-07-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://appsync.us-east-1.amazonaws.com
+  description: Amazon AppSync US East (N. Virginia)
+- url: https://appsync.eu-west-1.amazonaws.com
+  description: Amazon AppSync EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Types
+  description: Manage GraphQL type definitions
+paths:
+  /v1/apis/{apiId}/types:
+    post:
+      operationId: createType
+      summary: Amazon AppSync Create Type
+      description: Creates a Type object.
+      tags:
+      - Types
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTypeRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  definition: 'type Post { id: ID! title: String author: String }'
+                  format: SDL
+      responses:
+        '200':
+          description: Type created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTypeResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    type:
+                      name: Post
+                      format: SDL
+                      definition: 'type Post { id: ID! title: String author: String }'
+                      arn: arn:aws:appsync:us-east-1:123456789012:apis/abc123/types/Post
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: listTypes
+      summary: Amazon AppSync List Types
+      description: Lists the types for a given API.
+      tags:
+      - Types
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: format
+        in: query
+        required: true
+        description: The type format
+        schema:
+          type: string
+          enum:
+          - SDL
+          - JSON
+      - name: nextToken
+        in: query
+        schema:
+          type: string
+      - name: maxResults
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of types
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTypesResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    types:
+                    - name: Post
+                      format: SDL
+                      definition: 'type Post { id: ID! title: String }'
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/types/{typeName}:
+    get:
+      operationId: getType
+      summary: Amazon AppSync Get Type
+      description: Retrieves a Type object.
+      tags:
+      - Types
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: format
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Type retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTypeResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    type:
+                      name: Post
+                      format: SDL
+                      definition: 'type Post { id: ID! title: String }'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateType
+      summary: Amazon AppSync Update Type
+      description: Updates a Type object.
+      tags:
+      - Types
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTypeRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  definition: 'type Post { id: ID! title: String author: String body: String }'
+                  format: SDL
+      responses:
+        '200':
+          description: Type updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateTypeResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    type:
+                      name: Post
+                      format: SDL
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteType
+      summary: Amazon AppSync Delete Type
+      description: Deletes a Type object.
+      tags:
+      - Types
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: typeName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Type deleted
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CreateTypeResponse:
+      type: object
+      description: Response from creating a type
+      properties:
+        type:
+          $ref: '#/components/schemas/Type'
+    UpdateTypeRequest:
+      type: object
+      description: Request to update a type
+      required:
+      - definition
+      - format
+      properties:
+        definition:
+          type: string
+          description: The updated type definition
+          example: 'type Post { id: ID! title: String author: String body: String }'
+        format:
+          type: string
+          description: The definition format
+          example: SDL
+    Type:
+      type: object
+      description: A GraphQL type definition
+      properties:
+        name:
+          type: string
+          description: The type name
+          example: Post
+        description:
+          type: string
+          description: Type description
+          example: A blog post type
+        arn:
+          type: string
+          description: The type ARN
+          example: arn:aws:appsync:us-east-1:123456789012:apis/abc123/types/Post
+        definition:
+          type: string
+          description: The type definition in SDL or JSON format
+          example: 'type Post { id: ID! title: String author: String }'
+        format:
+          type: string
+          description: The schema format
+          enum:
+          - SDL
+          - JSON
+          example: SDL
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
+    UpdateTypeResponse:
+      type: object
+      description: Response from updating a type
+      properties:
+        type:
+          $ref: '#/components/schemas/Type'
+    ListTypesResponse:
+      type: object
+      description: Response with list of types
+      properties:
+        types:
+          type: array
+          description: List of types
+          items:
+            $ref: '#/components/schemas/Type'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    CreateTypeRequest:
+      type: object
+      description: Request to create a GraphQL type
+      required:
+      - definition
+      - format
+      properties:
+        definition:
+          type: string
+          description: The type definition
+          example: 'type Post { id: ID! title: String author: String }'
+        format:
+          type: string
+          description: The definition format
+          enum:
+          - SDL
+          - JSON
+          example: SDL
+    GetTypeResponse:
+      type: object
+      description: Response from getting a type
+      properties:
+        type:
+          $ref: '#/components/schemas/Type'
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication

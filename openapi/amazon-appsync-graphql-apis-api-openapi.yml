@@ -1,0 +1,566 @@
+openapi: 3.1.0
+info:
+  title: Amazon AppSync Api Keys GraphQL APIs API
+  description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
+  version: '2017-07-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://appsync.us-east-1.amazonaws.com
+  description: Amazon AppSync US East (N. Virginia)
+- url: https://appsync.eu-west-1.amazonaws.com
+  description: Amazon AppSync EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: GraphQL APIs
+  description: Manage GraphQL API configurations
+paths:
+  /v1/apis:
+    post:
+      operationId: createGraphqlApi
+      summary: Amazon AppSync Create GraphQL Api
+      description: Creates a new GraphQL API.
+      tags:
+      - GraphQL APIs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGraphqlApiRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  name: MyGraphQLAPI
+                  authenticationType: API_KEY
+      responses:
+        '200':
+          description: GraphQL API created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateGraphqlApiResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    graphqlApi:
+                      apiId: abc123def456
+                      name: MyGraphQLAPI
+                      authenticationType: API_KEY
+                      arn: arn:aws:appsync:us-east-1:123456789012:apis/abc123def456
+                      uris:
+                        GRAPHQL: https://abc123def456.appsync-api.us-east-1.amazonaws.com/graphql
+                      tags: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: listGraphqlApis
+      summary: Amazon AppSync List GraphQL Apis
+      description: Lists your GraphQL APIs.
+      tags:
+      - GraphQL APIs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: nextToken
+        in: query
+        description: Pagination token
+        schema:
+          type: string
+      - name: maxResults
+        in: query
+        description: Maximum results to return
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of GraphQL APIs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListGraphqlApisResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    graphqlApis:
+                    - apiId: abc123def456
+                      name: MyGraphQLAPI
+                      authenticationType: API_KEY
+                      arn: arn:aws:appsync:us-east-1:123456789012:apis/abc123def456
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}:
+    get:
+      operationId: getGraphqlApi
+      summary: Amazon AppSync Get GraphQL Api
+      description: Retrieves a GraphQL API by its ID.
+      tags:
+      - GraphQL APIs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        description: The API ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: GraphQL API retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetGraphqlApiResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    graphqlApi:
+                      apiId: abc123def456
+                      name: MyGraphQLAPI
+                      authenticationType: API_KEY
+                      arn: arn:aws:appsync:us-east-1:123456789012:apis/abc123def456
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      operationId: updateGraphqlApi
+      summary: Amazon AppSync Update GraphQL Api
+      description: Updates a GraphQL API.
+      tags:
+      - GraphQL APIs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        description: The API ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGraphqlApiRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  name: UpdatedGraphQLAPI
+                  authenticationType: API_KEY
+      responses:
+        '200':
+          description: GraphQL API updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateGraphqlApiResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    graphqlApi:
+                      apiId: abc123def456
+                      name: UpdatedGraphQLAPI
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteGraphqlApi
+      summary: Amazon AppSync Delete GraphQL Api
+      description: Deletes a GraphQL API.
+      tags:
+      - GraphQL APIs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        description: The API ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: GraphQL API deleted
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/graphql:
+    post:
+      operationId: evaluateMappingTemplate
+      summary: Amazon AppSync Evaluate Mapping Template
+      description: Evaluates a given template and returns the response. The mapping template can be a request or response template.
+      tags:
+      - GraphQL APIs
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluateMappingTemplateRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  template: '{"version":"2018-05-29","operation":"GetItem","key":{"id":$util.dynamodb.toDynamoDBJson($ctx.args.id)}}'
+                  context: '{"arguments":{"id":"123"}}'
+      responses:
+        '200':
+          description: Mapping template evaluated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluateMappingTemplateResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    evaluationResult: '{"version":"2018-05-29","operation":"GetItem","key":{"id":{"S":"123"}}}'
+                    error: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CognitoUserPoolConfig:
+      type: object
+      description: Amazon Cognito user pools configuration
+      properties:
+        userPoolId:
+          type: string
+          description: User pool ID
+          example: us-east-1_abc123
+        awsRegion:
+          type: string
+          description: AWS Region where the user pool exists
+          example: us-east-1
+        appIdClientRegex:
+          type: string
+          description: Regex for client IDs
+          example: .*
+    UpdateGraphqlApiResponse:
+      type: object
+      description: Response from updating a GraphQL API
+      properties:
+        graphqlApi:
+          $ref: '#/components/schemas/GraphqlApi'
+    UpdateGraphqlApiRequest:
+      type: object
+      description: Request to update a GraphQL API
+      required:
+      - name
+      - authenticationType
+      properties:
+        name:
+          type: string
+          description: The API name
+          example: UpdatedGraphQLAPI
+        authenticationType:
+          type: string
+          description: Authentication type
+          example: API_KEY
+        logConfig:
+          $ref: '#/components/schemas/LogConfig'
+        xrayEnabled:
+          type: boolean
+          description: Enable X-Ray tracing
+          example: false
+    CreateGraphqlApiResponse:
+      type: object
+      description: Response from creating a GraphQL API
+      properties:
+        graphqlApi:
+          $ref: '#/components/schemas/GraphqlApi'
+    GetGraphqlApiResponse:
+      type: object
+      description: Response from getting a GraphQL API
+      properties:
+        graphqlApi:
+          $ref: '#/components/schemas/GraphqlApi'
+    ListGraphqlApisResponse:
+      type: object
+      description: Response with list of GraphQL APIs
+      properties:
+        graphqlApis:
+          type: array
+          description: List of GraphQL APIs
+          items:
+            $ref: '#/components/schemas/GraphqlApi'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
+    CreateGraphqlApiRequest:
+      type: object
+      description: Request to create a GraphQL API
+      required:
+      - name
+      - authenticationType
+      properties:
+        name:
+          type: string
+          description: The API name
+          example: MyGraphQLAPI
+        authenticationType:
+          type: string
+          description: Default authentication type
+          enum:
+          - API_KEY
+          - AWS_IAM
+          - AMAZON_COGNITO_USER_POOLS
+          - OPENID_CONNECT
+          - AWS_LAMBDA
+          example: API_KEY
+        logConfig:
+          $ref: '#/components/schemas/LogConfig'
+        additionalAuthenticationProviders:
+          type: array
+          description: Additional authentication providers
+          items:
+            $ref: '#/components/schemas/AdditionalAuthenticationProvider'
+        xrayEnabled:
+          type: boolean
+          description: Enable X-Ray tracing
+          example: false
+        tags:
+          type: object
+          description: Resource tags
+          additionalProperties:
+            type: string
+        lambdaAuthorizerConfig:
+          $ref: '#/components/schemas/LambdaAuthorizerConfig'
+        visibility:
+          type: string
+          description: API visibility
+          enum:
+          - GLOBAL
+          - PRIVATE
+          example: GLOBAL
+        apiType:
+          type: string
+          description: API type
+          enum:
+          - GRAPHQL
+          - MERGED
+          example: GRAPHQL
+    EvaluateMappingTemplateRequest:
+      type: object
+      description: Request to evaluate a mapping template
+      required:
+      - template
+      - context
+      properties:
+        template:
+          type: string
+          description: The mapping template to evaluate
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        context:
+          type: string
+          description: The template context as a JSON string
+          example: '{"arguments":{"id":"123"}}'
+    AdditionalAuthenticationProvider:
+      type: object
+      description: An additional authentication provider for a GraphQL API
+      properties:
+        authenticationType:
+          type: string
+          description: Authentication type
+          example: AWS_IAM
+        lambdaAuthorizerConfig:
+          $ref: '#/components/schemas/LambdaAuthorizerConfig'
+        userPoolConfig:
+          $ref: '#/components/schemas/CognitoUserPoolConfig'
+    LogConfig:
+      type: object
+      description: Logging configuration for a GraphQL API
+      properties:
+        cloudWatchLogsRoleArn:
+          type: string
+          description: CloudWatch Logs role ARN
+          example: arn:aws:iam::123456789012:role/appsync-logs-role
+        fieldLogLevel:
+          type: string
+          description: Field log level
+          enum:
+          - NONE
+          - ERROR
+          - ALL
+          example: ERROR
+        excludeVerboseContent:
+          type: boolean
+          description: Whether to exclude verbose content
+          example: false
+    GraphqlApi:
+      type: object
+      description: A GraphQL API object managed by AppSync
+      properties:
+        apiId:
+          type: string
+          description: The API ID
+          example: abc123def456
+        name:
+          type: string
+          description: The API name
+          example: MyGraphQLAPI
+        authenticationType:
+          type: string
+          description: The default authentication type
+          enum:
+          - API_KEY
+          - AWS_IAM
+          - AMAZON_COGNITO_USER_POOLS
+          - OPENID_CONNECT
+          - AWS_LAMBDA
+          example: API_KEY
+        arn:
+          type: string
+          description: The ARN of the API
+          example: arn:aws:appsync:us-east-1:123456789012:apis/abc123def456
+        uris:
+          type: object
+          description: The URIs for the API endpoint
+          additionalProperties:
+            type: string
+        tags:
+          type: object
+          description: Tags on the API
+          additionalProperties:
+            type: string
+        additionalAuthenticationProviders:
+          type: array
+          description: Additional authentication providers
+          items:
+            $ref: '#/components/schemas/AdditionalAuthenticationProvider'
+        logConfig:
+          $ref: '#/components/schemas/LogConfig'
+        xrayEnabled:
+          type: boolean
+          description: Whether X-Ray tracing is enabled
+          example: false
+        wafWebAclArn:
+          type: string
+          description: WAF Web ACL ARN
+          example: ''
+        lambdaAuthorizerConfig:
+          $ref: '#/components/schemas/LambdaAuthorizerConfig'
+        visibility:
+          type: string
+          description: API visibility
+          enum:
+          - GLOBAL
+          - PRIVATE
+          example: GLOBAL
+        apiType:
+          type: string
+          description: API type
+          enum:
+          - GRAPHQL
+          - MERGED
+          example: GRAPHQL
+    LambdaAuthorizerConfig:
+      type: object
+      description: Configuration for Lambda-based authorization
+      properties:
+        authorizerUri:
+          type: string
+          description: Lambda function ARN
+          example: arn:aws:lambda:us-east-1:123456789012:function:MyAuthFunction
+        authorizerResultTtlInSeconds:
+          type: integer
+          description: TTL for authorizer results in seconds
+          example: 300
+        identityValidationExpression:
+          type: string
+          description: Regular expression for validating tokens
+          example: '^Bearer '
+    EvaluateMappingTemplateResponse:
+      type: object
+      description: Response from evaluating a mapping template
+      properties:
+        evaluationResult:
+          type: string
+          description: The evaluated template result
+          example: '{"version":"2018-05-29","operation":"GetItem","key":{"id":{"S":"123"}}}'
+        error:
+          type: object
+          description: Error from template evaluation if any
+        logs:
+          type: array
+          description: Evaluation log messages
+          items:
+            type: string
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication

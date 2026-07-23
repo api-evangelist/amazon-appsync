@@ -1,0 +1,295 @@
+openapi: 3.1.0
+info:
+  title: Amazon AppSync Api Keys API
+  description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
+  version: '2017-07-25'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://appsync.us-east-1.amazonaws.com
+  description: Amazon AppSync US East (N. Virginia)
+- url: https://appsync.eu-west-1.amazonaws.com
+  description: Amazon AppSync EU (Ireland)
+security:
+- awsAuth: []
+tags:
+- name: Api Keys
+  description: Manage API keys for authentication
+paths:
+  /v1/apis/{apiId}/ApiKeys:
+    post:
+      operationId: createApiKey
+      summary: Amazon AppSync Create Api Key
+      description: Creates a unique key that you can distribute to clients who are executing your API.
+      tags:
+      - Api Keys
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateApiKeyRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  description: My API key
+                  expires: 1777882800
+      responses:
+        '200':
+          description: API key created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateApiKeyResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    apiKey:
+                      id: da2-abc123def456
+                      description: My API key
+                      expires: 1777882800
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      operationId: listApiKeys
+      summary: Amazon AppSync List Api Keys
+      description: Lists the API keys for a given API.
+      tags:
+      - Api Keys
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: nextToken
+        in: query
+        schema:
+          type: string
+      - name: maxResults
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: List of API keys
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListApiKeysResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    apiKeys:
+                    - id: da2-abc123def456
+                      description: My API key
+                      expires: 1777882800
+                    nextToken: ''
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/apis/{apiId}/ApiKeys/{id}:
+    put:
+      operationId: updateApiKey
+      summary: Amazon AppSync Update Api Key
+      description: Updates an API key. The key can be updated while it is not deleted.
+      tags:
+      - Api Keys
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateApiKeyRequest'
+            examples:
+              default:
+                x-microcks-default: true
+                value:
+                  description: Updated API key description
+                  expires: 1809418800
+      responses:
+        '200':
+          description: API key updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateApiKeyResponse'
+              examples:
+                default:
+                  x-microcks-default: true
+                  value:
+                    apiKey:
+                      id: da2-abc123def456
+                      description: Updated API key description
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteApiKey
+      summary: Amazon AppSync Delete Api Key
+      description: Deletes an API key.
+      tags:
+      - Api Keys
+      x-microcks-operation:
+        delay: 100
+        dispatcher: FALLBACK
+      parameters:
+      - name: apiId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: API key deleted
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                default:
+                  x-microcks-default: true
+                  value: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    UpdateApiKeyRequest:
+      type: object
+      description: Request to update an API key
+      properties:
+        description:
+          type: string
+          description: Updated description
+          example: Updated API key description
+        expires:
+          type: integer
+          description: Updated expiration timestamp
+          example: 1809418800
+    CreateApiKeyRequest:
+      type: object
+      description: Request to create an API key
+      properties:
+        description:
+          type: string
+          description: API key description
+          example: My API key
+        expires:
+          type: integer
+          description: Unix timestamp for expiration
+          example: 1777882800
+    ApiKey:
+      type: object
+      description: An API key for AppSync API authentication
+      properties:
+        id:
+          type: string
+          description: The API key ID
+          example: da2-abc123def456
+        description:
+          type: string
+          description: The API key description
+          example: My API key
+        expires:
+          type: integer
+          description: Unix timestamp when the key expires
+          example: 1777882800
+        deletes:
+          type: integer
+          description: Unix timestamp when the key is scheduled for deletion
+          example: 1777882800
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
+    CreateApiKeyResponse:
+      type: object
+      description: Response from creating an API key
+      properties:
+        apiKey:
+          $ref: '#/components/schemas/ApiKey'
+    UpdateApiKeyResponse:
+      type: object
+      description: Response from updating an API key
+      properties:
+        apiKey:
+          $ref: '#/components/schemas/ApiKey'
+    ListApiKeysResponse:
+      type: object
+      description: Response with list of API keys
+      properties:
+        apiKeys:
+          type: array
+          description: List of API keys
+          items:
+            $ref: '#/components/schemas/ApiKey'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+  securitySchemes:
+    awsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication
