@@ -1,0 +1,30 @@
+{
+  "provider": "amazon-appsync",
+  "sources": [
+    "amazon-appsync-api-keys-api-openapi.yml",
+    "amazon-appsync-data-sources-api-openapi.yml",
+    "amazon-appsync-domain-names-api-openapi.yml",
+    "amazon-appsync-functions-api-openapi.yml",
+    "amazon-appsync-graphql-apis-api-openapi.yml",
+    "amazon-appsync-resolvers-api-openapi.yml",
+    "amazon-appsync-schema-api-openapi.yml",
+    "amazon-appsync-tags-api-openapi.yml",
+    "amazon-appsync-types-api-openapi.yml"
+  ],
+  "outputs": [
+    "amazon-appsync-api-keys-api-openapi.yml",
+    "amazon-appsync-data-sources-api-openapi.yml",
+    "amazon-appsync-domain-names-api-openapi.yml",
+    "amazon-appsync-functions-api-openapi.yml",
+    "amazon-appsync-graphql-apis-api-openapi.yml",
+    "amazon-appsync-resolvers-api-openapi.yml",
+    "amazon-appsync-schema-api-openapi.yml",
+    "amazon-appsync-tags-api-openapi.yml",
+    "amazon-appsync-types-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
