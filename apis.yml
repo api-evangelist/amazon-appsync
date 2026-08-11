@@ -497,6 +497,8 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
 common:
+  - type: Overlay
+    url: overlays/amazon-appsync-openapi-overlay.yaml
   - type: AgenticAccess
     url: agentic-access/amazon-appsync-agentic-access.yml
   - type: VulnerabilityDisclosure
