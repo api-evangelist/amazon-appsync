@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon AppSync Api Keys GraphQL APIs API",
+    "version": "2017-07-25"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GraphQL APIs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon AppSync List GraphQL Apis",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis",
+            "params": [
+              {
+                "name": "nextToken",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token"
+              },
+              {
+                "name": "maxResults",
+                "value": "",
+                "type": "query",
+                "description": "Maximum results to return"
+              }
+            ]
+          },
+          "docs": "Lists your GraphQL APIs."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Create GraphQL Api",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new GraphQL API."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Get GraphQL Api",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path",
+                "description": "The API ID"
+              }
+            ]
+          },
+          "docs": "Retrieves a GraphQL API by its ID."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Update GraphQL Api",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path",
+                "description": "The API ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a GraphQL API."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Delete GraphQL Api",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path",
+                "description": "The API ID"
+              }
+            ]
+          },
+          "docs": "Deletes a GraphQL API."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Evaluate Mapping Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/graphql",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Evaluates a given template and returns the response. The mapping template can be a request or response template."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

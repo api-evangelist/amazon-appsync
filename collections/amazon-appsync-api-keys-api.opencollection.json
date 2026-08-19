@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon AppSync Api Keys API",
+    "version": "2017-07-25"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Api Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon AppSync List Api Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/ApiKeys",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "nextToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "maxResults",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists the API keys for a given API."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Create Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/ApiKeys",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a unique key that you can distribute to clients who are executing your API."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Update Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/ApiKeys/:id",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an API key. The key can be updated while it is not deleted."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Delete Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/ApiKeys/:id",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes an API key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

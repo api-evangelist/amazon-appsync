@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon AppSync Api Keys Functions API",
+    "version": "2017-07-25"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Functions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon AppSync List Functions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/functions",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "nextToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "maxResults",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List multiple functions."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Create Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/functions",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Function object. A function is a reusable entity. Multiple functions can be used to compose the resolver logic."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Get Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/functions/:functionId",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "functionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a Function object."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Update Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/functions/:functionId",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "functionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a Function object."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Delete Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/functions/:functionId",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "functionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a Function."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

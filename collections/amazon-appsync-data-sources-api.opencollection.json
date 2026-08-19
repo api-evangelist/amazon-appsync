@@ -1,0 +1,151 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon AppSync Api Keys Data Sources API",
+    "version": "2017-07-25"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Data Sources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon AppSync List Data Sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/datasources",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path",
+                "description": "The API ID"
+              },
+              {
+                "name": "nextToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "maxResults",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists the data sources for a given API."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Create Data Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/datasources",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path",
+                "description": "The API ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a DataSource object."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Get Data Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/datasources/:name",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a DataSource object by name."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Update Data Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/datasources/:name",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a DataSource object."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Delete Data Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/datasources/:name",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a DataSource object."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

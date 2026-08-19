@@ -1,0 +1,174 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon AppSync Api Keys Resolvers API",
+    "version": "2017-07-25"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Resolvers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon AppSync List Resolvers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/types/:typeName/resolvers",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "typeName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "nextToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "maxResults",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists the resolvers for a given API and type."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Create Resolver",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/types/:typeName/resolvers",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "typeName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Resolver object. A resolver converts incoming requests into a format that a data source can understand, and converts the data source's responses into GraphQL."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Get Resolver",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/types/:typeName/resolvers/:fieldName",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "typeName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fieldName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a Resolver object."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Update Resolver",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/types/:typeName/resolvers/:fieldName",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "typeName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fieldName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a Resolver object."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Delete Resolver",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/apis/:apiId/types/:typeName/resolvers/:fieldName",
+            "params": [
+              {
+                "name": "apiId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "typeName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fieldName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a Resolver object."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

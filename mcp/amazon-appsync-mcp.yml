@@ -9,32 +9,36 @@ server:
   transport: stdio
   install: uvx awslabs.aws-appsync-mcp-server@latest
   read_only_default: true
-  write_flag: "--allow-write"
+  write_flag: --allow-write
   auth: AWS credentials via environment (AWS_PROFILE / AWS_ACCESS_KEY_ID) plus IAM permissions
-  description: >-
-    Official AWS Labs Model Context Protocol server for Amazon AppSync. Lets AI
-    assistants create and manage AppSync GraphQL and Event APIs, data sources,
-    resolvers, functions, API keys, caches, channel namespaces, and custom
-    domains. Read-only by default; mutating tools require the --allow-write flag
-    and corresponding IAM permissions.
+  description: Official AWS Labs Model Context Protocol server for Amazon AppSync. Lets AI assistants
+    create and manage AppSync GraphQL and Event APIs, data sources, resolvers, functions, API keys, caches,
+    channel namespaces, and custom domains. Read-only by default; mutating tools require the --allow-write
+    flag and corresponding IAM permissions.
 tools:
-  - name: create_api
-    description: Create an Api object (AppSync Event API).
-  - name: create_graphql_api
-    description: Create a GraphQL API.
-  - name: create_api_key
-    description: Create an API key for a GraphQL API.
-  - name: create_api_cache
-    description: Create a cache for the GraphQL API.
-  - name: create_datasource
-    description: Create a data source connected to a backend such as DynamoDB, Lambda, or RDS.
-  - name: create_function
-    description: Create a reusable pipeline resolver function.
-  - name: create_channel_namespace
-    description: Create a ChannelNamespace for an Event API.
-  - name: create_domain_name
-    description: Create a custom domain name.
-  - name: create_resolver
-    description: Create a resolver that attaches to a GraphQL type field.
-  - name: create_schema
-    description: Create or update the GraphQL schema for an API.
+- name: create_api
+  description: Create an Api object (AppSync Event API).
+- name: create_graphql_api
+  description: Create a GraphQL API.
+- name: create_api_key
+  description: Create an API key for a GraphQL API.
+- name: create_api_cache
+  description: Create a cache for the GraphQL API.
+- name: create_datasource
+  description: Create a data source connected to a backend such as DynamoDB, Lambda, or RDS.
+- name: create_function
+  description: Create a reusable pipeline resolver function.
+- name: create_channel_namespace
+  description: Create a ChannelNamespace for an Event API.
+- name: create_domain_name
+  description: Create a custom domain name.
+- name: create_resolver
+  description: Create a resolver that attaches to a GraphQL type field.
+- name: create_schema
+  description: Create or update the GraphQL schema for an API.
+deployment:
+  mode: local-stdio
+  verified: searched
+  tools: 10
+  checked: '2026-08-12'
+  source: catalog MCP census

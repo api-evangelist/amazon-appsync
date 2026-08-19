@@ -1,0 +1,180 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Amazon AppSync Api Keys Domain Names API",
+    "version": "2017-07-25"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Domain Names",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Amazon AppSync List Domain Names",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/domainnames",
+            "params": [
+              {
+                "name": "nextToken",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "maxResults",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists multiple custom domain names."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Create Domain Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/domainnames",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a custom DomainName object."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Get Domain Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/domainnames/:domainName",
+            "params": [
+              {
+                "name": "domainName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a custom DomainName object."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Update Domain Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/domainnames/:domainName",
+            "params": [
+              {
+                "name": "domainName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a custom DomainName object."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Delete Domain Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/domainnames/:domainName",
+            "params": [
+              {
+                "name": "domainName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a custom DomainName object."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Get Api Association",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/domainnames/:domainName/apiassociation",
+            "params": [
+              {
+                "name": "domainName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves an ApiAssociation object."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Associate Api",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/domainnames/:domainName/apiassociation",
+            "params": [
+              {
+                "name": "domainName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Maps an endpoint to your custom domain."
+        },
+        {
+          "info": {
+            "name": "Amazon AppSync Disassociate Api",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://appsync.us-east-1.amazonaws.com/v1/domainnames/:domainName/apiassociation",
+            "params": [
+              {
+                "name": "domainName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes an ApiAssociation object from a custom domain."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
