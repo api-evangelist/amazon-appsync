@@ -34,6 +34,8 @@ apis:
     humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
     baseURL: https://appsync.us-east-1.amazonaws.com
     tags:
+      - APIKeys
+    tags_raw:
       - Api Keys
     properties:
       - type: OpenAPI
