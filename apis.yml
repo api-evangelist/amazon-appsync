@@ -4,6 +4,17 @@ description: >-
   Amazon AppSync creates serverless GraphQL and Pub/Sub APIs that simplify application development through a single
   endpoint to securely query, update, or publish data.
 type: Index
+deliveryModel:
+  model: unknown
+  open_source: false
+  commercial: false
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
