@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Amazon AppSync Api Keys Resolvers API
   description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
@@ -278,6 +278,78 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    UpdateResolverResponse:
+      type: object
+      description: Response from updating a resolver
+      properties:
+        resolver:
+          $ref: '#/components/schemas/Resolver'
+    ListResolversResponse:
+      type: object
+      description: Response with list of resolvers
+      properties:
+        resolvers:
+          type: array
+          description: List of resolvers
+          items:
+            $ref: '#/components/schemas/Resolver'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    CachingConfig:
+      type: object
+      description: Caching configuration for a resolver
+      properties:
+        ttl:
+          type: integer
+          description: TTL in seconds
+          example: 60
+        cachingKeys:
+          type: array
+          description: Keys to use for caching
+          items:
+            type: string
+    CreateResolverResponse:
+      type: object
+      description: Response from creating a resolver
+      properties:
+        resolver:
+          $ref: '#/components/schemas/Resolver'
+    UpdateResolverRequest:
+      type: object
+      description: Request to update a resolver
+      properties:
+        dataSourceName:
+          type: string
+          description: Data source name
+          example: MyDynamoDBDataSource
+        requestMappingTemplate:
+          type: string
+          description: Request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: Response mapping template
+          example: $util.toJson($ctx.result)
+        kind:
+          type: string
+          description: Resolver kind
+          example: UNIT
+        pipelineConfig:
+          $ref: '#/components/schemas/PipelineConfig'
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
     Resolver:
       type: object
       description: A resolver for a GraphQL field
@@ -335,25 +407,37 @@ components:
       properties:
         resolver:
           $ref: '#/components/schemas/Resolver'
-    UpdateResolverResponse:
+    PipelineConfig:
       type: object
-      description: Response from updating a resolver
+      description: Pipeline resolver configuration
       properties:
-        resolver:
-          $ref: '#/components/schemas/Resolver'
-    ListResolversResponse:
-      type: object
-      description: Response with list of resolvers
-      properties:
-        resolvers:
+        functions:
           type: array
-          description: List of resolvers
+          description: List of function IDs in the pipeline
           items:
-            $ref: '#/components/schemas/Resolver'
-        nextToken:
+            type: string
+          example:
+          - abc123456789
+    SyncConfig:
+      type: object
+      description: Sync configuration for conflict resolution
+      properties:
+        conflictHandler:
           type: string
-          description: Pagination token
-          example: ''
+          description: Conflict handler type
+          enum:
+          - OPTIMISTIC_CONCURRENCY
+          - LAMBDA
+          - AUTOMERGE
+          - NONE
+          example: OPTIMISTIC_CONCURRENCY
+        conflictDetection:
+          type: string
+          description: Conflict detection type
+          enum:
+          - VERSION
+          - NONE
+          example: VERSION
     AppSyncRuntime:
       type: object
       description: Runtime configuration for APPSYNC_JS resolvers
@@ -368,59 +452,6 @@ components:
           type: string
           description: Runtime version
           example: 1.0.0
-    CachingConfig:
-      type: object
-      description: Caching configuration for a resolver
-      properties:
-        ttl:
-          type: integer
-          description: TTL in seconds
-          example: 60
-        cachingKeys:
-          type: array
-          description: Keys to use for caching
-          items:
-            type: string
-    ErrorResponse:
-      type: object
-      description: Standard error response from the AppSync API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: Resource not found
-        errorType:
-          type: string
-          description: Error type
-          example: NotFoundException
-    UpdateResolverRequest:
-      type: object
-      description: Request to update a resolver
-      properties:
-        dataSourceName:
-          type: string
-          description: Data source name
-          example: MyDynamoDBDataSource
-        requestMappingTemplate:
-          type: string
-          description: Request mapping template
-          example: '{"version":"2018-05-29","operation":"GetItem"}'
-        responseMappingTemplate:
-          type: string
-          description: Response mapping template
-          example: $util.toJson($ctx.result)
-        kind:
-          type: string
-          description: Resolver kind
-          example: UNIT
-        pipelineConfig:
-          $ref: '#/components/schemas/PipelineConfig'
-    CreateResolverResponse:
-      type: object
-      description: Response from creating a resolver
-      properties:
-        resolver:
-          $ref: '#/components/schemas/Resolver'
     CreateResolverRequest:
       type: object
       description: Request to create a resolver
@@ -466,37 +497,6 @@ components:
           type: string
           description: Function code for APPSYNC_JS runtime
           example: ''
-    SyncConfig:
-      type: object
-      description: Sync configuration for conflict resolution
-      properties:
-        conflictHandler:
-          type: string
-          description: Conflict handler type
-          enum:
-          - OPTIMISTIC_CONCURRENCY
-          - LAMBDA
-          - AUTOMERGE
-          - NONE
-          example: OPTIMISTIC_CONCURRENCY
-        conflictDetection:
-          type: string
-          description: Conflict detection type
-          enum:
-          - VERSION
-          - NONE
-          example: VERSION
-    PipelineConfig:
-      type: object
-      description: Pipeline resolver configuration
-      properties:
-        functions:
-          type: array
-          description: List of function IDs in the pipeline
-          items:
-            type: string
-          example:
-          - abc123456789
   securitySchemes:
     awsAuth:
       type: apiKey

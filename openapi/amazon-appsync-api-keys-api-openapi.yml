@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Amazon AppSync Api Keys API
   description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
@@ -206,6 +206,24 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    UpdateApiKeyResponse:
+      type: object
+      description: Response from updating an API key
+      properties:
+        apiKey:
+          $ref: '#/components/schemas/ApiKey'
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
     UpdateApiKeyRequest:
       type: object
       description: Request to update an API key
@@ -218,18 +236,25 @@ components:
           type: integer
           description: Updated expiration timestamp
           example: 1809418800
-    CreateApiKeyRequest:
+    CreateApiKeyResponse:
       type: object
-      description: Request to create an API key
+      description: Response from creating an API key
       properties:
-        description:
+        apiKey:
+          $ref: '#/components/schemas/ApiKey'
+    ListApiKeysResponse:
+      type: object
+      description: Response with list of API keys
+      properties:
+        apiKeys:
+          type: array
+          description: List of API keys
+          items:
+            $ref: '#/components/schemas/ApiKey'
+        nextToken:
           type: string
-          description: API key description
-          example: My API key
-        expires:
-          type: integer
-          description: Unix timestamp for expiration
-          example: 1777882800
+          description: Pagination token
+          example: ''
     ApiKey:
       type: object
       description: An API key for AppSync API authentication
@@ -250,43 +275,18 @@ components:
           type: integer
           description: Unix timestamp when the key is scheduled for deletion
           example: 1777882800
-    ErrorResponse:
+    CreateApiKeyRequest:
       type: object
-      description: Standard error response from the AppSync API
+      description: Request to create an API key
       properties:
-        message:
+        description:
           type: string
-          description: Error message
-          example: Resource not found
-        errorType:
-          type: string
-          description: Error type
-          example: NotFoundException
-    CreateApiKeyResponse:
-      type: object
-      description: Response from creating an API key
-      properties:
-        apiKey:
-          $ref: '#/components/schemas/ApiKey'
-    UpdateApiKeyResponse:
-      type: object
-      description: Response from updating an API key
-      properties:
-        apiKey:
-          $ref: '#/components/schemas/ApiKey'
-    ListApiKeysResponse:
-      type: object
-      description: Response with list of API keys
-      properties:
-        apiKeys:
-          type: array
-          description: List of API keys
-          items:
-            $ref: '#/components/schemas/ApiKey'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
+          description: API key description
+          example: My API key
+        expires:
+          type: integer
+          description: Unix timestamp for expiration
+          example: 1777882800
   securitySchemes:
     awsAuth:
       type: apiKey

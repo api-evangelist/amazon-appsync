@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Amazon AppSync Api Keys Schema API
   description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
@@ -148,14 +148,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    GetIntrospectionSchemaResponse:
-      type: object
-      description: Response with introspection schema
-      properties:
-        schema:
-          type: string
-          description: The introspection schema in the requested format
-          example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
     ErrorResponse:
       type: object
       description: Standard error response from the AppSync API
@@ -168,6 +160,14 @@ components:
           type: string
           description: Error type
           example: NotFoundException
+    GetIntrospectionSchemaResponse:
+      type: object
+      description: Response with introspection schema
+      properties:
+        schema:
+          type: string
+          description: The introspection schema in the requested format
+          example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
     GetSchemaCreationStatusResponse:
       type: object
       description: Response with schema creation status
@@ -187,6 +187,16 @@ components:
           type: string
           description: Status details
           example: Schema created successfully
+    StartSchemaCreationRequest:
+      type: object
+      description: Request to start schema creation
+      required:
+      - definition
+      properties:
+        definition:
+          type: string
+          description: The new schema definition in SDL format
+          example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
     StartSchemaCreationResponse:
       type: object
       description: Response from starting schema creation
@@ -202,16 +212,6 @@ components:
           - SUCCESS
           - NOT_APPLICABLE
           example: PROCESSING
-    StartSchemaCreationRequest:
-      type: object
-      description: Request to start schema creation
-      required:
-      - definition
-      properties:
-        definition:
-          type: string
-          description: The new schema definition in SDL format
-          example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
   securitySchemes:
     awsAuth:
       type: apiKey

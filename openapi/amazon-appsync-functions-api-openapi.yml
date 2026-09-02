@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Amazon AppSync Api Keys Functions API
   description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
@@ -252,6 +252,37 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ListFunctionsResponse:
+      type: object
+      description: Response with list of functions
+      properties:
+        functions:
+          type: array
+          description: List of functions
+          items:
+            $ref: '#/components/schemas/FunctionConfiguration'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    GetFunctionResponse:
+      type: object
+      description: Response from getting a function
+      properties:
+        functionConfiguration:
+          $ref: '#/components/schemas/FunctionConfiguration'
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
     UpdateFunctionRequest:
       type: object
       description: Request to update a function
@@ -284,38 +315,75 @@ components:
           type: string
           description: Function version
           example: '2018-05-29'
-    UpdateFunctionResponse:
+    CreateFunctionRequest:
       type: object
-      description: Response from updating a function
-      properties:
-        functionConfiguration:
-          $ref: '#/components/schemas/FunctionConfiguration'
-    AppSyncRuntime:
-      type: object
-      description: Runtime configuration for APPSYNC_JS resolvers
+      description: Request to create a pipeline function
+      required:
+      - name
+      - dataSourceName
       properties:
         name:
           type: string
-          description: Runtime name
-          enum:
-          - APPSYNC_JS
-          example: APPSYNC_JS
-        runtimeVersion:
+          description: The function name
+          example: GetPostFunction
+        description:
           type: string
-          description: Runtime version
-          example: 1.0.0
-    ErrorResponse:
+          description: Function description
+          example: Retrieves a post from DynamoDB
+        dataSourceName:
+          type: string
+          description: Data source name
+          example: MyDynamoDBDataSource
+        requestMappingTemplate:
+          type: string
+          description: Request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: Response mapping template
+          example: $util.toJson($ctx.result)
+        functionVersion:
+          type: string
+          description: Function version
+          example: '2018-05-29'
+        syncConfig:
+          $ref: '#/components/schemas/SyncConfig'
+        maxBatchSize:
+          type: integer
+          description: Maximum batch size
+          example: 0
+        runtime:
+          $ref: '#/components/schemas/AppSyncRuntime'
+        code:
+          type: string
+          description: Function code
+          example: ''
+    CreateFunctionResponse:
       type: object
-      description: Standard error response from the AppSync API
+      description: Response from creating a function
       properties:
-        message:
+        functionConfiguration:
+          $ref: '#/components/schemas/FunctionConfiguration'
+    SyncConfig:
+      type: object
+      description: Sync configuration for conflict resolution
+      properties:
+        conflictHandler:
           type: string
-          description: Error message
-          example: Resource not found
-        errorType:
+          description: Conflict handler type
+          enum:
+          - OPTIMISTIC_CONCURRENCY
+          - LAMBDA
+          - AUTOMERGE
+          - NONE
+          example: OPTIMISTIC_CONCURRENCY
+        conflictDetection:
           type: string
-          description: Error type
-          example: NotFoundException
+          description: Conflict detection type
+          enum:
+          - VERSION
+          - NONE
+          example: VERSION
     FunctionConfiguration:
       type: object
       description: A reusable pipeline function configuration
@@ -364,94 +432,26 @@ components:
           type: string
           description: The function code
           example: ''
-    CreateFunctionResponse:
+    UpdateFunctionResponse:
       type: object
-      description: Response from creating a function
+      description: Response from updating a function
       properties:
         functionConfiguration:
           $ref: '#/components/schemas/FunctionConfiguration'
-    SyncConfig:
+    AppSyncRuntime:
       type: object
-      description: Sync configuration for conflict resolution
-      properties:
-        conflictHandler:
-          type: string
-          description: Conflict handler type
-          enum:
-          - OPTIMISTIC_CONCURRENCY
-          - LAMBDA
-          - AUTOMERGE
-          - NONE
-          example: OPTIMISTIC_CONCURRENCY
-        conflictDetection:
-          type: string
-          description: Conflict detection type
-          enum:
-          - VERSION
-          - NONE
-          example: VERSION
-    GetFunctionResponse:
-      type: object
-      description: Response from getting a function
-      properties:
-        functionConfiguration:
-          $ref: '#/components/schemas/FunctionConfiguration'
-    ListFunctionsResponse:
-      type: object
-      description: Response with list of functions
-      properties:
-        functions:
-          type: array
-          description: List of functions
-          items:
-            $ref: '#/components/schemas/FunctionConfiguration'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-    CreateFunctionRequest:
-      type: object
-      description: Request to create a pipeline function
-      required:
-      - name
-      - dataSourceName
+      description: Runtime configuration for APPSYNC_JS resolvers
       properties:
         name:
           type: string
-          description: The function name
-          example: GetPostFunction
-        description:
+          description: Runtime name
+          enum:
+          - APPSYNC_JS
+          example: APPSYNC_JS
+        runtimeVersion:
           type: string
-          description: Function description
-          example: Retrieves a post from DynamoDB
-        dataSourceName:
-          type: string
-          description: Data source name
-          example: MyDynamoDBDataSource
-        requestMappingTemplate:
-          type: string
-          description: Request mapping template
-          example: '{"version":"2018-05-29","operation":"GetItem"}'
-        responseMappingTemplate:
-          type: string
-          description: Response mapping template
-          example: $util.toJson($ctx.result)
-        functionVersion:
-          type: string
-          description: Function version
-          example: '2018-05-29'
-        syncConfig:
-          $ref: '#/components/schemas/SyncConfig'
-        maxBatchSize:
-          type: integer
-          description: Maximum batch size
-          example: 0
-        runtime:
-          $ref: '#/components/schemas/AppSyncRuntime'
-        code:
-          type: string
-          description: Function code
-          example: ''
+          description: Runtime version
+          example: 1.0.0
   securitySchemes:
     awsAuth:
       type: apiKey
