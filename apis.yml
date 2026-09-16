@@ -1,8 +1,7 @@
 aid: amazon-appsync
 name: Amazon AppSync
-description: >-
-  Amazon AppSync creates serverless GraphQL and Pub/Sub APIs that simplify application development through a single
-  endpoint to securely query, update, or publish data.
+description: Amazon AppSync creates serverless GraphQL and Pub/Sub APIs that simplify application development
+  through a single endpoint to securely query, update, or publish data.
 type: Index
 deliveryModel:
   model: unknown
@@ -30,495 +29,385 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/amazon-appsync.png
 tags:
-  - Amazon AppSync
-  - GraphQL
-  - API Management
-  - Serverless
-  - AWS
+- Amazon AppSync
+- GraphQL
+- API Management
+- Serverless
+- AWS
 url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/apis.yml
 created: '2024-01-15'
-modified: '2026-06-20'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 apis:
-  - aid: amazon-appsync:amazon-appsync-api-keys-api
-    name: Amazon AppSync Api Keys API
-    description: Manage API keys for authentication
-    humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
-    baseURL: https://appsync.us-east-1.amazonaws.com
-    tags:
-      - APIKeys
-    tags_raw:
-      - Api Keys
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-appsync-api-keys-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
-      - type: ErrorCatalog
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
-      - type: Conformance
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
-  - aid: amazon-appsync:amazon-appsync-data-sources-api
-    name: Amazon AppSync Data Sources API
-    description: Manage data sources connected to GraphQL APIs
-    humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
-    baseURL: https://appsync.us-east-1.amazonaws.com
-    tags:
-      - Data Sources
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-appsync-data-sources-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
-      - type: ErrorCatalog
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
-      - type: Conformance
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
-  - aid: amazon-appsync:amazon-appsync-domain-names-api
-    name: Amazon AppSync Domain Names API
-    description: Manage custom domain names for AppSync APIs
-    humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
-    baseURL: https://appsync.us-east-1.amazonaws.com
-    tags:
-      - Domain Names
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-appsync-domain-names-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
-      - type: ErrorCatalog
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
-      - type: Conformance
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
-  - aid: amazon-appsync:amazon-appsync-functions-api
-    name: Amazon AppSync Functions API
-    description: Manage reusable pipeline resolver functions
-    humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
-    baseURL: https://appsync.us-east-1.amazonaws.com
-    tags:
-      - Functions
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-appsync-functions-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
-      - type: ErrorCatalog
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
-      - type: Conformance
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
-  - aid: amazon-appsync:amazon-appsync-graphql-apis-api
-    name: Amazon AppSync GraphQL APIs API
-    description: Manage GraphQL API configurations
-    humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
-    baseURL: https://appsync.us-east-1.amazonaws.com
-    tags:
-      - GraphQL APIs
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-appsync-graphql-apis-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
-      - type: ErrorCatalog
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
-      - type: Conformance
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
-  - aid: amazon-appsync:amazon-appsync-resolvers-api
-    name: Amazon AppSync Resolvers API
-    description: Manage field resolvers for GraphQL types
-    humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
-    baseURL: https://appsync.us-east-1.amazonaws.com
-    tags:
-      - Resolvers
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-appsync-resolvers-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
-      - type: ErrorCatalog
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
-      - type: Conformance
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
-  - aid: amazon-appsync:amazon-appsync-schema-api
-    name: Amazon AppSync Schema API
-    description: Manage GraphQL schema documents
-    humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
-    baseURL: https://appsync.us-east-1.amazonaws.com
-    tags:
-      - Schema
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-appsync-schema-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
-      - type: ErrorCatalog
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
-      - type: Conformance
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
-  - aid: amazon-appsync:amazon-appsync-tags-api
-    name: Amazon AppSync Tags API
-    description: Resource tagging operations
-    humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
-    baseURL: https://appsync.us-east-1.amazonaws.com
-    tags:
-      - Tags
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-appsync-tags-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
-      - type: ErrorCatalog
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
-      - type: Conformance
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
-  - aid: amazon-appsync:amazon-appsync-types-api
-    name: Amazon AppSync Types API
-    description: Manage GraphQL type definitions
-    humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
-    baseURL: https://appsync.us-east-1.amazonaws.com
-    tags:
-      - Types
-    properties:
-      - type: OpenAPI
-        url: openapi/amazon-appsync-types-api-openapi.yml
-      - type: SpectralRules
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
-      - type: Vocabulary
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
-      - type: JSONSchema
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
-      - type: JSONStructure
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
-      - type: JSONLD
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
-      - type: Example
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
-      - type: ErrorCatalog
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
-      - type: Conformance
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
+- aid: amazon-appsync:amazon-appsync-api-keys-api
+  name: Amazon AppSync Api Keys API
+  description: Manage API keys for authentication
+  humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
+  baseURL: https://appsync.us-east-1.amazonaws.com
+  tags:
+  - APIKeys
+  tags_raw:
+  - Api Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-appsync-api-keys-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
+  - type: ErrorCatalog
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
+  - type: Conformance
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
+- aid: amazon-appsync:amazon-appsync-data-sources-api
+  name: Amazon AppSync Data Sources API
+  description: Manage data sources connected to GraphQL APIs
+  humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
+  baseURL: https://appsync.us-east-1.amazonaws.com
+  tags:
+  - Data Sources
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-appsync-data-sources-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
+  - type: ErrorCatalog
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
+  - type: Conformance
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
+- aid: amazon-appsync:amazon-appsync-domain-names-api
+  name: Amazon AppSync Domain Names API
+  description: Manage custom domain names for AppSync APIs
+  humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
+  baseURL: https://appsync.us-east-1.amazonaws.com
+  tags:
+  - Domain Names
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-appsync-domain-names-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
+  - type: ErrorCatalog
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
+  - type: Conformance
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
+- aid: amazon-appsync:amazon-appsync-functions-api
+  name: Amazon AppSync Functions API
+  description: Manage reusable pipeline resolver functions
+  humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
+  baseURL: https://appsync.us-east-1.amazonaws.com
+  tags:
+  - Functions
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-appsync-functions-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
+  - type: ErrorCatalog
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
+  - type: Conformance
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
+- aid: amazon-appsync:amazon-appsync-graphql-apis-api
+  name: Amazon AppSync GraphQL APIs API
+  description: Manage GraphQL API configurations
+  humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
+  baseURL: https://appsync.us-east-1.amazonaws.com
+  tags:
+  - GraphQL APIs
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-appsync-graphql-apis-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
+  - type: ErrorCatalog
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
+  - type: Conformance
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
+- aid: amazon-appsync:amazon-appsync-resolvers-api
+  name: Amazon AppSync Resolvers API
+  description: Manage field resolvers for GraphQL types
+  humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
+  baseURL: https://appsync.us-east-1.amazonaws.com
+  tags:
+  - Resolvers
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-appsync-resolvers-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
+  - type: ErrorCatalog
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
+  - type: Conformance
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
+- aid: amazon-appsync:amazon-appsync-schema-api
+  name: Amazon AppSync Schema API
+  description: Manage GraphQL schema documents
+  humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
+  baseURL: https://appsync.us-east-1.amazonaws.com
+  tags:
+  - Schema
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-appsync-schema-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
+  - type: ErrorCatalog
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
+  - type: Conformance
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
+- aid: amazon-appsync:amazon-appsync-tags-api
+  name: Amazon AppSync Tags API
+  description: Resource tagging operations
+  humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
+  baseURL: https://appsync.us-east-1.amazonaws.com
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-appsync-tags-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
+  - type: ErrorCatalog
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
+  - type: Conformance
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
+- aid: amazon-appsync:amazon-appsync-types-api
+  name: Amazon AppSync Types API
+  description: Manage GraphQL type definitions
+  humanURL: https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
+  baseURL: https://appsync.us-east-1.amazonaws.com
+  tags:
+  - Types
+  properties:
+  - type: OpenAPI
+    url: openapi/amazon-appsync-types-api-openapi.yml
+  - type: SpectralRules
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/rules/amazon-appsync-spectral-rules.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/vocabulary/amazon-appsync-vocabulary.yaml
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-graphql-api-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-data-source-schema.json
+  - type: JSONSchema
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-schema/appsync-resolver-schema.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-graphql-api-structure.json
+  - type: JSONStructure
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-structure/appsync-resolver-structure.json
+  - type: JSONLD
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/json-ld/amazon-appsync-context.jsonld
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-graphql-api-example.json
+  - type: Example
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/examples/appsync-resolver-example.json
+  - type: ErrorCatalog
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/errors/amazon-appsync-problem-types.yml
+  - type: Conformance
+    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
 common:
-  - type: Overlay
-    url: overlays/amazon-appsync-openapi-overlay.yaml
-  - type: AgenticAccess
-    url: agentic-access/amazon-appsync-agentic-access.yml
-  - type: VulnerabilityDisclosure
-    url: security/amazon-appsync-vulnerability-disclosure.yml
-  - type: DomainSecurity
-    url: security/amazon-appsync-domain-security.yml
-  - type: Authentication
-    url: authentication/amazon-appsync-authentication.yml
-  - type: Packages
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/packages/amazon-appsync-packages.yml
-  - type: MCPServer
-    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/mcp/amazon-appsync-mcp.yml
-  - type: LLMsTxt
-    url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/llms/amazon-appsync-llms.txt
-  - type: WellKnown
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/well-known/amazon-appsync-well-known.yml
-  - type: SecurityTxt
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/well-known/amazon-appsync-security.txt
-  - type: Lifecycle
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/lifecycle/amazon-appsync-lifecycle.yml
-  - type: Features
-    data:
-      - Managed GraphQL API hosting with automatic scaling
-      - Multiple authentication modes including API key, IAM, Cognito, and Lambda
-      - Real-time subscriptions via WebSocket connections
-      - Pipeline resolvers for composing multi-step data access patterns
-      - Direct Lambda resolvers with APPSYNC_JS runtime support
-      - Built-in caching for improved performance
-      - Conflict detection and resolution for offline sync use cases
-      - Custom domain names with ACM certificate integration
-      - X-Ray tracing and CloudWatch logging integration
-      - Merged APIs for combining multiple GraphQL APIs
-  - type: UseCases
-    data:
-      - Build mobile and web applications with a unified GraphQL data layer
-      - Implement real-time features like live notifications and chat with subscriptions
-      - Create a unified data access layer across multiple microservices
-      - Build offline-capable mobile apps with automatic conflict resolution
-      - Expose DynamoDB tables, Lambda functions, and OpenSearch as GraphQL APIs
-      - Implement federated GraphQL across multiple teams with Merged APIs
-  - type: Integrations
-    data:
-      - Amazon DynamoDB
-      - AWS Lambda
-      - Amazon OpenSearch Service
-      - Amazon RDS
-      - Amazon EventBridge
-      - Amazon Cognito
-      - AWS IAM
-      - AWS WAF
-      - Amazon CloudWatch
-      - AWS X-Ray
-      - AWS Certificate Manager
-      - Amazon Route 53
+- type: Website
+  url: https://amazon.com
+- type: Overlay
+  url: overlays/amazon-appsync-openapi-overlay.yaml
+- type: AgenticAccess
+  url: agentic-access/amazon-appsync-agentic-access.yml
+- type: VulnerabilityDisclosure
+  url: security/amazon-appsync-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/amazon-appsync-domain-security.yml
+- type: Authentication
+  url: authentication/amazon-appsync-authentication.yml
+- type: Packages
+  url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/packages/amazon-appsync-packages.yml
+- type: MCPServer
+  url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/mcp/amazon-appsync-mcp.yml
+- type: LLMsTxt
+  url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/llms/amazon-appsync-llms.txt
+- type: WellKnown
+  url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/well-known/amazon-appsync-well-known.yml
+- type: SecurityTxt
+  url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/well-known/amazon-appsync-security.txt
+- type: Lifecycle
+  url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/lifecycle/amazon-appsync-lifecycle.yml
+- type: Features
+  data:
+  - Managed GraphQL API hosting with automatic scaling
+  - Multiple authentication modes including API key, IAM, Cognito, and Lambda
+  - Real-time subscriptions via WebSocket connections
+  - Pipeline resolvers for composing multi-step data access patterns
+  - Direct Lambda resolvers with APPSYNC_JS runtime support
+  - Built-in caching for improved performance
+  - Conflict detection and resolution for offline sync use cases
+  - Custom domain names with ACM certificate integration
+  - X-Ray tracing and CloudWatch logging integration
+  - Merged APIs for combining multiple GraphQL APIs
+- type: UseCases
+  data:
+  - Build mobile and web applications with a unified GraphQL data layer
+  - Implement real-time features like live notifications and chat with subscriptions
+  - Create a unified data access layer across multiple microservices
+  - Build offline-capable mobile apps with automatic conflict resolution
+  - Expose DynamoDB tables, Lambda functions, and OpenSearch as GraphQL APIs
+  - Implement federated GraphQL across multiple teams with Merged APIs
+- type: Integrations
+  data:
+  - Amazon DynamoDB
+  - AWS Lambda
+  - Amazon OpenSearch Service
+  - Amazon RDS
+  - Amazon EventBridge
+  - Amazon Cognito
+  - AWS IAM
+  - AWS WAF
+  - Amazon CloudWatch
+  - AWS X-Ray
+  - AWS Certificate Manager
+  - Amazon Route 53
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
 x-parent: aws
 x-relationship: product
