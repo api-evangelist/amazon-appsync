@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon AppSync Api Keys Types API
+  title: Amazon AppSync Types API
   description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
   version: '2017-07-25'
   contact:
@@ -262,6 +262,42 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
+    UpdateTypeResponse:
+      type: object
+      description: Response from updating a type
+      properties:
+        type:
+          $ref: '#/components/schemas/Type'
+    CreateTypeRequest:
+      type: object
+      description: Request to create a GraphQL type
+      required:
+      - definition
+      - format
+      properties:
+        definition:
+          type: string
+          description: The type definition
+          example: 'type Post { id: ID! title: String author: String }'
+        format:
+          type: string
+          description: The definition format
+          enum:
+          - SDL
+          - JSON
+          example: SDL
     CreateTypeResponse:
       type: object
       description: Response from creating a type
@@ -295,30 +331,6 @@ components:
           - SDL
           - JSON
           example: SDL
-    ErrorResponse:
-      type: object
-      description: Standard error response from the AppSync API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: Resource not found
-        errorType:
-          type: string
-          description: Error type
-          example: NotFoundException
-    GetTypeResponse:
-      type: object
-      description: Response from getting a type
-      properties:
-        type:
-          $ref: '#/components/schemas/Type'
-    UpdateTypeResponse:
-      type: object
-      description: Response from updating a type
-      properties:
-        type:
-          $ref: '#/components/schemas/Type'
     UpdateTypeRequest:
       type: object
       description: Request to update a type
@@ -334,6 +346,12 @@ components:
           type: string
           description: The definition format
           example: SDL
+    GetTypeResponse:
+      type: object
+      description: Response from getting a type
+      properties:
+        type:
+          $ref: '#/components/schemas/Type'
     ListTypesResponse:
       type: object
       description: Response with list of types
@@ -347,24 +365,6 @@ components:
           type: string
           description: Pagination token
           example: ''
-    CreateTypeRequest:
-      type: object
-      description: Request to create a GraphQL type
-      required:
-      - definition
-      - format
-      properties:
-        definition:
-          type: string
-          description: The type definition
-          example: 'type Post { id: ID! title: String author: String }'
-        format:
-          type: string
-          description: The definition format
-          enum:
-          - SDL
-          - JSON
-          example: SDL
   securitySchemes:
     awsAuth:
       type: apiKey

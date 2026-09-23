@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon AppSync Api Keys Resolvers API
+  title: Amazon AppSync Resolvers API
   description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
   version: '2017-07-25'
   contact:
@@ -278,25 +278,18 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    UpdateResolverResponse:
+    ErrorResponse:
       type: object
-      description: Response from updating a resolver
+      description: Standard error response from the AppSync API
       properties:
-        resolver:
-          $ref: '#/components/schemas/Resolver'
-    ListResolversResponse:
-      type: object
-      description: Response with list of resolvers
-      properties:
-        resolvers:
-          type: array
-          description: List of resolvers
-          items:
-            $ref: '#/components/schemas/Resolver'
-        nextToken:
+        message:
           type: string
-          description: Pagination token
-          example: ''
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
     CachingConfig:
       type: object
       description: Caching configuration for a resolver
@@ -310,9 +303,15 @@ components:
           description: Keys to use for caching
           items:
             type: string
-    CreateResolverResponse:
+    UpdateResolverResponse:
       type: object
-      description: Response from creating a resolver
+      description: Response from updating a resolver
+      properties:
+        resolver:
+          $ref: '#/components/schemas/Resolver'
+    GetResolverResponse:
+      type: object
+      description: Response from getting a resolver
       properties:
         resolver:
           $ref: '#/components/schemas/Resolver'
@@ -338,18 +337,6 @@ components:
           example: UNIT
         pipelineConfig:
           $ref: '#/components/schemas/PipelineConfig'
-    ErrorResponse:
-      type: object
-      description: Standard error response from the AppSync API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: Resource not found
-        errorType:
-          type: string
-          description: Error type
-          example: NotFoundException
     Resolver:
       type: object
       description: A resolver for a GraphQL field
@@ -401,43 +388,6 @@ components:
           type: string
           description: The function code
           example: ''
-    GetResolverResponse:
-      type: object
-      description: Response from getting a resolver
-      properties:
-        resolver:
-          $ref: '#/components/schemas/Resolver'
-    PipelineConfig:
-      type: object
-      description: Pipeline resolver configuration
-      properties:
-        functions:
-          type: array
-          description: List of function IDs in the pipeline
-          items:
-            type: string
-          example:
-          - abc123456789
-    SyncConfig:
-      type: object
-      description: Sync configuration for conflict resolution
-      properties:
-        conflictHandler:
-          type: string
-          description: Conflict handler type
-          enum:
-          - OPTIMISTIC_CONCURRENCY
-          - LAMBDA
-          - AUTOMERGE
-          - NONE
-          example: OPTIMISTIC_CONCURRENCY
-        conflictDetection:
-          type: string
-          description: Conflict detection type
-          enum:
-          - VERSION
-          - NONE
-          example: VERSION
     AppSyncRuntime:
       type: object
       description: Runtime configuration for APPSYNC_JS resolvers
@@ -452,6 +402,17 @@ components:
           type: string
           description: Runtime version
           example: 1.0.0
+    PipelineConfig:
+      type: object
+      description: Pipeline resolver configuration
+      properties:
+        functions:
+          type: array
+          description: List of function IDs in the pipeline
+          items:
+            type: string
+          example:
+          - abc123456789
     CreateResolverRequest:
       type: object
       description: Request to create a resolver
@@ -496,6 +457,45 @@ components:
         code:
           type: string
           description: Function code for APPSYNC_JS runtime
+          example: ''
+    CreateResolverResponse:
+      type: object
+      description: Response from creating a resolver
+      properties:
+        resolver:
+          $ref: '#/components/schemas/Resolver'
+    SyncConfig:
+      type: object
+      description: Sync configuration for conflict resolution
+      properties:
+        conflictHandler:
+          type: string
+          description: Conflict handler type
+          enum:
+          - OPTIMISTIC_CONCURRENCY
+          - LAMBDA
+          - AUTOMERGE
+          - NONE
+          example: OPTIMISTIC_CONCURRENCY
+        conflictDetection:
+          type: string
+          description: Conflict detection type
+          enum:
+          - VERSION
+          - NONE
+          example: VERSION
+    ListResolversResponse:
+      type: object
+      description: Response with list of resolvers
+      properties:
+        resolvers:
+          type: array
+          description: List of resolvers
+          items:
+            $ref: '#/components/schemas/Resolver'
+        nextToken:
+          type: string
+          description: Pagination token
           example: ''
   securitySchemes:
     awsAuth:

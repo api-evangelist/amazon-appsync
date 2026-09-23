@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon AppSync Api Keys Domain Names API
+  title: Amazon AppSync Domain Names API
   description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
   version: '2017-07-25'
   contact:
@@ -358,34 +358,9 @@ components:
           type: string
           description: Details about the deployment
           example: ''
-    GetDomainNameResponse:
-      type: object
-      description: Response from getting a domain name
-      properties:
-        domainNameConfig:
-          $ref: '#/components/schemas/DomainNameConfig'
     AssociateApiResponse:
       type: object
       description: Response from associating an API with a domain name
-      properties:
-        apiAssociation:
-          $ref: '#/components/schemas/ApiAssociation'
-    ListDomainNamesResponse:
-      type: object
-      description: Response with list of domain names
-      properties:
-        domainNameConfigs:
-          type: array
-          description: List of domain name configurations
-          items:
-            $ref: '#/components/schemas/DomainNameConfig'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-    GetApiAssociationResponse:
-      type: object
-      description: Response from getting an API association
       properties:
         apiAssociation:
           $ref: '#/components/schemas/ApiAssociation'
@@ -401,36 +376,6 @@ components:
           type: string
           description: Error type
           example: NotFoundException
-    UpdateDomainNameRequest:
-      type: object
-      description: Request to update a domain name
-      properties:
-        description:
-          type: string
-          description: Updated description
-          example: Updated domain name
-    UpdateDomainNameResponse:
-      type: object
-      description: Response from updating a domain name
-      properties:
-        domainNameConfig:
-          $ref: '#/components/schemas/DomainNameConfig'
-    AssociateApiRequest:
-      type: object
-      description: Request to associate an API with a domain name
-      required:
-      - apiId
-      properties:
-        apiId:
-          type: string
-          description: The API ID to associate
-          example: abc123def456
-    CreateDomainNameResponse:
-      type: object
-      description: Response from creating a custom domain name
-      properties:
-        domainNameConfig:
-          $ref: '#/components/schemas/DomainNameConfig'
     CreateDomainNameRequest:
       type: object
       description: Request to create a custom domain name
@@ -450,6 +395,32 @@ components:
           type: string
           description: Domain name description
           example: Production API endpoint
+    UpdateDomainNameResponse:
+      type: object
+      description: Response from updating a domain name
+      properties:
+        domainNameConfig:
+          $ref: '#/components/schemas/DomainNameConfig'
+    UpdateDomainNameRequest:
+      type: object
+      description: Request to update a domain name
+      properties:
+        description:
+          type: string
+          description: Updated description
+          example: Updated domain name
+    GetDomainNameResponse:
+      type: object
+      description: Response from getting a domain name
+      properties:
+        domainNameConfig:
+          $ref: '#/components/schemas/DomainNameConfig'
+    CreateDomainNameResponse:
+      type: object
+      description: Response from creating a custom domain name
+      properties:
+        domainNameConfig:
+          $ref: '#/components/schemas/DomainNameConfig'
     DomainNameConfig:
       type: object
       description: Configuration for a custom domain name
@@ -474,6 +445,35 @@ components:
           type: string
           description: Route 53 hosted zone ID
           example: Z2FDTNDATAQYW2
+    AssociateApiRequest:
+      type: object
+      description: Request to associate an API with a domain name
+      required:
+      - apiId
+      properties:
+        apiId:
+          type: string
+          description: The API ID to associate
+          example: abc123def456
+    ListDomainNamesResponse:
+      type: object
+      description: Response with list of domain names
+      properties:
+        domainNameConfigs:
+          type: array
+          description: List of domain name configurations
+          items:
+            $ref: '#/components/schemas/DomainNameConfig'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    GetApiAssociationResponse:
+      type: object
+      description: Response from getting an API association
+      properties:
+        apiAssociation:
+          $ref: '#/components/schemas/ApiAssociation'
   securitySchemes:
     awsAuth:
       type: apiKey

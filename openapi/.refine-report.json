@@ -1,15 +1,7 @@
 {
   "provider": "amazon-appsync",
   "sources": [
-    "amazon-appsync-api-keys-api-openapi.yml",
-    "amazon-appsync-data-sources-api-openapi.yml",
-    "amazon-appsync-domain-names-api-openapi.yml",
-    "amazon-appsync-functions-api-openapi.yml",
-    "amazon-appsync-graphql-apis-api-openapi.yml",
-    "amazon-appsync-resolvers-api-openapi.yml",
-    "amazon-appsync-schema-api-openapi.yml",
-    "amazon-appsync-tags-api-openapi.yml",
-    "amazon-appsync-types-api-openapi.yml"
+    "_original/amazon-appsync-openapi.yml"
   ],
   "outputs": [
     "amazon-appsync-api-keys-api-openapi.yml",
@@ -26,7 +18,19 @@
   "errors": [],
   "warnings": [],
   "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "amazon-appsync-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "amazon-appsync-api-keys-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-appsync-data-sources-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-appsync-domain-names-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-appsync-functions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-appsync-graphql-apis-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-appsync-resolvers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-appsync-schema-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-appsync-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "amazon-appsync-types-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

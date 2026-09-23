@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon AppSync Api Keys Tags API
+  title: Amazon AppSync Tags API
   description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
   version: '2017-07-25'
   contact:
@@ -141,6 +141,17 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    TagResourceRequest:
+      type: object
+      description: Request to add tags to a resource
+      required:
+      - tags
+      properties:
+        tags:
+          type: object
+          description: Tags to add
+          additionalProperties:
+            type: string
     ErrorResponse:
       type: object
       description: Standard error response from the AppSync API
@@ -153,17 +164,6 @@ components:
           type: string
           description: Error type
           example: NotFoundException
-    TagResourceRequest:
-      type: object
-      description: Request to add tags to a resource
-      required:
-      - tags
-      properties:
-        tags:
-          type: object
-          description: Tags to add
-          additionalProperties:
-            type: string
     ListTagsForResourceResponse:
       type: object
       description: Response with resource tags

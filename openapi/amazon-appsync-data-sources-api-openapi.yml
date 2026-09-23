@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Amazon AppSync Api Keys Data Sources API
+  title: Amazon AppSync Data Sources API
   description: The Amazon AppSync API enables programmatic management of GraphQL APIs, including creating and configuring data sources, resolvers, functions, API keys, types, and managing GraphQL schema definitions. AppSync makes it easy to build data-driven mobile and web applications.
   version: '2017-07-25'
   contact:
@@ -251,6 +251,23 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    CreateDataSourceResponse:
+      type: object
+      description: Response from creating a data source
+      properties:
+        dataSource:
+          $ref: '#/components/schemas/DataSource'
+    HttpDataSourceConfig:
+      type: object
+      description: HTTP endpoint data source configuration
+      properties:
+        endpoint:
+          type: string
+          description: HTTP endpoint URL
+          example: https://api.example.com
+        authorizationConfig:
+          type: object
+          description: Authorization configuration for the HTTP endpoint
     DataSource:
       type: object
       description: A data source configuration for a GraphQL API
@@ -292,74 +309,6 @@ components:
           $ref: '#/components/schemas/ElasticsearchDataSourceConfig'
         httpConfig:
           $ref: '#/components/schemas/HttpDataSourceConfig'
-    CreateDataSourceResponse:
-      type: object
-      description: Response from creating a data source
-      properties:
-        dataSource:
-          $ref: '#/components/schemas/DataSource'
-    LambdaDataSourceConfig:
-      type: object
-      description: Lambda data source configuration
-      properties:
-        lambdaFunctionArn:
-          type: string
-          description: Lambda function ARN
-          example: arn:aws:lambda:us-east-1:123456789012:function:MyFunction
-    HttpDataSourceConfig:
-      type: object
-      description: HTTP endpoint data source configuration
-      properties:
-        endpoint:
-          type: string
-          description: HTTP endpoint URL
-          example: https://api.example.com
-        authorizationConfig:
-          type: object
-          description: Authorization configuration for the HTTP endpoint
-    ElasticsearchDataSourceConfig:
-      type: object
-      description: OpenSearch/Elasticsearch data source configuration
-      properties:
-        endpoint:
-          type: string
-          description: OpenSearch endpoint URL
-          example: https://my-domain.us-east-1.es.amazonaws.com
-        awsRegion:
-          type: string
-          description: AWS Region
-          example: us-east-1
-    UpdateDataSourceResponse:
-      type: object
-      description: Response from updating a data source
-      properties:
-        dataSource:
-          $ref: '#/components/schemas/DataSource'
-    ErrorResponse:
-      type: object
-      description: Standard error response from the AppSync API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: Resource not found
-        errorType:
-          type: string
-          description: Error type
-          example: NotFoundException
-    ListDataSourcesResponse:
-      type: object
-      description: Response with list of data sources
-      properties:
-        dataSources:
-          type: array
-          description: List of data sources
-          items:
-            $ref: '#/components/schemas/DataSource'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
     DynamodbDataSourceConfig:
       type: object
       description: DynamoDB data source configuration
@@ -383,32 +332,18 @@ components:
           type: boolean
           description: Whether versioning is enabled
           example: false
-    GetDataSourceResponse:
+    ErrorResponse:
       type: object
-      description: Response from getting a data source
+      description: Standard error response from the AppSync API
       properties:
-        dataSource:
-          $ref: '#/components/schemas/DataSource'
-    UpdateDataSourceRequest:
-      type: object
-      description: Request to update a data source
-      required:
-      - type
-      properties:
-        description:
+        message:
           type: string
-          description: Updated description
-          example: Updated data source
-        type:
+          description: Error message
+          example: Resource not found
+        errorType:
           type: string
-          description: Data source type
-          example: AMAZON_DYNAMODB
-        serviceRoleArn:
-          type: string
-          description: IAM role ARN
-          example: arn:aws:iam::123456789012:role/appsync-role
-        dynamodbConfig:
-          $ref: '#/components/schemas/DynamodbDataSourceConfig'
+          description: Error type
+          example: NotFoundException
     CreateDataSourceRequest:
       type: object
       description: Request to create a data source
@@ -438,6 +373,71 @@ components:
           $ref: '#/components/schemas/LambdaDataSourceConfig'
         httpConfig:
           $ref: '#/components/schemas/HttpDataSourceConfig'
+    UpdateDataSourceRequest:
+      type: object
+      description: Request to update a data source
+      required:
+      - type
+      properties:
+        description:
+          type: string
+          description: Updated description
+          example: Updated data source
+        type:
+          type: string
+          description: Data source type
+          example: AMAZON_DYNAMODB
+        serviceRoleArn:
+          type: string
+          description: IAM role ARN
+          example: arn:aws:iam::123456789012:role/appsync-role
+        dynamodbConfig:
+          $ref: '#/components/schemas/DynamodbDataSourceConfig'
+    ListDataSourcesResponse:
+      type: object
+      description: Response with list of data sources
+      properties:
+        dataSources:
+          type: array
+          description: List of data sources
+          items:
+            $ref: '#/components/schemas/DataSource'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    LambdaDataSourceConfig:
+      type: object
+      description: Lambda data source configuration
+      properties:
+        lambdaFunctionArn:
+          type: string
+          description: Lambda function ARN
+          example: arn:aws:lambda:us-east-1:123456789012:function:MyFunction
+    GetDataSourceResponse:
+      type: object
+      description: Response from getting a data source
+      properties:
+        dataSource:
+          $ref: '#/components/schemas/DataSource'
+    ElasticsearchDataSourceConfig:
+      type: object
+      description: OpenSearch/Elasticsearch data source configuration
+      properties:
+        endpoint:
+          type: string
+          description: OpenSearch endpoint URL
+          example: https://my-domain.us-east-1.es.amazonaws.com
+        awsRegion:
+          type: string
+          description: AWS Region
+          example: us-east-1
+    UpdateDataSourceResponse:
+      type: object
+      description: Response from updating a data source
+      properties:
+        dataSource:
+          $ref: '#/components/schemas/DataSource'
   securitySchemes:
     awsAuth:
       type: apiKey

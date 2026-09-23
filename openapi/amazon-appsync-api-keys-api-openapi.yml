@@ -17,7 +17,7 @@ servers:
 security:
 - awsAuth: []
 tags:
-- name: Api Keys
+- name: API Keys
   description: Manage API keys for authentication
 paths:
   /v1/apis/{apiId}/ApiKeys:
@@ -26,7 +26,7 @@ paths:
       summary: Amazon AppSync Create Api Key
       description: Creates a unique key that you can distribute to clients who are executing your API.
       tags:
-      - Api Keys
+      - API Keys
       x-microcks-operation:
         delay: 100
         dispatcher: FALLBACK
@@ -74,7 +74,7 @@ paths:
       summary: Amazon AppSync List Api Keys
       description: Lists the API keys for a given API.
       tags:
-      - Api Keys
+      - API Keys
       x-microcks-operation:
         delay: 100
         dispatcher: FALLBACK
@@ -120,7 +120,7 @@ paths:
       summary: Amazon AppSync Update Api Key
       description: Updates an API key. The key can be updated while it is not deleted.
       tags:
-      - Api Keys
+      - API Keys
       x-microcks-operation:
         delay: 100
         dispatcher: FALLBACK
@@ -172,7 +172,7 @@ paths:
       summary: Amazon AppSync Delete Api Key
       description: Deletes an API key.
       tags:
-      - Api Keys
+      - API Keys
       x-microcks-operation:
         delay: 100
         dispatcher: FALLBACK
@@ -206,12 +206,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    UpdateApiKeyResponse:
-      type: object
-      description: Response from updating an API key
-      properties:
-        apiKey:
-          $ref: '#/components/schemas/ApiKey'
     ErrorResponse:
       type: object
       description: Standard error response from the AppSync API
@@ -224,37 +218,12 @@ components:
           type: string
           description: Error type
           example: NotFoundException
-    UpdateApiKeyRequest:
-      type: object
-      description: Request to update an API key
-      properties:
-        description:
-          type: string
-          description: Updated description
-          example: Updated API key description
-        expires:
-          type: integer
-          description: Updated expiration timestamp
-          example: 1809418800
     CreateApiKeyResponse:
       type: object
       description: Response from creating an API key
       properties:
         apiKey:
           $ref: '#/components/schemas/ApiKey'
-    ListApiKeysResponse:
-      type: object
-      description: Response with list of API keys
-      properties:
-        apiKeys:
-          type: array
-          description: List of API keys
-          items:
-            $ref: '#/components/schemas/ApiKey'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
     ApiKey:
       type: object
       description: An API key for AppSync API authentication
@@ -275,6 +244,37 @@ components:
           type: integer
           description: Unix timestamp when the key is scheduled for deletion
           example: 1777882800
+    ListApiKeysResponse:
+      type: object
+      description: Response with list of API keys
+      properties:
+        apiKeys:
+          type: array
+          description: List of API keys
+          items:
+            $ref: '#/components/schemas/ApiKey'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    UpdateApiKeyRequest:
+      type: object
+      description: Request to update an API key
+      properties:
+        description:
+          type: string
+          description: Updated description
+          example: Updated API key description
+        expires:
+          type: integer
+          description: Updated expiration timestamp
+          example: 1809418800
+    UpdateApiKeyResponse:
+      type: object
+      description: Response from updating an API key
+      properties:
+        apiKey:
+          $ref: '#/components/schemas/ApiKey'
     CreateApiKeyRequest:
       type: object
       description: Request to create an API key
