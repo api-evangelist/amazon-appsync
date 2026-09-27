@@ -262,21 +262,21 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      description: Standard error response from the AppSync API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: Resource not found
-        errorType:
-          type: string
-          description: Error type
-          example: NotFoundException
     UpdateTypeResponse:
       type: object
       description: Response from updating a type
+      properties:
+        type:
+          $ref: '#/components/schemas/Type'
+    GetTypeResponse:
+      type: object
+      description: Response from getting a type
+      properties:
+        type:
+          $ref: '#/components/schemas/Type'
+    CreateTypeResponse:
+      type: object
+      description: Response from creating a type
       properties:
         type:
           $ref: '#/components/schemas/Type'
@@ -298,12 +298,33 @@ components:
           - SDL
           - JSON
           example: SDL
-    CreateTypeResponse:
+    ErrorResponse:
       type: object
-      description: Response from creating a type
+      description: Standard error response from the AppSync API
       properties:
-        type:
-          $ref: '#/components/schemas/Type'
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
+    UpdateTypeRequest:
+      type: object
+      description: Request to update a type
+      required:
+      - definition
+      - format
+      properties:
+        definition:
+          type: string
+          description: The updated type definition
+          example: 'type Post { id: ID! title: String author: String body: String }'
+        format:
+          type: string
+          description: The definition format
+          example: SDL
     Type:
       type: object
       description: A GraphQL type definition
@@ -331,27 +352,6 @@ components:
           - SDL
           - JSON
           example: SDL
-    UpdateTypeRequest:
-      type: object
-      description: Request to update a type
-      required:
-      - definition
-      - format
-      properties:
-        definition:
-          type: string
-          description: The updated type definition
-          example: 'type Post { id: ID! title: String author: String body: String }'
-        format:
-          type: string
-          description: The definition format
-          example: SDL
-    GetTypeResponse:
-      type: object
-      description: Response from getting a type
-      properties:
-        type:
-          $ref: '#/components/schemas/Type'
     ListTypesResponse:
       type: object
       description: Response with list of types

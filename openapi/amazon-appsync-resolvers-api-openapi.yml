@@ -278,18 +278,25 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
+    CreateResolverResponse:
       type: object
-      description: Standard error response from the AppSync API
+      description: Response from creating a resolver
       properties:
-        message:
+        resolver:
+          $ref: '#/components/schemas/Resolver'
+    ListResolversResponse:
+      type: object
+      description: Response with list of resolvers
+      properties:
+        resolvers:
+          type: array
+          description: List of resolvers
+          items:
+            $ref: '#/components/schemas/Resolver'
+        nextToken:
           type: string
-          description: Error message
-          example: Resource not found
-        errorType:
-          type: string
-          description: Error type
-          example: NotFoundException
+          description: Pagination token
+          example: ''
     CachingConfig:
       type: object
       description: Caching configuration for a resolver
@@ -303,25 +310,19 @@ components:
           description: Keys to use for caching
           items:
             type: string
-    UpdateResolverResponse:
+    CreateResolverRequest:
       type: object
-      description: Response from updating a resolver
+      description: Request to create a resolver
+      required:
+      - fieldName
       properties:
-        resolver:
-          $ref: '#/components/schemas/Resolver'
-    GetResolverResponse:
-      type: object
-      description: Response from getting a resolver
-      properties:
-        resolver:
-          $ref: '#/components/schemas/Resolver'
-    UpdateResolverRequest:
-      type: object
-      description: Request to update a resolver
-      properties:
+        fieldName:
+          type: string
+          description: The GraphQL field name
+          example: getPost
         dataSourceName:
           type: string
-          description: Data source name
+          description: The data source name
           example: MyDynamoDBDataSource
         requestMappingTemplate:
           type: string
@@ -334,9 +335,26 @@ components:
         kind:
           type: string
           description: Resolver kind
+          enum:
+          - UNIT
+          - PIPELINE
           example: UNIT
         pipelineConfig:
           $ref: '#/components/schemas/PipelineConfig'
+        syncConfig:
+          $ref: '#/components/schemas/SyncConfig'
+        cachingConfig:
+          $ref: '#/components/schemas/CachingConfig'
+        maxBatchSize:
+          type: integer
+          description: Maximum batch size
+          example: 0
+        runtime:
+          $ref: '#/components/schemas/AppSyncRuntime'
+        code:
+          type: string
+          description: Function code for APPSYNC_JS runtime
+          example: ''
     Resolver:
       type: object
       description: A resolver for a GraphQL field
@@ -388,82 +406,6 @@ components:
           type: string
           description: The function code
           example: ''
-    AppSyncRuntime:
-      type: object
-      description: Runtime configuration for APPSYNC_JS resolvers
-      properties:
-        name:
-          type: string
-          description: Runtime name
-          enum:
-          - APPSYNC_JS
-          example: APPSYNC_JS
-        runtimeVersion:
-          type: string
-          description: Runtime version
-          example: 1.0.0
-    PipelineConfig:
-      type: object
-      description: Pipeline resolver configuration
-      properties:
-        functions:
-          type: array
-          description: List of function IDs in the pipeline
-          items:
-            type: string
-          example:
-          - abc123456789
-    CreateResolverRequest:
-      type: object
-      description: Request to create a resolver
-      required:
-      - fieldName
-      properties:
-        fieldName:
-          type: string
-          description: The GraphQL field name
-          example: getPost
-        dataSourceName:
-          type: string
-          description: The data source name
-          example: MyDynamoDBDataSource
-        requestMappingTemplate:
-          type: string
-          description: Request mapping template
-          example: '{"version":"2018-05-29","operation":"GetItem"}'
-        responseMappingTemplate:
-          type: string
-          description: Response mapping template
-          example: $util.toJson($ctx.result)
-        kind:
-          type: string
-          description: Resolver kind
-          enum:
-          - UNIT
-          - PIPELINE
-          example: UNIT
-        pipelineConfig:
-          $ref: '#/components/schemas/PipelineConfig'
-        syncConfig:
-          $ref: '#/components/schemas/SyncConfig'
-        cachingConfig:
-          $ref: '#/components/schemas/CachingConfig'
-        maxBatchSize:
-          type: integer
-          description: Maximum batch size
-          example: 0
-        runtime:
-          $ref: '#/components/schemas/AppSyncRuntime'
-        code:
-          type: string
-          description: Function code for APPSYNC_JS runtime
-          example: ''
-    CreateResolverResponse:
-      type: object
-      description: Response from creating a resolver
-      properties:
-        resolver:
-          $ref: '#/components/schemas/Resolver'
     SyncConfig:
       type: object
       description: Sync configuration for conflict resolution
@@ -484,19 +426,77 @@ components:
           - VERSION
           - NONE
           example: VERSION
-    ListResolversResponse:
+    ErrorResponse:
       type: object
-      description: Response with list of resolvers
+      description: Standard error response from the AppSync API
       properties:
-        resolvers:
-          type: array
-          description: List of resolvers
-          items:
-            $ref: '#/components/schemas/Resolver'
-        nextToken:
+        message:
           type: string
-          description: Pagination token
-          example: ''
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
+    AppSyncRuntime:
+      type: object
+      description: Runtime configuration for APPSYNC_JS resolvers
+      properties:
+        name:
+          type: string
+          description: Runtime name
+          enum:
+          - APPSYNC_JS
+          example: APPSYNC_JS
+        runtimeVersion:
+          type: string
+          description: Runtime version
+          example: 1.0.0
+    GetResolverResponse:
+      type: object
+      description: Response from getting a resolver
+      properties:
+        resolver:
+          $ref: '#/components/schemas/Resolver'
+    PipelineConfig:
+      type: object
+      description: Pipeline resolver configuration
+      properties:
+        functions:
+          type: array
+          description: List of function IDs in the pipeline
+          items:
+            type: string
+          example:
+          - abc123456789
+    UpdateResolverRequest:
+      type: object
+      description: Request to update a resolver
+      properties:
+        dataSourceName:
+          type: string
+          description: Data source name
+          example: MyDynamoDBDataSource
+        requestMappingTemplate:
+          type: string
+          description: Request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: Response mapping template
+          example: $util.toJson($ctx.result)
+        kind:
+          type: string
+          description: Resolver kind
+          example: UNIT
+        pipelineConfig:
+          $ref: '#/components/schemas/PipelineConfig'
+    UpdateResolverResponse:
+      type: object
+      description: Response from updating a resolver
+      properties:
+        resolver:
+          $ref: '#/components/schemas/Resolver'
   securitySchemes:
     awsAuth:
       type: apiKey

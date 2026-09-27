@@ -252,82 +252,31 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    GetFunctionResponse:
+    ListFunctionsResponse:
       type: object
-      description: Response from getting a function
+      description: Response with list of functions
       properties:
-        functionConfiguration:
-          $ref: '#/components/schemas/FunctionConfiguration'
+        functions:
+          type: array
+          description: List of functions
+          items:
+            $ref: '#/components/schemas/FunctionConfiguration'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
     UpdateFunctionResponse:
       type: object
       description: Response from updating a function
       properties:
         functionConfiguration:
           $ref: '#/components/schemas/FunctionConfiguration'
-    ErrorResponse:
-      type: object
-      description: Standard error response from the AppSync API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: Resource not found
-        errorType:
-          type: string
-          description: Error type
-          example: NotFoundException
-    UpdateFunctionRequest:
-      type: object
-      description: Request to update a function
-      required:
-      - name
-      - dataSourceName
-      - functionVersion
-      properties:
-        name:
-          type: string
-          description: Function name
-          example: UpdatedFunction
-        description:
-          type: string
-          description: Function description
-          example: Updated description
-        dataSourceName:
-          type: string
-          description: Data source name
-          example: MyDynamoDBDataSource
-        requestMappingTemplate:
-          type: string
-          description: Request mapping template
-          example: '{"version":"2018-05-29","operation":"GetItem"}'
-        responseMappingTemplate:
-          type: string
-          description: Response mapping template
-          example: $util.toJson($ctx.result)
-        functionVersion:
-          type: string
-          description: Function version
-          example: '2018-05-29'
     CreateFunctionResponse:
       type: object
       description: Response from creating a function
       properties:
         functionConfiguration:
           $ref: '#/components/schemas/FunctionConfiguration'
-    AppSyncRuntime:
-      type: object
-      description: Runtime configuration for APPSYNC_JS resolvers
-      properties:
-        name:
-          type: string
-          description: Runtime name
-          enum:
-          - APPSYNC_JS
-          example: APPSYNC_JS
-        runtimeVersion:
-          type: string
-          description: Runtime version
-          example: 1.0.0
     SyncConfig:
       type: object
       description: Sync configuration for conflict resolution
@@ -348,6 +297,18 @@ components:
           - VERSION
           - NONE
           example: VERSION
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
     CreateFunctionRequest:
       type: object
       description: Request to create a pipeline function
@@ -391,6 +352,20 @@ components:
           type: string
           description: Function code
           example: ''
+    AppSyncRuntime:
+      type: object
+      description: Runtime configuration for APPSYNC_JS resolvers
+      properties:
+        name:
+          type: string
+          description: Runtime name
+          enum:
+          - APPSYNC_JS
+          example: APPSYNC_JS
+        runtimeVersion:
+          type: string
+          description: Runtime version
+          example: 1.0.0
     FunctionConfiguration:
       type: object
       description: A reusable pipeline function configuration
@@ -439,19 +414,44 @@ components:
           type: string
           description: The function code
           example: ''
-    ListFunctionsResponse:
+    UpdateFunctionRequest:
       type: object
-      description: Response with list of functions
+      description: Request to update a function
+      required:
+      - name
+      - dataSourceName
+      - functionVersion
       properties:
-        functions:
-          type: array
-          description: List of functions
-          items:
-            $ref: '#/components/schemas/FunctionConfiguration'
-        nextToken:
+        name:
           type: string
-          description: Pagination token
-          example: ''
+          description: Function name
+          example: UpdatedFunction
+        description:
+          type: string
+          description: Function description
+          example: Updated description
+        dataSourceName:
+          type: string
+          description: Data source name
+          example: MyDynamoDBDataSource
+        requestMappingTemplate:
+          type: string
+          description: Request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: Response mapping template
+          example: $util.toJson($ctx.result)
+        functionVersion:
+          type: string
+          description: Function version
+          example: '2018-05-29'
+    GetFunctionResponse:
+      type: object
+      description: Response from getting a function
+      properties:
+        functionConfiguration:
+          $ref: '#/components/schemas/FunctionConfiguration'
   securitySchemes:
     awsAuth:
       type: apiKey

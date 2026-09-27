@@ -206,43 +206,23 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
+    UpdateApiKeyResponse:
       type: object
-      description: Standard error response from the AppSync API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: Resource not found
-        errorType:
-          type: string
-          description: Error type
-          example: NotFoundException
-    CreateApiKeyResponse:
-      type: object
-      description: Response from creating an API key
+      description: Response from updating an API key
       properties:
         apiKey:
           $ref: '#/components/schemas/ApiKey'
-    ApiKey:
+    CreateApiKeyRequest:
       type: object
-      description: An API key for AppSync API authentication
+      description: Request to create an API key
       properties:
-        id:
-          type: string
-          description: The API key ID
-          example: da2-abc123def456
         description:
           type: string
-          description: The API key description
+          description: API key description
           example: My API key
         expires:
           type: integer
-          description: Unix timestamp when the key expires
-          example: 1777882800
-        deletes:
-          type: integer
-          description: Unix timestamp when the key is scheduled for deletion
+          description: Unix timestamp for expiration
           example: 1777882800
     ListApiKeysResponse:
       type: object
@@ -269,24 +249,44 @@ components:
           type: integer
           description: Updated expiration timestamp
           example: 1809418800
-    UpdateApiKeyResponse:
+    ErrorResponse:
       type: object
-      description: Response from updating an API key
+      description: Standard error response from the AppSync API
       properties:
-        apiKey:
-          $ref: '#/components/schemas/ApiKey'
-    CreateApiKeyRequest:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
+    ApiKey:
       type: object
-      description: Request to create an API key
+      description: An API key for AppSync API authentication
       properties:
+        id:
+          type: string
+          description: The API key ID
+          example: da2-abc123def456
         description:
           type: string
-          description: API key description
+          description: The API key description
           example: My API key
         expires:
           type: integer
-          description: Unix timestamp for expiration
+          description: Unix timestamp when the key expires
           example: 1777882800
+        deletes:
+          type: integer
+          description: Unix timestamp when the key is scheduled for deletion
+          example: 1777882800
+    CreateApiKeyResponse:
+      type: object
+      description: Response from creating an API key
+      properties:
+        apiKey:
+          $ref: '#/components/schemas/ApiKey'
   securitySchemes:
     awsAuth:
       type: apiKey

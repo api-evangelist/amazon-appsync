@@ -349,7 +349,7 @@ apis:
     url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
 common:
 - type: Website
-  url: https://amazon.com
+  url: https://aws.amazon.com/appsync/
 - type: Overlay
   url: overlays/amazon-appsync-openapi-overlay.yaml
 - type: AgenticAccess
@@ -409,5 +409,5 @@ common:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
-x-parent: aws
+x-parent: amazon-web-services
 x-relationship: product

@@ -158,6 +158,33 @@ components:
           type: string
           description: The new schema definition in SDL format
           example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
+    GetIntrospectionSchemaResponse:
+      type: object
+      description: Response with introspection schema
+      properties:
+        schema:
+          type: string
+          description: The introspection schema in the requested format
+          example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
+    GetSchemaCreationStatusResponse:
+      type: object
+      description: Response with schema creation status
+      properties:
+        status:
+          type: string
+          description: Schema creation status
+          enum:
+          - PROCESSING
+          - ACTIVE
+          - DELETING
+          - FAILED
+          - SUCCESS
+          - NOT_APPLICABLE
+          example: SUCCESS
+        details:
+          type: string
+          description: Status details
+          example: Schema created successfully
     ErrorResponse:
       type: object
       description: Standard error response from the AppSync API
@@ -185,33 +212,6 @@ components:
           - SUCCESS
           - NOT_APPLICABLE
           example: PROCESSING
-    GetSchemaCreationStatusResponse:
-      type: object
-      description: Response with schema creation status
-      properties:
-        status:
-          type: string
-          description: Schema creation status
-          enum:
-          - PROCESSING
-          - ACTIVE
-          - DELETING
-          - FAILED
-          - SUCCESS
-          - NOT_APPLICABLE
-          example: SUCCESS
-        details:
-          type: string
-          description: Status details
-          example: Schema created successfully
-    GetIntrospectionSchemaResponse:
-      type: object
-      description: Response with introspection schema
-      properties:
-        schema:
-          type: string
-          description: The introspection schema in the requested format
-          example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
   securitySchemes:
     awsAuth:
       type: apiKey
