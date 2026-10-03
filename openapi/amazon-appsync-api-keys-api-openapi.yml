@@ -206,61 +206,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    UpdateApiKeyResponse:
-      type: object
-      description: Response from updating an API key
-      properties:
-        apiKey:
-          $ref: '#/components/schemas/ApiKey'
-    CreateApiKeyRequest:
-      type: object
-      description: Request to create an API key
-      properties:
-        description:
-          type: string
-          description: API key description
-          example: My API key
-        expires:
-          type: integer
-          description: Unix timestamp for expiration
-          example: 1777882800
-    ListApiKeysResponse:
-      type: object
-      description: Response with list of API keys
-      properties:
-        apiKeys:
-          type: array
-          description: List of API keys
-          items:
-            $ref: '#/components/schemas/ApiKey'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-    UpdateApiKeyRequest:
-      type: object
-      description: Request to update an API key
-      properties:
-        description:
-          type: string
-          description: Updated description
-          example: Updated API key description
-        expires:
-          type: integer
-          description: Updated expiration timestamp
-          example: 1809418800
-    ErrorResponse:
-      type: object
-      description: Standard error response from the AppSync API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: Resource not found
-        errorType:
-          type: string
-          description: Error type
-          example: NotFoundException
     ApiKey:
       type: object
       description: An API key for AppSync API authentication
@@ -287,6 +232,61 @@ components:
       properties:
         apiKey:
           $ref: '#/components/schemas/ApiKey'
+    UpdateApiKeyResponse:
+      type: object
+      description: Response from updating an API key
+      properties:
+        apiKey:
+          $ref: '#/components/schemas/ApiKey'
+    ListApiKeysResponse:
+      type: object
+      description: Response with list of API keys
+      properties:
+        apiKeys:
+          type: array
+          description: List of API keys
+          items:
+            $ref: '#/components/schemas/ApiKey'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    CreateApiKeyRequest:
+      type: object
+      description: Request to create an API key
+      properties:
+        description:
+          type: string
+          description: API key description
+          example: My API key
+        expires:
+          type: integer
+          description: Unix timestamp for expiration
+          example: 1777882800
+    UpdateApiKeyRequest:
+      type: object
+      description: Request to update an API key
+      properties:
+        description:
+          type: string
+          description: Updated description
+          example: Updated API key description
+        expires:
+          type: integer
+          description: Updated expiration timestamp
+          example: 1809418800
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
   securitySchemes:
     awsAuth:
       type: apiKey

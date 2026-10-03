@@ -148,24 +148,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    StartSchemaCreationRequest:
-      type: object
-      description: Request to start schema creation
-      required:
-      - definition
-      properties:
-        definition:
-          type: string
-          description: The new schema definition in SDL format
-          example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
-    GetIntrospectionSchemaResponse:
-      type: object
-      description: Response with introspection schema
-      properties:
-        schema:
-          type: string
-          description: The introspection schema in the requested format
-          example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
     GetSchemaCreationStatusResponse:
       type: object
       description: Response with schema creation status
@@ -185,18 +167,14 @@ components:
           type: string
           description: Status details
           example: Schema created successfully
-    ErrorResponse:
+    GetIntrospectionSchemaResponse:
       type: object
-      description: Standard error response from the AppSync API
+      description: Response with introspection schema
       properties:
-        message:
+        schema:
           type: string
-          description: Error message
-          example: Resource not found
-        errorType:
-          type: string
-          description: Error type
-          example: NotFoundException
+          description: The introspection schema in the requested format
+          example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
     StartSchemaCreationResponse:
       type: object
       description: Response from starting schema creation
@@ -212,6 +190,28 @@ components:
           - SUCCESS
           - NOT_APPLICABLE
           example: PROCESSING
+    StartSchemaCreationRequest:
+      type: object
+      description: Request to start schema creation
+      required:
+      - definition
+      properties:
+        definition:
+          type: string
+          description: The new schema definition in SDL format
+          example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
   securitySchemes:
     awsAuth:
       type: apiKey

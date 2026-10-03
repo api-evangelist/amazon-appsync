@@ -334,19 +334,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ListDomainNamesResponse:
+    AssociateApiResponse:
       type: object
-      description: Response with list of domain names
+      description: Response from associating an API with a domain name
       properties:
-        domainNameConfigs:
-          type: array
-          description: List of domain name configurations
-          items:
-            $ref: '#/components/schemas/DomainNameConfig'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
+        apiAssociation:
+          $ref: '#/components/schemas/ApiAssociation'
     CreateDomainNameRequest:
       type: object
       description: Request to create a custom domain name
@@ -366,12 +359,6 @@ components:
           type: string
           description: Domain name description
           example: Production API endpoint
-    GetApiAssociationResponse:
-      type: object
-      description: Response from getting an API association
-      properties:
-        apiAssociation:
-          $ref: '#/components/schemas/ApiAssociation'
     ApiAssociation:
       type: object
       description: An association between a custom domain name and a GraphQL API
@@ -396,12 +383,6 @@ components:
           type: string
           description: Details about the deployment
           example: ''
-    AssociateApiResponse:
-      type: object
-      description: Response from associating an API with a domain name
-      properties:
-        apiAssociation:
-          $ref: '#/components/schemas/ApiAssociation'
     UpdateDomainNameRequest:
       type: object
       description: Request to update a domain name
@@ -410,34 +391,6 @@ components:
           type: string
           description: Updated description
           example: Updated domain name
-    GetDomainNameResponse:
-      type: object
-      description: Response from getting a domain name
-      properties:
-        domainNameConfig:
-          $ref: '#/components/schemas/DomainNameConfig'
-    AssociateApiRequest:
-      type: object
-      description: Request to associate an API with a domain name
-      required:
-      - apiId
-      properties:
-        apiId:
-          type: string
-          description: The API ID to associate
-          example: abc123def456
-    ErrorResponse:
-      type: object
-      description: Standard error response from the AppSync API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: Resource not found
-        errorType:
-          type: string
-          description: Error type
-          example: NotFoundException
     UpdateDomainNameResponse:
       type: object
       description: Response from updating a domain name
@@ -474,6 +427,53 @@ components:
           type: string
           description: Route 53 hosted zone ID
           example: Z2FDTNDATAQYW2
+    AssociateApiRequest:
+      type: object
+      description: Request to associate an API with a domain name
+      required:
+      - apiId
+      properties:
+        apiId:
+          type: string
+          description: The API ID to associate
+          example: abc123def456
+    GetDomainNameResponse:
+      type: object
+      description: Response from getting a domain name
+      properties:
+        domainNameConfig:
+          $ref: '#/components/schemas/DomainNameConfig'
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
+    GetApiAssociationResponse:
+      type: object
+      description: Response from getting an API association
+      properties:
+        apiAssociation:
+          $ref: '#/components/schemas/ApiAssociation'
+    ListDomainNamesResponse:
+      type: object
+      description: Response with list of domain names
+      properties:
+        domainNameConfigs:
+          type: array
+          description: List of domain name configurations
+          items:
+            $ref: '#/components/schemas/DomainNameConfig'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
   securitySchemes:
     awsAuth:
       type: apiKey

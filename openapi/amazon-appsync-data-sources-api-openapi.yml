@@ -251,26 +251,89 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    UpdateDataSourceRequest:
+    DynamodbDataSourceConfig:
       type: object
-      description: Request to update a data source
+      description: DynamoDB data source configuration
+      properties:
+        tableName:
+          type: string
+          description: DynamoDB table name
+          example: MyTable
+        awsRegion:
+          type: string
+          description: AWS Region
+          example: us-east-1
+        useCallerCredentials:
+          type: boolean
+          description: Whether to use caller credentials
+          example: false
+        deltaSyncConfig:
+          type: object
+          description: Delta sync configuration
+        versioned:
+          type: boolean
+          description: Whether versioning is enabled
+          example: false
+    CreateDataSourceResponse:
+      type: object
+      description: Response from creating a data source
+      properties:
+        dataSource:
+          $ref: '#/components/schemas/DataSource'
+    CreateDataSourceRequest:
+      type: object
+      description: Request to create a data source
       required:
+      - name
       - type
       properties:
+        name:
+          type: string
+          description: The data source name
+          example: MyDynamoDBDataSource
         description:
           type: string
-          description: Updated description
-          example: Updated data source
+          description: The data source description
+          example: Primary data source
         type:
           type: string
-          description: Data source type
+          description: The data source type
           example: AMAZON_DYNAMODB
         serviceRoleArn:
           type: string
-          description: IAM role ARN
+          description: IAM role ARN for AppSync to assume
           example: arn:aws:iam::123456789012:role/appsync-role
         dynamodbConfig:
           $ref: '#/components/schemas/DynamodbDataSourceConfig'
+        lambdaConfig:
+          $ref: '#/components/schemas/LambdaDataSourceConfig'
+        httpConfig:
+          $ref: '#/components/schemas/HttpDataSourceConfig'
+    LambdaDataSourceConfig:
+      type: object
+      description: Lambda data source configuration
+      properties:
+        lambdaFunctionArn:
+          type: string
+          description: Lambda function ARN
+          example: arn:aws:lambda:us-east-1:123456789012:function:MyFunction
+    HttpDataSourceConfig:
+      type: object
+      description: HTTP endpoint data source configuration
+      properties:
+        endpoint:
+          type: string
+          description: HTTP endpoint URL
+          example: https://api.example.com
+        authorizationConfig:
+          type: object
+          description: Authorization configuration for the HTTP endpoint
+    UpdateDataSourceResponse:
+      type: object
+      description: Response from updating a data source
+      properties:
+        dataSource:
+          $ref: '#/components/schemas/DataSource'
     DataSource:
       type: object
       description: A data source configuration for a GraphQL API
@@ -312,6 +375,38 @@ components:
           $ref: '#/components/schemas/ElasticsearchDataSourceConfig'
         httpConfig:
           $ref: '#/components/schemas/HttpDataSourceConfig'
+    ElasticsearchDataSourceConfig:
+      type: object
+      description: OpenSearch/Elasticsearch data source configuration
+      properties:
+        endpoint:
+          type: string
+          description: OpenSearch endpoint URL
+          example: https://my-domain.us-east-1.es.amazonaws.com
+        awsRegion:
+          type: string
+          description: AWS Region
+          example: us-east-1
+    UpdateDataSourceRequest:
+      type: object
+      description: Request to update a data source
+      required:
+      - type
+      properties:
+        description:
+          type: string
+          description: Updated description
+          example: Updated data source
+        type:
+          type: string
+          description: Data source type
+          example: AMAZON_DYNAMODB
+        serviceRoleArn:
+          type: string
+          description: IAM role ARN
+          example: arn:aws:iam::123456789012:role/appsync-role
+        dynamodbConfig:
+          $ref: '#/components/schemas/DynamodbDataSourceConfig'
     ListDataSourcesResponse:
       type: object
       description: Response with list of data sources
@@ -325,26 +420,6 @@ components:
           type: string
           description: Pagination token
           example: ''
-    LambdaDataSourceConfig:
-      type: object
-      description: Lambda data source configuration
-      properties:
-        lambdaFunctionArn:
-          type: string
-          description: Lambda function ARN
-          example: arn:aws:lambda:us-east-1:123456789012:function:MyFunction
-    GetDataSourceResponse:
-      type: object
-      description: Response from getting a data source
-      properties:
-        dataSource:
-          $ref: '#/components/schemas/DataSource'
-    CreateDataSourceResponse:
-      type: object
-      description: Response from creating a data source
-      properties:
-        dataSource:
-          $ref: '#/components/schemas/DataSource'
     ErrorResponse:
       type: object
       description: Standard error response from the AppSync API
@@ -357,87 +432,12 @@ components:
           type: string
           description: Error type
           example: NotFoundException
-    DynamodbDataSourceConfig:
+    GetDataSourceResponse:
       type: object
-      description: DynamoDB data source configuration
-      properties:
-        tableName:
-          type: string
-          description: DynamoDB table name
-          example: MyTable
-        awsRegion:
-          type: string
-          description: AWS Region
-          example: us-east-1
-        useCallerCredentials:
-          type: boolean
-          description: Whether to use caller credentials
-          example: false
-        deltaSyncConfig:
-          type: object
-          description: Delta sync configuration
-        versioned:
-          type: boolean
-          description: Whether versioning is enabled
-          example: false
-    HttpDataSourceConfig:
-      type: object
-      description: HTTP endpoint data source configuration
-      properties:
-        endpoint:
-          type: string
-          description: HTTP endpoint URL
-          example: https://api.example.com
-        authorizationConfig:
-          type: object
-          description: Authorization configuration for the HTTP endpoint
-    ElasticsearchDataSourceConfig:
-      type: object
-      description: OpenSearch/Elasticsearch data source configuration
-      properties:
-        endpoint:
-          type: string
-          description: OpenSearch endpoint URL
-          example: https://my-domain.us-east-1.es.amazonaws.com
-        awsRegion:
-          type: string
-          description: AWS Region
-          example: us-east-1
-    UpdateDataSourceResponse:
-      type: object
-      description: Response from updating a data source
+      description: Response from getting a data source
       properties:
         dataSource:
           $ref: '#/components/schemas/DataSource'
-    CreateDataSourceRequest:
-      type: object
-      description: Request to create a data source
-      required:
-      - name
-      - type
-      properties:
-        name:
-          type: string
-          description: The data source name
-          example: MyDynamoDBDataSource
-        description:
-          type: string
-          description: The data source description
-          example: Primary data source
-        type:
-          type: string
-          description: The data source type
-          example: AMAZON_DYNAMODB
-        serviceRoleArn:
-          type: string
-          description: IAM role ARN for AppSync to assume
-          example: arn:aws:iam::123456789012:role/appsync-role
-        dynamodbConfig:
-          $ref: '#/components/schemas/DynamodbDataSourceConfig'
-        lambdaConfig:
-          $ref: '#/components/schemas/LambdaDataSourceConfig'
-        httpConfig:
-          $ref: '#/components/schemas/HttpDataSourceConfig'
   securitySchemes:
     awsAuth:
       type: apiKey

@@ -279,35 +279,22 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ListGraphqlApisResponse:
+    LambdaAuthorizerConfig:
       type: object
-      description: Response with list of GraphQL APIs
+      description: Configuration for Lambda-based authorization
       properties:
-        graphqlApis:
-          type: array
-          description: List of GraphQL APIs
-          items:
-            $ref: '#/components/schemas/GraphqlApi'
-        nextToken:
+        authorizerUri:
           type: string
-          description: Pagination token
-          example: ''
-    CognitoUserPoolConfig:
-      type: object
-      description: Amazon Cognito user pools configuration
-      properties:
-        userPoolId:
+          description: Lambda function ARN
+          example: arn:aws:lambda:us-east-1:123456789012:function:MyAuthFunction
+        authorizerResultTtlInSeconds:
+          type: integer
+          description: TTL for authorizer results in seconds
+          example: 300
+        identityValidationExpression:
           type: string
-          description: User pool ID
-          example: us-east-1_abc123
-        awsRegion:
-          type: string
-          description: AWS Region where the user pool exists
-          example: us-east-1
-        appIdClientRegex:
-          type: string
-          description: Regex for client IDs
-          example: .*
+          description: Regular expression for validating tokens
+          example: '^Bearer '
     CreateGraphqlApiRequest:
       type: object
       description: Request to create a GraphQL API
@@ -361,6 +348,39 @@ components:
           - GRAPHQL
           - MERGED
           example: GRAPHQL
+    CreateGraphqlApiResponse:
+      type: object
+      description: Response from creating a GraphQL API
+      properties:
+        graphqlApi:
+          $ref: '#/components/schemas/GraphqlApi'
+    UpdateGraphqlApiResponse:
+      type: object
+      description: Response from updating a GraphQL API
+      properties:
+        graphqlApi:
+          $ref: '#/components/schemas/GraphqlApi'
+    GetGraphqlApiResponse:
+      type: object
+      description: Response from getting a GraphQL API
+      properties:
+        graphqlApi:
+          $ref: '#/components/schemas/GraphqlApi'
+    EvaluateMappingTemplateRequest:
+      type: object
+      description: Request to evaluate a mapping template
+      required:
+      - template
+      - context
+      properties:
+        template:
+          type: string
+          description: The mapping template to evaluate
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        context:
+          type: string
+          description: The template context as a JSON string
+          example: '{"arguments":{"id":"123"}}'
     LogConfig:
       type: object
       description: Logging configuration for a GraphQL API
@@ -381,49 +401,22 @@ components:
           type: boolean
           description: Whether to exclude verbose content
           example: false
-    UpdateGraphqlApiRequest:
+    CognitoUserPoolConfig:
       type: object
-      description: Request to update a GraphQL API
-      required:
-      - name
-      - authenticationType
+      description: Amazon Cognito user pools configuration
       properties:
-        name:
+        userPoolId:
           type: string
-          description: The API name
-          example: UpdatedGraphQLAPI
-        authenticationType:
+          description: User pool ID
+          example: us-east-1_abc123
+        awsRegion:
           type: string
-          description: Authentication type
-          example: API_KEY
-        logConfig:
-          $ref: '#/components/schemas/LogConfig'
-        xrayEnabled:
-          type: boolean
-          description: Enable X-Ray tracing
-          example: false
-    GetGraphqlApiResponse:
-      type: object
-      description: Response from getting a GraphQL API
-      properties:
-        graphqlApi:
-          $ref: '#/components/schemas/GraphqlApi'
-    LambdaAuthorizerConfig:
-      type: object
-      description: Configuration for Lambda-based authorization
-      properties:
-        authorizerUri:
+          description: AWS Region where the user pool exists
+          example: us-east-1
+        appIdClientRegex:
           type: string
-          description: Lambda function ARN
-          example: arn:aws:lambda:us-east-1:123456789012:function:MyAuthFunction
-        authorizerResultTtlInSeconds:
-          type: integer
-          description: TTL for authorizer results in seconds
-          example: 300
-        identityValidationExpression:
-          type: string
-          description: Regular expression for validating tokens
-          example: '^Bearer '
+          description: Regex for client IDs
+          example: .*
     EvaluateMappingTemplateResponse:
       type: object
       description: Response from evaluating a mapping template
@@ -440,21 +433,6 @@ components:
           description: Evaluation log messages
           items:
             type: string
-    EvaluateMappingTemplateRequest:
-      type: object
-      description: Request to evaluate a mapping template
-      required:
-      - template
-      - context
-      properties:
-        template:
-          type: string
-          description: The mapping template to evaluate
-          example: '{"version":"2018-05-29","operation":"GetItem"}'
-        context:
-          type: string
-          description: The template context as a JSON string
-          example: '{"arguments":{"id":"123"}}'
     AdditionalAuthenticationProvider:
       type: object
       description: An additional authentication provider for a GraphQL API
@@ -479,12 +457,6 @@ components:
           type: string
           description: Error type
           example: NotFoundException
-    CreateGraphqlApiResponse:
-      type: object
-      description: Response from creating a GraphQL API
-      properties:
-        graphqlApi:
-          $ref: '#/components/schemas/GraphqlApi'
     GraphqlApi:
       type: object
       description: A GraphQL API object managed by AppSync
@@ -552,12 +524,40 @@ components:
           - GRAPHQL
           - MERGED
           example: GRAPHQL
-    UpdateGraphqlApiResponse:
+    ListGraphqlApisResponse:
       type: object
-      description: Response from updating a GraphQL API
+      description: Response with list of GraphQL APIs
       properties:
-        graphqlApi:
-          $ref: '#/components/schemas/GraphqlApi'
+        graphqlApis:
+          type: array
+          description: List of GraphQL APIs
+          items:
+            $ref: '#/components/schemas/GraphqlApi'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    UpdateGraphqlApiRequest:
+      type: object
+      description: Request to update a GraphQL API
+      required:
+      - name
+      - authenticationType
+      properties:
+        name:
+          type: string
+          description: The API name
+          example: UpdatedGraphQLAPI
+        authenticationType:
+          type: string
+          description: Authentication type
+          example: API_KEY
+        logConfig:
+          $ref: '#/components/schemas/LogConfig'
+        xrayEnabled:
+          type: boolean
+          description: Enable X-Ray tracing
+          example: false
   securitySchemes:
     awsAuth:
       type: apiKey
