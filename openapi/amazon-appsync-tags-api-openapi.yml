@@ -141,6 +141,17 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    TagResourceRequest:
+      type: object
+      description: Request to add tags to a resource
+      required:
+      - tags
+      properties:
+        tags:
+          type: object
+          description: Tags to add
+          additionalProperties:
+            type: string
     ErrorResponse:
       type: object
       description: Standard error response from the AppSync API
@@ -160,17 +171,6 @@ components:
         tags:
           type: object
           description: Resource tags
-          additionalProperties:
-            type: string
-    TagResourceRequest:
-      type: object
-      description: Request to add tags to a resource
-      required:
-      - tags
-      properties:
-        tags:
-          type: object
-          description: Tags to add
           additionalProperties:
             type: string
   securitySchemes:

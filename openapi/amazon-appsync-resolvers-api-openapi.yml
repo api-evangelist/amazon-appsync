@@ -278,19 +278,29 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ListResolversResponse:
+    GetResolverResponse:
       type: object
-      description: Response with list of resolvers
+      description: Response from getting a resolver
       properties:
-        resolvers:
+        resolver:
+          $ref: '#/components/schemas/Resolver'
+    PipelineConfig:
+      type: object
+      description: Pipeline resolver configuration
+      properties:
+        functions:
           type: array
-          description: List of resolvers
+          description: List of function IDs in the pipeline
           items:
-            $ref: '#/components/schemas/Resolver'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
+            type: string
+          example:
+          - abc123456789
+    UpdateResolverResponse:
+      type: object
+      description: Response from updating a resolver
+      properties:
+        resolver:
+          $ref: '#/components/schemas/Resolver'
     CachingConfig:
       type: object
       description: Caching configuration for a resolver
@@ -318,12 +328,84 @@ components:
           type: string
           description: Runtime version
           example: 1.0.0
-    UpdateResolverResponse:
+    SyncConfig:
       type: object
-      description: Response from updating a resolver
+      description: Sync configuration for conflict resolution
       properties:
-        resolver:
-          $ref: '#/components/schemas/Resolver'
+        conflictHandler:
+          type: string
+          description: Conflict handler type
+          enum:
+          - OPTIMISTIC_CONCURRENCY
+          - LAMBDA
+          - AUTOMERGE
+          - NONE
+          example: OPTIMISTIC_CONCURRENCY
+        conflictDetection:
+          type: string
+          description: Conflict detection type
+          enum:
+          - VERSION
+          - NONE
+          example: VERSION
+    CreateResolverRequest:
+      type: object
+      description: Request to create a resolver
+      required:
+      - fieldName
+      properties:
+        fieldName:
+          type: string
+          description: The GraphQL field name
+          example: getPost
+        dataSourceName:
+          type: string
+          description: The data source name
+          example: MyDynamoDBDataSource
+        requestMappingTemplate:
+          type: string
+          description: Request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: Response mapping template
+          example: $util.toJson($ctx.result)
+        kind:
+          type: string
+          description: Resolver kind
+          enum:
+          - UNIT
+          - PIPELINE
+          example: UNIT
+        pipelineConfig:
+          $ref: '#/components/schemas/PipelineConfig'
+        syncConfig:
+          $ref: '#/components/schemas/SyncConfig'
+        cachingConfig:
+          $ref: '#/components/schemas/CachingConfig'
+        maxBatchSize:
+          type: integer
+          description: Maximum batch size
+          example: 0
+        runtime:
+          $ref: '#/components/schemas/AppSyncRuntime'
+        code:
+          type: string
+          description: Function code for APPSYNC_JS runtime
+          example: ''
+    ListResolversResponse:
+      type: object
+      description: Response with list of resolvers
+      properties:
+        resolvers:
+          type: array
+          description: List of resolvers
+          items:
+            $ref: '#/components/schemas/Resolver'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
     ErrorResponse:
       type: object
       description: Standard error response from the AppSync API
@@ -336,23 +418,6 @@ components:
           type: string
           description: Error type
           example: NotFoundException
-    CreateResolverResponse:
-      type: object
-      description: Response from creating a resolver
-      properties:
-        resolver:
-          $ref: '#/components/schemas/Resolver'
-    PipelineConfig:
-      type: object
-      description: Pipeline resolver configuration
-      properties:
-        functions:
-          type: array
-          description: List of function IDs in the pipeline
-          items:
-            type: string
-          example:
-          - abc123456789
     Resolver:
       type: object
       description: A resolver for a GraphQL field
@@ -404,26 +469,12 @@ components:
           type: string
           description: The function code
           example: ''
-    SyncConfig:
+    CreateResolverResponse:
       type: object
-      description: Sync configuration for conflict resolution
+      description: Response from creating a resolver
       properties:
-        conflictHandler:
-          type: string
-          description: Conflict handler type
-          enum:
-          - OPTIMISTIC_CONCURRENCY
-          - LAMBDA
-          - AUTOMERGE
-          - NONE
-          example: OPTIMISTIC_CONCURRENCY
-        conflictDetection:
-          type: string
-          description: Conflict detection type
-          enum:
-          - VERSION
-          - NONE
-          example: VERSION
+        resolver:
+          $ref: '#/components/schemas/Resolver'
     UpdateResolverRequest:
       type: object
       description: Request to update a resolver
@@ -446,57 +497,6 @@ components:
           example: UNIT
         pipelineConfig:
           $ref: '#/components/schemas/PipelineConfig'
-    CreateResolverRequest:
-      type: object
-      description: Request to create a resolver
-      required:
-      - fieldName
-      properties:
-        fieldName:
-          type: string
-          description: The GraphQL field name
-          example: getPost
-        dataSourceName:
-          type: string
-          description: The data source name
-          example: MyDynamoDBDataSource
-        requestMappingTemplate:
-          type: string
-          description: Request mapping template
-          example: '{"version":"2018-05-29","operation":"GetItem"}'
-        responseMappingTemplate:
-          type: string
-          description: Response mapping template
-          example: $util.toJson($ctx.result)
-        kind:
-          type: string
-          description: Resolver kind
-          enum:
-          - UNIT
-          - PIPELINE
-          example: UNIT
-        pipelineConfig:
-          $ref: '#/components/schemas/PipelineConfig'
-        syncConfig:
-          $ref: '#/components/schemas/SyncConfig'
-        cachingConfig:
-          $ref: '#/components/schemas/CachingConfig'
-        maxBatchSize:
-          type: integer
-          description: Maximum batch size
-          example: 0
-        runtime:
-          $ref: '#/components/schemas/AppSyncRuntime'
-        code:
-          type: string
-          description: Function code for APPSYNC_JS runtime
-          example: ''
-    GetResolverResponse:
-      type: object
-      description: Response from getting a resolver
-      properties:
-        resolver:
-          $ref: '#/components/schemas/Resolver'
   securitySchemes:
     awsAuth:
       type: apiKey

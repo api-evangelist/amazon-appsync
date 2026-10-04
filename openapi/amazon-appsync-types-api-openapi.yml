@@ -268,19 +268,6 @@ components:
       properties:
         type:
           $ref: '#/components/schemas/Type'
-    ListTypesResponse:
-      type: object
-      description: Response with list of types
-      properties:
-        types:
-          type: array
-          description: List of types
-          items:
-            $ref: '#/components/schemas/Type'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
     GetTypeResponse:
       type: object
       description: Response from getting a type
@@ -320,6 +307,37 @@ components:
           - SDL
           - JSON
           example: SDL
+    CreateTypeResponse:
+      type: object
+      description: Response from creating a type
+      properties:
+        type:
+          $ref: '#/components/schemas/Type'
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
+    ListTypesResponse:
+      type: object
+      description: Response with list of types
+      properties:
+        types:
+          type: array
+          description: List of types
+          items:
+            $ref: '#/components/schemas/Type'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
     Type:
       type: object
       description: A GraphQL type definition
@@ -347,24 +365,6 @@ components:
           - SDL
           - JSON
           example: SDL
-    ErrorResponse:
-      type: object
-      description: Standard error response from the AppSync API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: Resource not found
-        errorType:
-          type: string
-          description: Error type
-          example: NotFoundException
-    CreateTypeResponse:
-      type: object
-      description: Response from creating a type
-      properties:
-        type:
-          $ref: '#/components/schemas/Type'
   securitySchemes:
     awsAuth:
       type: apiKey

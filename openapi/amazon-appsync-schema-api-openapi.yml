@@ -190,16 +190,6 @@ components:
           - SUCCESS
           - NOT_APPLICABLE
           example: PROCESSING
-    StartSchemaCreationRequest:
-      type: object
-      description: Request to start schema creation
-      required:
-      - definition
-      properties:
-        definition:
-          type: string
-          description: The new schema definition in SDL format
-          example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
     ErrorResponse:
       type: object
       description: Standard error response from the AppSync API
@@ -212,6 +202,16 @@ components:
           type: string
           description: Error type
           example: NotFoundException
+    StartSchemaCreationRequest:
+      type: object
+      description: Request to start schema creation
+      required:
+      - definition
+      properties:
+        definition:
+          type: string
+          description: The new schema definition in SDL format
+          example: 'type Query { getPost(id: ID!): Post } type Post { id: ID! title: String }'
   securitySchemes:
     awsAuth:
       type: apiKey

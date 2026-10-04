@@ -226,18 +226,6 @@ components:
           type: integer
           description: Unix timestamp when the key is scheduled for deletion
           example: 1777882800
-    CreateApiKeyResponse:
-      type: object
-      description: Response from creating an API key
-      properties:
-        apiKey:
-          $ref: '#/components/schemas/ApiKey'
-    UpdateApiKeyResponse:
-      type: object
-      description: Response from updating an API key
-      properties:
-        apiKey:
-          $ref: '#/components/schemas/ApiKey'
     ListApiKeysResponse:
       type: object
       description: Response with list of API keys
@@ -263,18 +251,12 @@ components:
           type: integer
           description: Unix timestamp for expiration
           example: 1777882800
-    UpdateApiKeyRequest:
+    UpdateApiKeyResponse:
       type: object
-      description: Request to update an API key
+      description: Response from updating an API key
       properties:
-        description:
-          type: string
-          description: Updated description
-          example: Updated API key description
-        expires:
-          type: integer
-          description: Updated expiration timestamp
-          example: 1809418800
+        apiKey:
+          $ref: '#/components/schemas/ApiKey'
     ErrorResponse:
       type: object
       description: Standard error response from the AppSync API
@@ -287,6 +269,24 @@ components:
           type: string
           description: Error type
           example: NotFoundException
+    CreateApiKeyResponse:
+      type: object
+      description: Response from creating an API key
+      properties:
+        apiKey:
+          $ref: '#/components/schemas/ApiKey'
+    UpdateApiKeyRequest:
+      type: object
+      description: Request to update an API key
+      properties:
+        description:
+          type: string
+          description: Updated description
+          example: Updated API key description
+        expires:
+          type: integer
+          description: Updated expiration timestamp
+          example: 1809418800
   securitySchemes:
     awsAuth:
       type: apiKey

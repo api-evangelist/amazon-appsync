@@ -252,6 +252,115 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    UpdateFunctionRequest:
+      type: object
+      description: Request to update a function
+      required:
+      - name
+      - dataSourceName
+      - functionVersion
+      properties:
+        name:
+          type: string
+          description: Function name
+          example: UpdatedFunction
+        description:
+          type: string
+          description: Function description
+          example: Updated description
+        dataSourceName:
+          type: string
+          description: Data source name
+          example: MyDynamoDBDataSource
+        requestMappingTemplate:
+          type: string
+          description: Request mapping template
+          example: '{"version":"2018-05-29","operation":"GetItem"}'
+        responseMappingTemplate:
+          type: string
+          description: Response mapping template
+          example: $util.toJson($ctx.result)
+        functionVersion:
+          type: string
+          description: Function version
+          example: '2018-05-29'
+    GetFunctionResponse:
+      type: object
+      description: Response from getting a function
+      properties:
+        functionConfiguration:
+          $ref: '#/components/schemas/FunctionConfiguration'
+    ListFunctionsResponse:
+      type: object
+      description: Response with list of functions
+      properties:
+        functions:
+          type: array
+          description: List of functions
+          items:
+            $ref: '#/components/schemas/FunctionConfiguration'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    CreateFunctionResponse:
+      type: object
+      description: Response from creating a function
+      properties:
+        functionConfiguration:
+          $ref: '#/components/schemas/FunctionConfiguration'
+    AppSyncRuntime:
+      type: object
+      description: Runtime configuration for APPSYNC_JS resolvers
+      properties:
+        name:
+          type: string
+          description: Runtime name
+          enum:
+          - APPSYNC_JS
+          example: APPSYNC_JS
+        runtimeVersion:
+          type: string
+          description: Runtime version
+          example: 1.0.0
+    SyncConfig:
+      type: object
+      description: Sync configuration for conflict resolution
+      properties:
+        conflictHandler:
+          type: string
+          description: Conflict handler type
+          enum:
+          - OPTIMISTIC_CONCURRENCY
+          - LAMBDA
+          - AUTOMERGE
+          - NONE
+          example: OPTIMISTIC_CONCURRENCY
+        conflictDetection:
+          type: string
+          description: Conflict detection type
+          enum:
+          - VERSION
+          - NONE
+          example: VERSION
+    UpdateFunctionResponse:
+      type: object
+      description: Response from updating a function
+      properties:
+        functionConfiguration:
+          $ref: '#/components/schemas/FunctionConfiguration'
+    ErrorResponse:
+      type: object
+      description: Standard error response from the AppSync API
+      properties:
+        message:
+          type: string
+          description: Error message
+          example: Resource not found
+        errorType:
+          type: string
+          description: Error type
+          example: NotFoundException
     FunctionConfiguration:
       type: object
       description: A reusable pipeline function configuration
@@ -300,97 +409,6 @@ components:
           type: string
           description: The function code
           example: ''
-    CreateFunctionResponse:
-      type: object
-      description: Response from creating a function
-      properties:
-        functionConfiguration:
-          $ref: '#/components/schemas/FunctionConfiguration'
-    UpdateFunctionResponse:
-      type: object
-      description: Response from updating a function
-      properties:
-        functionConfiguration:
-          $ref: '#/components/schemas/FunctionConfiguration'
-    AppSyncRuntime:
-      type: object
-      description: Runtime configuration for APPSYNC_JS resolvers
-      properties:
-        name:
-          type: string
-          description: Runtime name
-          enum:
-          - APPSYNC_JS
-          example: APPSYNC_JS
-        runtimeVersion:
-          type: string
-          description: Runtime version
-          example: 1.0.0
-    ListFunctionsResponse:
-      type: object
-      description: Response with list of functions
-      properties:
-        functions:
-          type: array
-          description: List of functions
-          items:
-            $ref: '#/components/schemas/FunctionConfiguration'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-    UpdateFunctionRequest:
-      type: object
-      description: Request to update a function
-      required:
-      - name
-      - dataSourceName
-      - functionVersion
-      properties:
-        name:
-          type: string
-          description: Function name
-          example: UpdatedFunction
-        description:
-          type: string
-          description: Function description
-          example: Updated description
-        dataSourceName:
-          type: string
-          description: Data source name
-          example: MyDynamoDBDataSource
-        requestMappingTemplate:
-          type: string
-          description: Request mapping template
-          example: '{"version":"2018-05-29","operation":"GetItem"}'
-        responseMappingTemplate:
-          type: string
-          description: Response mapping template
-          example: $util.toJson($ctx.result)
-        functionVersion:
-          type: string
-          description: Function version
-          example: '2018-05-29'
-    SyncConfig:
-      type: object
-      description: Sync configuration for conflict resolution
-      properties:
-        conflictHandler:
-          type: string
-          description: Conflict handler type
-          enum:
-          - OPTIMISTIC_CONCURRENCY
-          - LAMBDA
-          - AUTOMERGE
-          - NONE
-          example: OPTIMISTIC_CONCURRENCY
-        conflictDetection:
-          type: string
-          description: Conflict detection type
-          enum:
-          - VERSION
-          - NONE
-          example: VERSION
     CreateFunctionRequest:
       type: object
       description: Request to create a pipeline function
@@ -434,24 +452,6 @@ components:
           type: string
           description: Function code
           example: ''
-    ErrorResponse:
-      type: object
-      description: Standard error response from the AppSync API
-      properties:
-        message:
-          type: string
-          description: Error message
-          example: Resource not found
-        errorType:
-          type: string
-          description: Error type
-          example: NotFoundException
-    GetFunctionResponse:
-      type: object
-      description: Response from getting a function
-      properties:
-        functionConfiguration:
-          $ref: '#/components/schemas/FunctionConfiguration'
   securitySchemes:
     awsAuth:
       type: apiKey
