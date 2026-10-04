@@ -348,6 +348,9 @@ apis:
   - type: Conformance
     url: https://raw.githubusercontent.com/api-evangelist/amazon-appsync/refs/heads/main/conformance/amazon-appsync-conformance.yml
 common:
+- type: CapabilityMap
+  url: capabilities/amazon-appsync-capability-edges.yml
+  name: Amazon AppSync Business Capability Map
 - type: Website
   url: https://aws.amazon.com/appsync/
 - type: Overlay
