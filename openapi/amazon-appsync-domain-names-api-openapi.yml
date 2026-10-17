@@ -334,12 +334,48 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    AssociateApiResponse:
+    DomainNameConfig:
       type: object
-      description: Response from associating an API with a domain name
+      description: Configuration for a custom domain name
+      properties:
+        domainName:
+          type: string
+          description: The custom domain name
+          example: api.example.com
+        description:
+          type: string
+          description: Domain name description
+          example: Production API endpoint
+        certificateArn:
+          type: string
+          description: ACM certificate ARN
+          example: arn:aws:acm:us-east-1:123456789012:certificate/abc123
+        appsyncDomainName:
+          type: string
+          description: AppSync CNAME for DNS setup
+          example: d123456789.cloudfront.net
+        hostedZoneId:
+          type: string
+          description: Route 53 hosted zone ID
+          example: Z2FDTNDATAQYW2
+    UpdateDomainNameResponse:
+      type: object
+      description: Response from updating a domain name
+      properties:
+        domainNameConfig:
+          $ref: '#/components/schemas/DomainNameConfig'
+    GetApiAssociationResponse:
+      type: object
+      description: Response from getting an API association
       properties:
         apiAssociation:
           $ref: '#/components/schemas/ApiAssociation'
+    GetDomainNameResponse:
+      type: object
+      description: Response from getting a domain name
+      properties:
+        domainNameConfig:
+          $ref: '#/components/schemas/DomainNameConfig'
     AssociateApiRequest:
       type: object
       description: Request to associate an API with a domain name
@@ -369,18 +405,6 @@ components:
           type: string
           description: Domain name description
           example: Production API endpoint
-    GetApiAssociationResponse:
-      type: object
-      description: Response from getting an API association
-      properties:
-        apiAssociation:
-          $ref: '#/components/schemas/ApiAssociation'
-    CreateDomainNameResponse:
-      type: object
-      description: Response from creating a custom domain name
-      properties:
-        domainNameConfig:
-          $ref: '#/components/schemas/DomainNameConfig'
     ListDomainNamesResponse:
       type: object
       description: Response with list of domain names
@@ -394,12 +418,6 @@ components:
           type: string
           description: Pagination token
           example: ''
-    GetDomainNameResponse:
-      type: object
-      description: Response from getting a domain name
-      properties:
-        domainNameConfig:
-          $ref: '#/components/schemas/DomainNameConfig'
     ApiAssociation:
       type: object
       description: An association between a custom domain name and a GraphQL API
@@ -424,30 +442,12 @@ components:
           type: string
           description: Details about the deployment
           example: ''
-    DomainNameConfig:
+    AssociateApiResponse:
       type: object
-      description: Configuration for a custom domain name
+      description: Response from associating an API with a domain name
       properties:
-        domainName:
-          type: string
-          description: The custom domain name
-          example: api.example.com
-        description:
-          type: string
-          description: Domain name description
-          example: Production API endpoint
-        certificateArn:
-          type: string
-          description: ACM certificate ARN
-          example: arn:aws:acm:us-east-1:123456789012:certificate/abc123
-        appsyncDomainName:
-          type: string
-          description: AppSync CNAME for DNS setup
-          example: d123456789.cloudfront.net
-        hostedZoneId:
-          type: string
-          description: Route 53 hosted zone ID
-          example: Z2FDTNDATAQYW2
+        apiAssociation:
+          $ref: '#/components/schemas/ApiAssociation'
     ErrorResponse:
       type: object
       description: Standard error response from the AppSync API
@@ -468,9 +468,9 @@ components:
           type: string
           description: Updated description
           example: Updated domain name
-    UpdateDomainNameResponse:
+    CreateDomainNameResponse:
       type: object
-      description: Response from updating a domain name
+      description: Response from creating a custom domain name
       properties:
         domainNameConfig:
           $ref: '#/components/schemas/DomainNameConfig'

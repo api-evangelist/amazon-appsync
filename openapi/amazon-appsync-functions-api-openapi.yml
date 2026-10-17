@@ -252,6 +252,45 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    SyncConfig:
+      type: object
+      description: Sync configuration for conflict resolution
+      properties:
+        conflictHandler:
+          type: string
+          description: Conflict handler type
+          enum:
+          - OPTIMISTIC_CONCURRENCY
+          - LAMBDA
+          - AUTOMERGE
+          - NONE
+          example: OPTIMISTIC_CONCURRENCY
+        conflictDetection:
+          type: string
+          description: Conflict detection type
+          enum:
+          - VERSION
+          - NONE
+          example: VERSION
+    ListFunctionsResponse:
+      type: object
+      description: Response with list of functions
+      properties:
+        functions:
+          type: array
+          description: List of functions
+          items:
+            $ref: '#/components/schemas/FunctionConfiguration'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
+    GetFunctionResponse:
+      type: object
+      description: Response from getting a function
+      properties:
+        functionConfiguration:
+          $ref: '#/components/schemas/FunctionConfiguration'
     UpdateFunctionRequest:
       type: object
       description: Request to update a function
@@ -284,68 +323,9 @@ components:
           type: string
           description: Function version
           example: '2018-05-29'
-    GetFunctionResponse:
-      type: object
-      description: Response from getting a function
-      properties:
-        functionConfiguration:
-          $ref: '#/components/schemas/FunctionConfiguration'
-    ListFunctionsResponse:
-      type: object
-      description: Response with list of functions
-      properties:
-        functions:
-          type: array
-          description: List of functions
-          items:
-            $ref: '#/components/schemas/FunctionConfiguration'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
     CreateFunctionResponse:
       type: object
       description: Response from creating a function
-      properties:
-        functionConfiguration:
-          $ref: '#/components/schemas/FunctionConfiguration'
-    AppSyncRuntime:
-      type: object
-      description: Runtime configuration for APPSYNC_JS resolvers
-      properties:
-        name:
-          type: string
-          description: Runtime name
-          enum:
-          - APPSYNC_JS
-          example: APPSYNC_JS
-        runtimeVersion:
-          type: string
-          description: Runtime version
-          example: 1.0.0
-    SyncConfig:
-      type: object
-      description: Sync configuration for conflict resolution
-      properties:
-        conflictHandler:
-          type: string
-          description: Conflict handler type
-          enum:
-          - OPTIMISTIC_CONCURRENCY
-          - LAMBDA
-          - AUTOMERGE
-          - NONE
-          example: OPTIMISTIC_CONCURRENCY
-        conflictDetection:
-          type: string
-          description: Conflict detection type
-          enum:
-          - VERSION
-          - NONE
-          example: VERSION
-    UpdateFunctionResponse:
-      type: object
-      description: Response from updating a function
       properties:
         functionConfiguration:
           $ref: '#/components/schemas/FunctionConfiguration'
@@ -452,6 +432,26 @@ components:
           type: string
           description: Function code
           example: ''
+    AppSyncRuntime:
+      type: object
+      description: Runtime configuration for APPSYNC_JS resolvers
+      properties:
+        name:
+          type: string
+          description: Runtime name
+          enum:
+          - APPSYNC_JS
+          example: APPSYNC_JS
+        runtimeVersion:
+          type: string
+          description: Runtime version
+          example: 1.0.0
+    UpdateFunctionResponse:
+      type: object
+      description: Response from updating a function
+      properties:
+        functionConfiguration:
+          $ref: '#/components/schemas/FunctionConfiguration'
   securitySchemes:
     awsAuth:
       type: apiKey

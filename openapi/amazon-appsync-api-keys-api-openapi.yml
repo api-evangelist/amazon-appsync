@@ -206,6 +206,24 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    CreateApiKeyResponse:
+      type: object
+      description: Response from creating an API key
+      properties:
+        apiKey:
+          $ref: '#/components/schemas/ApiKey'
+    CreateApiKeyRequest:
+      type: object
+      description: Request to create an API key
+      properties:
+        description:
+          type: string
+          description: API key description
+          example: My API key
+        expires:
+          type: integer
+          description: Unix timestamp for expiration
+          example: 1777882800
     ApiKey:
       type: object
       description: An API key for AppSync API authentication
@@ -226,31 +244,6 @@ components:
           type: integer
           description: Unix timestamp when the key is scheduled for deletion
           example: 1777882800
-    ListApiKeysResponse:
-      type: object
-      description: Response with list of API keys
-      properties:
-        apiKeys:
-          type: array
-          description: List of API keys
-          items:
-            $ref: '#/components/schemas/ApiKey'
-        nextToken:
-          type: string
-          description: Pagination token
-          example: ''
-    CreateApiKeyRequest:
-      type: object
-      description: Request to create an API key
-      properties:
-        description:
-          type: string
-          description: API key description
-          example: My API key
-        expires:
-          type: integer
-          description: Unix timestamp for expiration
-          example: 1777882800
     UpdateApiKeyResponse:
       type: object
       description: Response from updating an API key
@@ -269,12 +262,19 @@ components:
           type: string
           description: Error type
           example: NotFoundException
-    CreateApiKeyResponse:
+    ListApiKeysResponse:
       type: object
-      description: Response from creating an API key
+      description: Response with list of API keys
       properties:
-        apiKey:
-          $ref: '#/components/schemas/ApiKey'
+        apiKeys:
+          type: array
+          description: List of API keys
+          items:
+            $ref: '#/components/schemas/ApiKey'
+        nextToken:
+          type: string
+          description: Pagination token
+          example: ''
     UpdateApiKeyRequest:
       type: object
       description: Request to update an API key

@@ -152,6 +152,15 @@ components:
           description: Tags to add
           additionalProperties:
             type: string
+    ListTagsForResourceResponse:
+      type: object
+      description: Response with resource tags
+      properties:
+        tags:
+          type: object
+          description: Resource tags
+          additionalProperties:
+            type: string
     ErrorResponse:
       type: object
       description: Standard error response from the AppSync API
@@ -164,15 +173,6 @@ components:
           type: string
           description: Error type
           example: NotFoundException
-    ListTagsForResourceResponse:
-      type: object
-      description: Response with resource tags
-      properties:
-        tags:
-          type: object
-          description: Resource tags
-          additionalProperties:
-            type: string
   securitySchemes:
     awsAuth:
       type: apiKey
