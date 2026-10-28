@@ -66,85 +66,243 @@
 
 Amazon AppSync creates serverless GraphQL and Pub/Sub APIs that simplify application development through a single endpoint to securely query, update, or publish data.
 
-## Overview
+**Areas:** Amazon AppSync · GraphQL · API Management · Serverless · AWS
 
-The Amazon AppSync management API provides programmatic control over GraphQL APIs, data sources, resolvers, functions, types, schemas, API keys, and custom domain names. It enables building scalable real-time and offline applications backed by multiple data sources.
+## Amazon AppSync on APIs.io
 
-## API Documentation
+Everything profiled for Amazon AppSync is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/amazon-appsync/](https://apis.io/providers/amazon-appsync/)** — or go straight to one of the APIs or properties below.
 
-- **Human URL:** https://docs.aws.amazon.com/appsync/latest/APIReference/Welcome.html
-- **Base URL:** https://appsync.us-east-1.amazonaws.com
+### APIs (15)
 
-## Features
+- [Amazon AppSync Api Keys API](https://apis.io/apis/amazon-appsync/amazon-appsync-api-keys-api/) — Manage API keys for authentication
+- [Amazon AppSync Data Sources API](https://apis.io/apis/amazon-appsync/amazon-appsync-data-sources-api/) — Manage data sources connected to GraphQL APIs
+- [Amazon AppSync Domain Names API](https://apis.io/apis/amazon-appsync/amazon-appsync-domain-names-api/) — Manage custom domain names for AppSync APIs
+- [Amazon AppSync Functions API](https://apis.io/apis/amazon-appsync/amazon-appsync-functions-api/) — Manage reusable pipeline resolver functions
+- [Amazon AppSync GraphQL APIs API](https://apis.io/apis/amazon-appsync/amazon-appsync-graphql-apis-api/) — Manage GraphQL API configurations
+- [Amazon AppSync Resolvers API](https://apis.io/apis/amazon-appsync/amazon-appsync-resolvers-api/) — Manage field resolvers for GraphQL types
+- [Amazon AppSync Schema API](https://apis.io/apis/amazon-appsync/amazon-appsync-schema-api/) — Manage GraphQL schema documents
+- [Amazon AppSync Tags API](https://apis.io/apis/amazon-appsync/amazon-appsync-tags-api/) — Resource tagging operations
+- [Amazon AppSync Types API](https://apis.io/apis/amazon-appsync/amazon-appsync-types-api/) — Manage GraphQL type definitions
+- [Amazon AppSync Appsync Apiassociation API](https://apis.io/apis/amazon-appsync/amazon-appsync-apiassociation-api/) — The Appsync Apiassociation API from Amazon AppSync — 1 operation(s) for appsync apiassociation.
+- [Amazon AppSync Appsync Apicaches API](https://apis.io/apis/amazon-appsync/amazon-appsync-apicaches-api/) — The Appsync Apicaches API from Amazon AppSync — 2 operation(s) for appsync apicaches.
+- [Amazon AppSync Appsync Apis API](https://apis.io/apis/amazon-appsync/amazon-appsync-apis-api/) — The Appsync Apis API from Amazon AppSync — 2 operation(s) for appsync apis.
+- [Amazon AppSync Appsync Channelnamespaces API](https://apis.io/apis/amazon-appsync/amazon-appsync-channelnamespaces-api/) — The Appsync Channelnamespaces API from Amazon AppSync — 2 operation(s) for appsync channelnamespaces.
+- [Amazon AppSync Appsync Operations API](https://apis.io/apis/amazon-appsync/amazon-appsync-operations-api/) — The Appsync Operations API from Amazon AppSync — 7 operation(s) for appsync operations.
+- [Amazon AppSync Appsync Sourceapiassociations API](https://apis.io/apis/amazon-appsync/amazon-appsync-sourceapiassociations-api/) — The Appsync Sourceapiassociations API from Amazon AppSync — 3 operation(s) for appsync sourceapiassociations.
 
-- Managed GraphQL API hosting with automatic scaling
-- Multiple authentication modes including API key, IAM, Cognito, and Lambda
-- Real-time subscriptions via WebSocket connections
-- Pipeline resolvers for composing multi-step data access patterns
-- Direct Lambda resolvers with APPSYNC_JS runtime support
-- Built-in caching for improved performance
-- Conflict detection and resolution for offline sync use cases
-- Custom domain names with ACM certificate integration
-- X-Ray tracing and CloudWatch logging integration
-- Merged APIs for combining multiple GraphQL APIs
+### Published properties
 
-## Use Cases
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- Build mobile and web applications with a unified GraphQL data layer
-- Implement real-time features like live notifications and chat with subscriptions
-- Create a unified data access layer across multiple microservices
-- Build offline-capable mobile apps with automatic conflict resolution
-- Expose DynamoDB tables, Lambda functions, and OpenSearch as GraphQL APIs
-- Implement federated GraphQL across multiple teams with Merged APIs
+#### MCP servers (1)
 
-## Artifacts
+Model Context Protocol servers that expose the API to agents.
 
-### OpenAPI Specification
-`openapi/amazon-appsync-openapi.yml`
+- [amazon-appsync-mcp.yml](https://apis.io/servers/amazon-appsync/amazon-appsync-mcp-yml/)
 
-Complete OpenAPI 3.1.0 specification covering all AppSync management API paths.
+#### Agentic access (1)
 
-### Spectral Rules
-`rules/amazon-appsync-spectral-rules.yml`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Naftiko Capabilities
-- `capabilities/shared/appsync-api.yaml` — Shared per-API capability definition
-- `capabilities/graphql-api-management.yaml` — Workflow capability for GraphQL API management
+- [Amazon Appsync Agentic Access](https://apis.io/agentic-access/amazon-appsync/amazon-appsync-agentic-access/)
 
-### Vocabulary
-`vocabulary/amazon-appsync-vocabulary.yaml`
+#### JSON Schema (74)
 
-### JSON Schemas
-`json-schema/` — 73 JSON Schema files for all objects.
+The data models the API reads and writes.
 
-### JSON Structures
-`json-structure/` — 73 JSON Structure files.
+- [Amazon AppSync GraphQL API](https://apis.io/schemas/amazon-appsync/amazon-appsync/)
+- [AdditionalAuthenticationProvider](https://apis.io/schemas/amazon-appsync/appsync-additional-authentication-provider/)
+- [ApiAssociation](https://apis.io/schemas/amazon-appsync/appsync-api-association/)
+- [ApiKey](https://apis.io/schemas/amazon-appsync/appsync-api-key/)
+- [AppSyncRuntime](https://apis.io/schemas/amazon-appsync/appsync-app-sync-runtime/)
+- [AssociateApiRequest](https://apis.io/schemas/amazon-appsync/appsync-associate-api-request/)
+- [AssociateApiResponse](https://apis.io/schemas/amazon-appsync/appsync-associate-api-response/)
+- [CachingConfig](https://apis.io/schemas/amazon-appsync/appsync-caching-config/)
+- [CognitoUserPoolConfig](https://apis.io/schemas/amazon-appsync/appsync-cognito-user-pool-config/)
+- [CreateApiKeyRequest](https://apis.io/schemas/amazon-appsync/appsync-create-api-key-request/)
+- [CreateApiKeyResponse](https://apis.io/schemas/amazon-appsync/appsync-create-api-key-response/)
+- [CreateDataSourceRequest](https://apis.io/schemas/amazon-appsync/appsync-create-data-source-request/)
+- [CreateDataSourceResponse](https://apis.io/schemas/amazon-appsync/appsync-create-data-source-response/)
+- [CreateDomainNameRequest](https://apis.io/schemas/amazon-appsync/appsync-create-domain-name-request/)
+- [CreateDomainNameResponse](https://apis.io/schemas/amazon-appsync/appsync-create-domain-name-response/)
+- [CreateFunctionRequest](https://apis.io/schemas/amazon-appsync/appsync-create-function-request/)
+- [CreateFunctionResponse](https://apis.io/schemas/amazon-appsync/appsync-create-function-response/)
+- [CreateGraphqlApiRequest](https://apis.io/schemas/amazon-appsync/appsync-create-graphql-api-request/)
+- [CreateGraphqlApiResponse](https://apis.io/schemas/amazon-appsync/appsync-create-graphql-api-response/)
+- [CreateResolverRequest](https://apis.io/schemas/amazon-appsync/appsync-create-resolver-request/)
+- [CreateResolverResponse](https://apis.io/schemas/amazon-appsync/appsync-create-resolver-response/)
+- [CreateTypeRequest](https://apis.io/schemas/amazon-appsync/appsync-create-type-request/)
+- [CreateTypeResponse](https://apis.io/schemas/amazon-appsync/appsync-create-type-response/)
+- [DataSource](https://apis.io/schemas/amazon-appsync/appsync-data-source/)
+- [DomainNameConfig](https://apis.io/schemas/amazon-appsync/appsync-domain-name-config/)
+- …and 49 more published on APIs.io
 
-### JSON-LD Context
-`json-ld/amazon-appsync-context.jsonld`
+#### JSON Structure (73)
 
-### Examples
-`examples/` — 73 example JSON files.
+Data models expressed in JSON Structure.
 
-## Integrations
+- [Appsync Additional Authentication Provider Structure](https://apis.io/json-structure/amazon-appsync/appsync-additional-authentication-provider-structure/)
+- [Appsync Api Association Structure](https://apis.io/json-structure/amazon-appsync/appsync-api-association-structure/)
+- [Appsync Api Key Structure](https://apis.io/json-structure/amazon-appsync/appsync-api-key-structure/)
+- [Appsync App Sync Runtime Structure](https://apis.io/json-structure/amazon-appsync/appsync-app-sync-runtime-structure/)
+- [Appsync Associate Api Request Structure](https://apis.io/json-structure/amazon-appsync/appsync-associate-api-request-structure/)
+- [Appsync Associate Api Response Structure](https://apis.io/json-structure/amazon-appsync/appsync-associate-api-response-structure/)
+- [Appsync Caching Config Structure](https://apis.io/json-structure/amazon-appsync/appsync-caching-config-structure/)
+- [Appsync Cognito User Pool Config Structure](https://apis.io/json-structure/amazon-appsync/appsync-cognito-user-pool-config-structure/)
+- [Appsync Create Api Key Request Structure](https://apis.io/json-structure/amazon-appsync/appsync-create-api-key-request-structure/)
+- [Appsync Create Api Key Response Structure](https://apis.io/json-structure/amazon-appsync/appsync-create-api-key-response-structure/)
+- [Appsync Create Data Source Request Structure](https://apis.io/json-structure/amazon-appsync/appsync-create-data-source-request-structure/)
+- [Appsync Create Data Source Response Structure](https://apis.io/json-structure/amazon-appsync/appsync-create-data-source-response-structure/)
+- [Appsync Create Domain Name Request Structure](https://apis.io/json-structure/amazon-appsync/appsync-create-domain-name-request-structure/)
+- [Appsync Create Domain Name Response Structure](https://apis.io/json-structure/amazon-appsync/appsync-create-domain-name-response-structure/)
+- [Appsync Create Function Request Structure](https://apis.io/json-structure/amazon-appsync/appsync-create-function-request-structure/)
+- [Appsync Create Function Response Structure](https://apis.io/json-structure/amazon-appsync/appsync-create-function-response-structure/)
+- [Appsync Create Graphql Api Request Structure](https://apis.io/json-structure/amazon-appsync/appsync-create-graphql-api-request-structure/)
+- [Appsync Create Graphql Api Response Structure](https://apis.io/json-structure/amazon-appsync/appsync-create-graphql-api-response-structure/)
+- [Appsync Create Resolver Request Structure](https://apis.io/json-structure/amazon-appsync/appsync-create-resolver-request-structure/)
+- [Appsync Create Resolver Response Structure](https://apis.io/json-structure/amazon-appsync/appsync-create-resolver-response-structure/)
+- [Appsync Create Type Request Structure](https://apis.io/json-structure/amazon-appsync/appsync-create-type-request-structure/)
+- [Appsync Create Type Response Structure](https://apis.io/json-structure/amazon-appsync/appsync-create-type-response-structure/)
+- [Appsync Data Source Structure](https://apis.io/json-structure/amazon-appsync/appsync-data-source-structure/)
+- [Appsync Domain Name Config Structure](https://apis.io/json-structure/amazon-appsync/appsync-domain-name-config-structure/)
+- [Appsync Dynamodb Data Source Config Structure](https://apis.io/json-structure/amazon-appsync/appsync-dynamodb-data-source-config-structure/)
+- …and 48 more published on APIs.io
 
-- Amazon DynamoDB
-- AWS Lambda
-- Amazon OpenSearch Service
-- Amazon RDS
-- Amazon EventBridge
-- Amazon Cognito
-- AWS IAM
-- AWS WAF
-- Amazon CloudWatch
-- AWS X-Ray
-- AWS Certificate Manager
-- Amazon Route 53
+#### JSON-LD (1)
 
-## Tags
+Linked-data contexts for the provider's vocabulary.
 
-Amazon AppSync, GraphQL, API Management, Serverless, AWS
+- [Amazon Appsync Context](https://apis.io/jsonld/amazon-appsync/amazon-appsync-context/)
 
-## Maintainers
+#### Vocabulary (1)
 
-- Kin Lane (kin@apievangelist.com)
+The provider's domain terms, defined.
+
+- [Amazon Appsync Vocabulary](https://apis.io/vocabularies/amazon-appsync/amazon-appsync-vocabulary/)
+
+#### Examples (73)
+
+Example requests and responses.
+
+- [Appsync Additional Authentication Provider Example](https://apis.io/examples/amazon-appsync/appsync-additional-authentication-provider-example/)
+- [Appsync Api Association Example](https://apis.io/examples/amazon-appsync/appsync-api-association-example/)
+- [Appsync Api Key Example](https://apis.io/examples/amazon-appsync/appsync-api-key-example/)
+- [Appsync App Sync Runtime Example](https://apis.io/examples/amazon-appsync/appsync-app-sync-runtime-example/)
+- [Appsync Associate Api Request Example](https://apis.io/examples/amazon-appsync/appsync-associate-api-request-example/)
+- [Appsync Associate Api Response Example](https://apis.io/examples/amazon-appsync/appsync-associate-api-response-example/)
+- [Appsync Caching Config Example](https://apis.io/examples/amazon-appsync/appsync-caching-config-example/)
+- [Appsync Cognito User Pool Config Example](https://apis.io/examples/amazon-appsync/appsync-cognito-user-pool-config-example/)
+- [Appsync Create Api Key Request Example](https://apis.io/examples/amazon-appsync/appsync-create-api-key-request-example/)
+- [Appsync Create Api Key Response Example](https://apis.io/examples/amazon-appsync/appsync-create-api-key-response-example/)
+- [Appsync Create Data Source Request Example](https://apis.io/examples/amazon-appsync/appsync-create-data-source-request-example/)
+- [Appsync Create Data Source Response Example](https://apis.io/examples/amazon-appsync/appsync-create-data-source-response-example/)
+- [Appsync Create Domain Name Request Example](https://apis.io/examples/amazon-appsync/appsync-create-domain-name-request-example/)
+- [Appsync Create Domain Name Response Example](https://apis.io/examples/amazon-appsync/appsync-create-domain-name-response-example/)
+- [Appsync Create Function Request Example](https://apis.io/examples/amazon-appsync/appsync-create-function-request-example/)
+- [Appsync Create Function Response Example](https://apis.io/examples/amazon-appsync/appsync-create-function-response-example/)
+- [Appsync Create Graphql Api Request Example](https://apis.io/examples/amazon-appsync/appsync-create-graphql-api-request-example/)
+- [Appsync Create Graphql Api Response Example](https://apis.io/examples/amazon-appsync/appsync-create-graphql-api-response-example/)
+- [Appsync Create Resolver Request Example](https://apis.io/examples/amazon-appsync/appsync-create-resolver-request-example/)
+- [Appsync Create Resolver Response Example](https://apis.io/examples/amazon-appsync/appsync-create-resolver-response-example/)
+- [Appsync Create Type Request Example](https://apis.io/examples/amazon-appsync/appsync-create-type-request-example/)
+- [Appsync Create Type Response Example](https://apis.io/examples/amazon-appsync/appsync-create-type-response-example/)
+- [Appsync Data Source Example](https://apis.io/examples/amazon-appsync/appsync-data-source-example/)
+- [Appsync Domain Name Config Example](https://apis.io/examples/amazon-appsync/appsync-domain-name-config-example/)
+- [Appsync Dynamodb Data Source Config Example](https://apis.io/examples/amazon-appsync/appsync-dynamodb-data-source-config-example/)
+- …and 48 more published on APIs.io
+
+#### Collections (9)
+
+Postman and Open Collection request collections.
+
+- [Amazon AppSync Api Keys API](https://apis.io/collections/amazon-appsync/open-amazon-appsync-api-keys-api/)
+- [Amazon AppSync Api Keys Data Sources API](https://apis.io/collections/amazon-appsync/open-amazon-appsync-data-sources-api/)
+- [Amazon AppSync Api Keys Domain Names API](https://apis.io/collections/amazon-appsync/open-amazon-appsync-domain-names-api/)
+- [Amazon AppSync Api Keys Functions API](https://apis.io/collections/amazon-appsync/open-amazon-appsync-functions-api/)
+- [Amazon AppSync Api Keys GraphQL APIs API](https://apis.io/collections/amazon-appsync/open-amazon-appsync-graphql-apis-api/)
+- [Amazon AppSync Api Keys Resolvers API](https://apis.io/collections/amazon-appsync/open-amazon-appsync-resolvers-api/)
+- [Amazon AppSync Api Keys Schema API](https://apis.io/collections/amazon-appsync/open-amazon-appsync-schema-api/)
+- [Amazon AppSync Api Keys Tags API](https://apis.io/collections/amazon-appsync/open-amazon-appsync-tags-api/)
+- [Amazon AppSync Api Keys Types API](https://apis.io/collections/amazon-appsync/open-amazon-appsync-types-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Amazon Appsync Openapi Overlay](https://apis.io/overlays/amazon-appsync/amazon-appsync-openapi-overlay/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Amazon AppSync — jsonschema rules](https://apis.io/rules/amazon-appsync/amazon-appsync-jsonschema-spectral-rules/)
+- [Amazon AppSync API Rules](https://apis.io/rules/amazon-appsync/amazon-appsync-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Amazon Appsync Authentication](https://apis.io/security/amazon-appsync/amazon-appsync-authentication/)
+- [Amazon Appsync Domain Security](https://apis.io/security/amazon-appsync/amazon-appsync-domain-security/)
+- [Amazon Appsync Vulnerability Disclosure](https://apis.io/security/amazon-appsync/amazon-appsync-vulnerability-disclosure/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://aws.amazon.com/appsync/)
+
+## API Evangelist rating
+
+**Kin Score 31.8** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 65.0 |
+| Contract quality | 70.7 |
+| Contract governance | 31.8 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 11.9 |
+| Access clarity | 0.0 |
+
+**Agent readiness 33.0** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 20.1** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/amazon-appsync/](https://apis.io/providers/amazon-appsync/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Amazon AppSync: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/amazon-appsync/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
